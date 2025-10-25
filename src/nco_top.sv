@@ -7,12 +7,13 @@ import nco_pkg::*;
 //DESIGN PATH
 
 module top;
-  bit clk;
+  bit clk_50MHz;
 
   // Clock generation : 20ns period 
+  always #10 clk_50MHz = ~clk_50MHz;
 
   // Interface instantiation
-  nco_inf vif(clk);     
+  nco_inf vif(clk_50MHz);
 
   // DUT instantiation
   
@@ -24,10 +25,13 @@ module top;
   end:setting_vif
 
   initial begin:initial_reset
+    vif.reset = 0;
+    repeat(2)@(posedge clk);
+    vif.reset = 1;
   end:initial_reset
 
   initial begin:test_run
-    run_test("nco_test");      // Start UVM test
+    run_test("nco_normal_test");      // Start UVM test
     $finish;
   end:test_run
 
