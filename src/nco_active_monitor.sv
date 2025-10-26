@@ -1,5 +1,3 @@
-// NCO Active Monitor: Observes DUT signals and publishes transactions
-
 class nco_active_monitor extends uvm_monitor;
   virtual nco_inf vif;  // Virtual interface handle for NCO interface
   uvm_analysis_port #(nco_sequence_item) item_collected_port;    // Analysis port
@@ -24,7 +22,10 @@ class nco_active_monitor extends uvm_monitor;
   virtual task run_phase(uvm_phase phase);
     forever 
     begin
+      @(posedge vif.mon_cb); 
+      seq_item.signal_out = vif.a_mon_cb.signal_out;
+      seq_item.resetn     = vif.a_mon_cb.resetn;
+      item_collected_port.write(seq_item); 
     end
   endtask:run_phase
 endclass:nco_active_monitor
-    
