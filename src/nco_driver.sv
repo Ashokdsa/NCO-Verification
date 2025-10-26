@@ -13,6 +13,7 @@ class nco_driver extends uvm_driver #(nco_sequence_item);
   endfunction
   
   virtual task run_phase(uvm_phase phase);
+    repeat(1)@(posedge vif.drv_cb);
     forever begin
       seq_item_port.get_next_item(req); 
       drive();
@@ -21,5 +22,7 @@ class nco_driver extends uvm_driver #(nco_sequence_item);
   endtask
 
   virtual task drive();
+       vif.signal_out<=req.signal_out;
+    repeat(32)@(posedge vif.drv_cb);
   endtask
 endclass
