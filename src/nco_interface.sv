@@ -25,6 +25,10 @@ interface nco_inf(input bit clk);
       input signal_out;
   endclocking
   
+
+    modport DRV (clocking drv_cb);
+    modport ACT_MON (clocking a_mon_cb);
+    modport PAS_MON (clocking p_mon_cb);
   //------------------------------------------------------------------------------------------
   // Assertions
   //------------------------------------------------------------------------------------------
