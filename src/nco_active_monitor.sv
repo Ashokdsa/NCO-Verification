@@ -20,6 +20,7 @@ class nco_active_monitor extends uvm_monitor;
   endfunction:build_phase
 
   virtual task run_phase(uvm_phase phase);
+    repeat(2)@(posedge vif.a_mon_cb);
     forever 
     begin
       @(posedge vif.mon_cb); 
