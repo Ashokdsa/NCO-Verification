@@ -1,6 +1,8 @@
 class nco_driver extends uvm_driver #(nco_sequence_item);
   virtual nco_inf vif;
   int reset_val;
+  int sig_out_val;
+  int total;
   `uvm_component_utils(nco_driver)
     
   function new (string name = "nco_driver", uvm_component parent);
@@ -32,12 +34,17 @@ class nco_driver extends uvm_driver #(nco_sequence_item);
       begin//1
         vif.drv_cb.resetn<=1;
         vif.drv_cb.signal_out<=req.signal_out;
-        repeat(10)@(posedge vif.drv_cb);
+        
+        sig_out_val=$urandom_range(5,20);
+        total=32-sig_out_val;   //need to parameterize this"32"
+        
+        repeat(sig_out_val)@(posedge vif.drv_cb);
         
         seq_item_port.item_done();
         seq_item_port.get_next_item(req);
         vif.drv_cb.signal_out<=req.signal_out;
-        repeat(22)@(posedge vif.drv_cb);
+        repeat(total)@(posedge vif.drv_cb);
+        
       end//1
     else
       begin
