@@ -23,7 +23,7 @@ class nco_active_monitor extends uvm_monitor;
     repeat(2)@(posedge vif.a_mon_cb);
     forever 
     begin
-      @(posedge vif.mon_cb); 
+      @(posedge vif.a_mon_cb); 
       seq_item.signal_out = vif.a_mon_cb.signal_out;
       seq_item.resetn     = vif.a_mon_cb.resetn;
       item_collected_port.write(seq_item); 

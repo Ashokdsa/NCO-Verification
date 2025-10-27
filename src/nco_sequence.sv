@@ -1,15 +1,15 @@
-class nco_base_sequence extends uvm_sequence#(nco_sequence_item); //BASE sequence
-  `uvm_object_utils(nco_base_sequence)    //Factory Registration
+class nco_sequence extends uvm_sequence#(nco_sequence_item); //BASE sequence
+  `uvm_object_utils(nco_sequence)    //Factory Registration
   nco_sequence_item seq;
 
-  function new(string name = "nco_base_sequence");
+  function new(string name = "nco_sequence");
     super.new(name);
   endfunction:new
 
   task body();
     `uvm_do_with(seq,
     {
-      seq.reset == 1;
+      seq.resetn == 1;
       seq.signal_out inside {[0:7]};
     })
   endtask
@@ -24,8 +24,7 @@ class nco_normal_sequence extends nco_sequence; //CHECKS ALL THE WAVEFORMS
 
   task body();
     seq = nco_sequence_item::type_id::create("seq");
-    seq.reset.rand_mode(0);
-    seq.reset = 1;
+    seq.resetn = 1;
     repeat(7) begin
       wait_for_grant();
       assert(seq.randomize());
@@ -44,8 +43,7 @@ class nco_cont_sequence extends nco_sequence; //CHECKS FOR THE REPEATABILITY
 
   task body();
     seq = nco_sequence_item::type_id::create("seq");
-    seq.reset.rand_mode(0);
-    seq.reset = 1;
+    seq.resetn = 1;
     seq.signal_out = 0;
     repeat(7) begin
       assert(seq.randomize());
@@ -70,7 +68,7 @@ class nco_reset_normal_sequence#(int cnt = 1, int signal = 0) extends nco_sequen
       seq = nco_sequence_item::type_id::create("seq");
       wait_for_grant();
       seq.signal_out = signal;
-      seq.reset = 0;
+      seq.resetn = 0;
       send_request(seq);
       wait_for_item_done();
     end
@@ -89,7 +87,7 @@ class nco_no_inp_sequence#(int cnt = 1) extends nco_sequence; //NO INPUT IS SENT
       seq = nco_sequence_item::type_id::create("seq");
       wait_for_grant();
       seq.rand_mode(0);
-      seq.reset = 1;
+      seq.resetn = 1;
       send_request(seq);
       wait_for_item_done();
     end
@@ -105,8 +103,7 @@ class nco_change_req_sequence extends nco_sequence; //CHANGE IN REQUEST
 
   task body();
     seq = nco_sequence_item::type_id::create("seq");
-    seq.reset.rand_mode(0);
-    seq.reset = 1;
+    seq.resetn = 1;
     repeat(7) begin
       //RESTART THE BIT
       repeat(2) begin
@@ -129,20 +126,19 @@ class nco_reset_change_sequence extends nco_sequence; //TRIGGER OF RESET BETWEEN
 
   task body();
     seq = nco_sequence_item::type_id::create("seq");
-    seq.reset.rand_mode(0);
     repeat(7) begin
 
       wait_for_grant();
       //RESET IN BETWEEN IN MUST BE DONE IN BETWEEN INDICATED BY A BIT
       assert(seq.randomize());
-      seq.reset = 0;
+      seq.resetn = 0;
       send_request(seq);
       //RESET HAS BEEN GIVEN IN BETWEEN
       wait_for_item_done();
       
       //SEQUENCE CONTINUES NORMALLY
       wait_for_grant();
-      seq.reset = 1;
+      seq.resetn = 1;
       send_request(seq);
       wait_for_item_done();
     end
@@ -150,8 +146,8 @@ class nco_reset_change_sequence extends nco_sequence; //TRIGGER OF RESET BETWEEN
 endclass
 
 class nco_reset_diff_sequence#(int cnt = 16) extends nco_sequence; //TRIGGER OF RESET BETWEEN REQUEST FOLLOWED BY CHANGE IN SIGNAL_OUT
-  bit [$clog2(`SIG)-1:0] signal;
-  bit [$clog2(`SIG)-1:0] done[$];
+  bit [(`SELECT_WIDTH-1):0] signal;
+  bit [(`SELECT_WIDTH-1):0] done[$];
   `uvm_object_param_utils(nco_reset_diff_sequence#(cnt))
 
   function new(string name = "nco_reset_diff_sequence");
@@ -160,25 +156,24 @@ class nco_reset_diff_sequence#(int cnt = 16) extends nco_sequence; //TRIGGER OF 
 
   task body();
     seq = nco_sequence_item::type_id::create("seq");
-    seq.reset.rand_mode(0);
     repeat(cnt) begin
 
       wait_for_grant();
       //RESET IN BETWEEN IN MUST BE DONE IN BETWEEN INDICATED BY A BIT
       seq.signal_out = signal;
-      seq.reset = 0;
+      seq.resetn = 0;
       send_request(seq);
       //RESET HAS BEEN GIVEN IN BETWEEN
       wait_for_item_done();
       
       //SEQUENCE CHANGES
       wait_for_grant();
-      assert(seq.randomize() with ({seq.signal_out != signal;}));
-      seq.reset = 1;
-      done.push_back(seq.signal_out)
+      assert(seq.randomize() with {seq.signal_out != signal;});
+      seq.resetn = 1;
+      done.push_back(seq.signal_out);
       if(done.size() >= 7)
       begin
-        signal++;
+        signal = signal < 8 ? signal+1 : 0;
         while(done.size())
           void'(done.pop_front());
       end

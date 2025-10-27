@@ -1,11 +1,11 @@
 //NCO test 
 
 class base_test extends uvm_test;
-  `uvm_component_utils(nco_test)    //Factory Registration
+  `uvm_component_utils(base_test)    //Factory Registration
   nco_environment nco_env;
-  i//nco_base_sequence base;
+  //nco_base_sequence base;
 
-  function new(string name = "nco_test",uvm_component parent = null);
+  function new(string name = "base_test",uvm_component parent = null);
     super.new(name,parent);
   endfunction:new
 
@@ -17,12 +17,13 @@ class base_test extends uvm_test;
   function void end_of_elaboration();
     uvm_top.print_topology();
   endfunction:end_of_elaboration
-	
-endclass:nco_test
+
+endclass:base_test
 
 class nco_base_test extends uvm_test;
   `uvm_component_utils(nco_base_test)    //Factory Registration
-  nco_base_sequence seq;
+  nco_environment nco_env;
+  nco_sequence seq;
 
   function new(string name = "nco_base_test",uvm_component parent = null);
     super.new(name,parent);
@@ -36,12 +37,13 @@ class nco_base_test extends uvm_test;
   function void end_of_elaboration();
     uvm_top.print_topology();
   endfunction:end_of_elaboration
-	
-	 virtual task run_phase(uvm_phase);
-    seq = nco_base_sequence::type_id::create("nco_base_sequence");
-    seq.start(nco_env.active_agent.driver);
+
+  virtual task run_phase(uvm_phase phase);
+    super.run_phase(phase);
+    seq = nco_sequence::type_id::create("nco_sequence");
+    seq.start(nco_env.active_agent.sequencer);
   endtask
-endclass:nco_test
+endclass:nco_base_test
 
 class nco_normal_test extends base_test;
   `uvm_component_utils(nco_normal_test)    //Factory Registration
@@ -59,11 +61,12 @@ class nco_normal_test extends base_test;
   function void end_of_elaboration();
     uvm_top.print_topology();
   endfunction:end_of_elaboration
-	
-	 virtual task run_phase(uvm_phase);
+
+  virtual task run_phase(uvm_phase phase);
+    super.run_phase(phase);
     seq = nco_normal_sequence::type_id::create("nco_normal_sequence");
-    seq.start(nco_env.active_agent.driver);
-	endtask
+    seq.start(nco_env.active_agent.sequencer);
+  endtask
 endclass
 
 class nco_cont_test extends base_test;
@@ -82,16 +85,17 @@ class nco_cont_test extends base_test;
   function void end_of_elaboration();
     uvm_top.print_topology();
   endfunction:end_of_elaboration
-	
-	 virtual task run_phase(uvm_phase);
-    seq = nco_normal_sequence::type_id::create("nco_cont_sequence");
-    seq.start(nco_env.active_agent.driver);
-	endtask
+
+  virtual task run_phase(uvm_phase phase);
+    super.run_phase(phase);
+    seq = nco_cont_sequence::type_id::create("nco_cont_sequence");
+    seq.start(nco_env.active_agent.sequencer);
+  endtask
 endclass
 
 class nco_reset_normal_test extends base_test;
   `uvm_component_utils(nco_reset_normal_test)    //Factory Registration
-  nco_reset_normal_sequence seq;
+  nco_reset_normal_sequence#(1,0) seq;
 
   function new(string name = "nco_reset_normal_test",uvm_component parent = null);
     super.new(name,parent);
@@ -105,19 +109,20 @@ class nco_reset_normal_test extends base_test;
   function void end_of_elaboration();
     uvm_top.print_topology();
   endfunction:end_of_elaboration
-	
-	 virtual task run_phase(uvm_phase);
-    seq = nco_reset_normal_sequence::type_id::create("nco_reset_normal_sequence");
-    seq.start(nco_env.active_agent.driver);
-	endtask
+
+  virtual task run_phase(uvm_phase phase);
+    super.run_phase(phase);
+    seq = nco_reset_normal_sequence#(1,0)::type_id::create("nco_reset_normal_sequence");
+    seq.start(nco_env.active_agent.sequencer);
+  endtask
 endclass
 
 
-class nco_no_ip_test extends base_test;
-  `uvm_component_utils(nco_no_ip_test)    //Factory Registration
-  nco_no_ip_normal_sequence seq;
+class nco_no_inp_test extends base_test;
+  `uvm_component_utils(nco_no_inp_test)    //Factory Registration
+  nco_no_inp_sequence#(1) seq;
 
-  function new(string name = "nco_no_ip_test",uvm_component parent = null);
+  function new(string name = "nco_no_inp_test",uvm_component parent = null);
     super.new(name,parent);
   endfunction:new
 
@@ -129,11 +134,12 @@ class nco_no_ip_test extends base_test;
   function void end_of_elaboration();
     uvm_top.print_topology();
   endfunction:end_of_elaboration
-	
-	 virtual task run_phase(uvm_phase);
-    seq = nco_no_ip_sequence::type_id::create("nco_no_ip_sequence");
-    seq.start(nco_env.active_agent.driver);
-	endtask
+
+  virtual task run_phase(uvm_phase phase);
+    super.run_phase(phase);
+    seq = nco_no_inp_sequence#(1)::type_id::create("nco_no_ip_sequence");
+    seq.start(nco_env.active_agent.sequencer);
+  endtask
 endclass
 
 class nco_change_req_test extends base_test;
@@ -152,16 +158,17 @@ class nco_change_req_test extends base_test;
   function void end_of_elaboration();
     uvm_top.print_topology();
   endfunction:end_of_elaboration
-	
-	 virtual task run_phase(uvm_phase);
+
+  virtual task run_phase(uvm_phase phase);
+    super.run_phase(phase);
     seq = nco_change_req_sequence::type_id::create("nco_change_req_sequence");
-    seq.start(nco_env.active_agent.driver);
-	endtask
+    seq.start(nco_env.active_agent.sequencer);
+  endtask
 endclass
 
 class nco_reset_diff_test extends base_test;
   `uvm_component_utils(nco_reset_diff_test)    //Factory Registration
-  nco_reset_diff_sequence seq;
+  nco_reset_diff_sequence#(16) seq;
 
   function new(string name = "nco_reset_diff_test",uvm_component parent = null);
     super.new(name,parent);
@@ -175,11 +182,10 @@ class nco_reset_diff_test extends base_test;
   function void end_of_elaboration();
     uvm_top.print_topology();
   endfunction:end_of_elaboration
-	
-	 virtual task run_phase(uvm_phase);
-    seq = nco_reset_diff_change::type_id::create("nco_reset_change_sequence");
-    seq.start(nco_env.active_agent.driver);
-	endtask
+
+  virtual task run_phase(uvm_phase phase);
+    super.run_phase(phase);
+    seq = nco_reset_diff_sequence#(16)::type_id::create("nco_reset_change_sequence");
+    seq.start(nco_env.active_agent.sequencer);
+  endtask
 endclass
-
-

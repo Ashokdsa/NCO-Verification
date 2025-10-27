@@ -25,9 +25,9 @@ module top;
   end:setting_vif
 
   initial begin:initial_reset
-    vif.reset = 0;
-    repeat(2)@(posedge clk);
-    vif.reset = 1;
+    vif.resetn = 0;
+    repeat(2)@(posedge clk_50MHz);
+    vif.resetn = 1;
   end:initial_reset
 
   initial begin:test_run

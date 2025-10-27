@@ -5,16 +5,18 @@
 class nco_subscriber extends uvm_subscriber#(nco_sequence_item);
   `uvm_component_utils(nco_subscriber)    // Factory registration
   uvm_analysis_imp_passive_mon#(nco_sequence_item,nco_subscriber) pass_mon;      // Analysis implementation to connect passive monitor
-  seq_item ip_pkt, out_pkt;
+  nco_sequence_item ip_pkt, out_pkt;
 	
   covergroup input_cg;      // Input coverage group 
-		c1 : coverpoint signal_out_cp;
-		c2 : coverpoint reset_cp;
-		c3 : cross c1, c2;
+		signal_out_cp : coverpoint ip_pkt.signal_out;
+		resetn_cp : coverpoint ip_pkt.resetn;
+		signali_outxresetn : cross signal_out_cp, resetn_cp;
   endgroup:input_cg
   
   covergroup output_cg;     // Output coverage group
-		c1 : coverpoint wave_out{
+		c1 : coverpoint out_pkt.wave_out;
+    /*
+    {
 			bins sine = ();
 			bins cosine = ();
 			bins flat_zero = 0[*32];
@@ -25,6 +27,7 @@ class nco_subscriber extends uvm_subscriber#(nco_sequence_item);
 			bins gaussian_chirplet = ();
 			bins ecg = ();
 		}
+    */
   endgroup:output_cg
 
   function new(string name = "subs", uvm_component parent = null);
@@ -45,7 +48,7 @@ class nco_subscriber extends uvm_subscriber#(nco_sequence_item);
   endfunction:write
 
   virtual function void write_passive_mon(nco_sequence_item seq);     // write_passive_mon() - receives transactions from the PASSIVE monitor
-		out_pkt = t;
+		out_pkt = seq;
     output_cg.sample();
     `uvm_info(get_name,"[MONITOR]:INPUT RECIEVED",UVM_HIGH)
   endfunction:write_passive_mon

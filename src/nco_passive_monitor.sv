@@ -22,7 +22,7 @@ class nco_passive_monitor extends uvm_monitor;
    forever begin
      @(posedge vif.p_mon_cb);
       seq_item.wave_out = vif.p_mon_cb.wave_out;
-      passive_ap.write(seq_item);
+      item_collected_port.write(seq_item);
    end
   endtask
 endclass
