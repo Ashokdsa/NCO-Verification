@@ -144,7 +144,7 @@ endclass
 
 class nco_change_req_test extends base_test;
   `uvm_component_utils(nco_change_req_test)    //Factory Registration
-  nco_change_req_sequence seq;
+  nco_change_req_sequence#(56) seq;
 
   function new(string name = "nco_change_req_test",uvm_component parent = null);
     super.new(name,parent);
@@ -161,7 +161,7 @@ class nco_change_req_test extends base_test;
 
   virtual task run_phase(uvm_phase phase);
     super.run_phase(phase);
-    seq = nco_change_req_sequence::type_id::create("nco_change_req_sequence");
+    seq = nco_change_req_sequence#(56)::type_id::create("nco_change_req_sequence");
     seq.start(nco_env.active_agent.sequencer);
   endtask
 endclass

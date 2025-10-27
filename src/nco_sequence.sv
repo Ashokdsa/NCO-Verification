@@ -25,7 +25,8 @@ class nco_normal_sequence extends nco_sequence; //CHECKS ALL THE WAVEFORMS
   task body();
     seq = nco_sequence_item::type_id::create("seq");
     seq.resetn = 1;
-    repeat(7) begin
+    seq.in_btw = 0;
+    repeat(8) begin
       wait_for_grant();
       assert(seq.randomize());
       send_request(seq);
@@ -44,8 +45,9 @@ class nco_cont_sequence extends nco_sequence; //CHECKS FOR THE REPEATABILITY
   task body();
     seq = nco_sequence_item::type_id::create("seq");
     seq.resetn = 1;
+    seq.in_btw = 0;
     seq.signal_out = 0;
-    repeat(7) begin
+    repeat(8) begin
       assert(seq.randomize());
       repeat(2) begin
         wait_for_grant();
@@ -67,6 +69,7 @@ class nco_reset_normal_sequence#(int cnt = 1, int signal = 0) extends nco_sequen
     repeat(cnt) begin
       seq = nco_sequence_item::type_id::create("seq");
       wait_for_grant();
+      seq.in_btw = 0;
       seq.signal_out = signal;
       seq.resetn = 0;
       send_request(seq);
@@ -85,8 +88,9 @@ class nco_no_inp_sequence#(int cnt = 1) extends nco_sequence; //NO INPUT IS SENT
   task body();
     repeat(cnt) begin
       seq = nco_sequence_item::type_id::create("seq");
-      wait_for_grant();
       seq.rand_mode(0);
+      seq.in_btw = 0;
+      wait_for_grant();
       seq.resetn = 1;
       send_request(seq);
       wait_for_item_done();
@@ -94,7 +98,9 @@ class nco_no_inp_sequence#(int cnt = 1) extends nco_sequence; //NO INPUT IS SENT
   endtask
 endclass
 
-class nco_change_req_sequence extends nco_sequence; //CHANGE IN REQUEST
+class nco_change_req_sequence#(int cnt = 16) extends nco_sequence; //CHANGE IN REQUEST
+  bit [(`SELECT_WIDTH-1):0] signal;
+  bit [(`SELECT_WIDTH-1):0] done[$];
   `uvm_object_utils(nco_change_req_sequence)
 
   function new(string name = "nco_change_req_sequence");
@@ -104,15 +110,30 @@ class nco_change_req_sequence extends nco_sequence; //CHANGE IN REQUEST
   task body();
     seq = nco_sequence_item::type_id::create("seq");
     seq.resetn = 1;
-    repeat(7) begin
-      //RESTART THE BIT
-      repeat(2) begin
-        wait_for_grant();
-        assert(seq.randomize());
-        //CHANGE IN SIGNAL MUST BE DONE IN BETWEEN INDICATED BY A BIT
-        send_request(seq);
-        wait_for_item_done();
+    signal = 0;
+    repeat(cnt) begin
+
+      wait_for_grant();
+      seq.resetn = 1;
+      seq.signal_out = signal;
+      seq.in_btw = 1;
+      send_request(seq);
+      wait_for_item_done();
+      seq.in_btw = 0;
+
+      wait_for_grant();
+      assert(seq.randomize() with {seq.signal_out != signal;});
+      seq.resetn = 1;
+      seq.in_btw = 1;
+      done.push_back(seq.signal_out);
+      if(done.size() >= 7)
+      begin
+        signal = signal < 7 ? signal+1 : 0;
+        while(done.size())
+          void'(done.pop_front());
       end
+      send_request(seq);
+      wait_for_item_done();
     end
   endtask
 endclass
@@ -126,18 +147,20 @@ class nco_reset_change_sequence extends nco_sequence; //TRIGGER OF RESET BETWEEN
 
   task body();
     seq = nco_sequence_item::type_id::create("seq");
-    repeat(7) begin
+    repeat(8) begin
 
       wait_for_grant();
       //RESET IN BETWEEN IN MUST BE DONE IN BETWEEN INDICATED BY A BIT
       assert(seq.randomize());
       seq.resetn = 0;
+      seq.in_btw = 1;
       send_request(seq);
       //RESET HAS BEEN GIVEN IN BETWEEN
       wait_for_item_done();
       
       //SEQUENCE CONTINUES NORMALLY
       wait_for_grant();
+      seq.in_btw = 0;
       seq.resetn = 1;
       send_request(seq);
       wait_for_item_done();
@@ -159,7 +182,7 @@ class nco_reset_diff_sequence#(int cnt = 16) extends nco_sequence; //TRIGGER OF 
     repeat(cnt) begin
 
       wait_for_grant();
-      //RESET IN BETWEEN IN MUST BE DONE IN BETWEEN INDICATED BY A BIT
+      seq.in_btw = 1;
       seq.signal_out = signal;
       seq.resetn = 0;
       send_request(seq);
@@ -169,17 +192,44 @@ class nco_reset_diff_sequence#(int cnt = 16) extends nco_sequence; //TRIGGER OF 
       //SEQUENCE CHANGES
       wait_for_grant();
       assert(seq.randomize() with {seq.signal_out != signal;});
+      seq.in_btw = 0;
       seq.resetn = 1;
       done.push_back(seq.signal_out);
       if(done.size() >= 7)
       begin
-        signal = signal < 8 ? signal+1 : 0;
+        signal = signal < 7 ? signal+1 : 0;
         while(done.size())
           void'(done.pop_front());
       end
       send_request(seq);
       wait_for_item_done();
     end
+  endtask
+
+endclass
+
+class nco_regress_sequence extends nco_sequence; //REGRESSION TEST
+  nco_normal_sequence seq1;
+  nco_cont_sequence seq2;
+  nco_reset_normal_sequence#(1,1) seq3;
+  nco_no_inp_sequence#(1) seq4;
+  nco_change_req_sequence#(56) seq5;
+  nco_reset_change_sequence seq6;
+  nco_reset_diff_sequence#(56) seq7;
+  `uvm_object_param_utils(nco_regress_sequence)
+
+  function new(string name = "nco_regress_sequence");
+    super.new(name);
+  endfunction
+
+  task body();
+    `uvm_do(seq1)
+    `uvm_do(seq2)
+    `uvm_do(seq3)
+    `uvm_do(seq4)
+    `uvm_do(seq5)
+    `uvm_do(seq6)
+    `uvm_do(seq7)
   endtask
 
 endclass
