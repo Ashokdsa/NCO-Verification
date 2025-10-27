@@ -18,6 +18,7 @@ class nco_passive_monitor extends uvm_monitor;
   endfunction
 
   virtual task run_phase(uvm_phase phase);
+    repeat(2)@(posedge vif.p_mon_cb);
    forever begin
      @(posedge vif.p_mon_cb);
       seq_item.wave_out = vif.p_mon_cb.wave_out;
