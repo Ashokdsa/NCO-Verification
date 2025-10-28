@@ -1,6 +1,6 @@
 // Top-level module for NCO UVM testbench
-
 `include "nco_interface.sv"
+`include "nco_assertion.sv"
 `include "nco_pkg.svh"
 import uvm_pkg::*;
 import nco_pkg::*;
@@ -16,6 +16,7 @@ module top;
   nco_inf vif(clk_50MHz);
 
   //Bind Assertion
+  bind vif nco_assert(.*);
 
   // DUT instantiation
   nco DUT(.clk_50MHz(vif.clk),.reset(vif.resetn),.signal_out(vif.signal_out),.wave_out(vif.wave_out));
