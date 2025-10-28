@@ -16,7 +16,7 @@ module top;
   nco_inf vif(clk_50MHz);
 
   //Bind Assertion
-  bind vif nco_assert(.*);
+  bind vif nco_assert assertion(.*);
 
   // DUT instantiation
   nco DUT(.clk_50MHz(vif.clk),.reset(vif.resetn),.signal_out(vif.signal_out),.wave_out(vif.wave_out));

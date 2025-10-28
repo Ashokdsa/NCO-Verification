@@ -1,27 +1,28 @@
-interface nco_assert(clk,signal_out,wave_out);
+interface nco_assert(clk,resetn,signal_out,wave_out);
 input bit clk;
+input bit resetn;
 input logic [`SELECT_WIDTH-1:0] signal_out;
 input logic [`WAVE_WIDTH-1:0] wave_out;
 
 property p1;
   @(posedge clk) 
-  (!reset) |-> (wave_out == 0);
+  (!resetn) |-> (wave_out == 0);
 endproperty
 
 
 property p2;
-  @(posedge clk) disable iff (!reset)
+  @(posedge clk) disable iff (!resetn)
     $changed(signal_out) |=> $stable(signal_out)[*31];
-    first_match($changed(signal_out) ##1 $stable(signal_out)[*31]);
+    //first_match($changed(signal_out) ##1 $stable(signal_out)[*31]);
 endproperty
 
 property p4;
-  @(posedge clk or negedge clk) disable iff (!reset)
+  @(posedge clk or negedge clk) disable iff (!resetn)
     $changed(clk);
 endproperty
 
 property p5;
-  @(posedge clk) disable iff (!reset)
+  @(posedge clk) disable iff (!resetn)
     $changed(signal_out) |-> ##1 $changed(wave_out);
 endproperty
 
