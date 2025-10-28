@@ -1,3 +1,4 @@
+
 class nco_passive_monitor extends uvm_monitor;
   virtual nco_inf vif;
   uvm_analysis_port #(nco_sequence_item) item_collected_port;
@@ -23,6 +24,7 @@ class nco_passive_monitor extends uvm_monitor;
      @(posedge vif.p_mon_cb);
       seq_item.wave_out = vif.p_mon_cb.wave_out;
       item_collected_port.write(seq_item);
+     `uvm_info(" PASSIVE_MONITOR ",$sformatf("[Pass_monitor T=%t] captured output ,sent to scoreboard| seq_item.wave_out =%d  | ",$time,seq_item.wave_out),UVM_LOW);
    end
   endtask
 endclass
