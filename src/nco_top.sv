@@ -15,7 +15,10 @@ module top;
   // Interface instantiation
   nco_inf vif(clk_50MHz);
 
+  //Bind Assertion
+
   // DUT instantiation
+  nco DUT(.clk_50MHz(vif.clk),.reset(vif.resetn),.signal_out(vif.signal_out),.wave_out(vif.wave_out));
   
   initial begin:setting_vif
     // UVM Configurations setting
