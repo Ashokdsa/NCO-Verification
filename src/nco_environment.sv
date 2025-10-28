@@ -14,6 +14,8 @@ class nco_environment extends uvm_env;
 
   function void build_phase(uvm_phase phase);
   	super.build_phase(phase);
+      uvm_config_db#(uvm_active_passive_enum)::set(this, "active_agent", "is_active", UVM_ACTIVE);
+      uvm_config_db#(uvm_active_passive_enum)::set(this, "passive_agent", "is_active", UVM_PASSIVE);
       active_agent = nco_active_agent::type_id::create("active_agent", this);  
     	passive_agent = nco_passive_agent::type_id::create("passive_agent", this);
     	scoreboard = nco_scoreboard::type_id::create("scoreboard", this);

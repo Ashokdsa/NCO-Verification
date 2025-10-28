@@ -98,7 +98,7 @@ class nco_no_inp_sequence#(int cnt = 1) extends nco_sequence; //NO INPUT IS SENT
   endtask
 endclass
 
-class nco_change_req_sequence#(int cnt = 16) extends nco_sequence; //CHANGE IN REQUEST
+class nco_change_req_sequence#(int cnt = 56) extends nco_sequence; //CHANGE IN REQUEST
   bit [(`SELECT_WIDTH-1):0] signal;
   bit [(`SELECT_WIDTH-1):0] done[$];
   `uvm_object_utils(nco_change_req_sequence)

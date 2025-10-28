@@ -8,7 +8,6 @@ class nco_active_monitor extends uvm_monitor;
 
   function new (string name, uvm_component parent);
     super.new(name, parent);
-    seq_item = new();
     item_collected_port = new("item_collected_port", this);
   endfunction:new
 
@@ -23,6 +22,7 @@ class nco_active_monitor extends uvm_monitor;
     repeat(2)@(posedge vif.a_mon_cb);
     forever 
     begin
+      seq_item = new();
       @(posedge vif.a_mon_cb); 
       seq_item.signal_out = vif.a_mon_cb.signal_out;
       seq_item.resetn     = vif.a_mon_cb.resetn;

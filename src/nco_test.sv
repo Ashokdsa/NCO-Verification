@@ -57,7 +57,6 @@ class nco_normal_test extends base_test; //All waveforms test
 
   function void build_phase(uvm_phase phase);
     super.build_phase(phase);
-    nco_env = nco_environment::type_id::create("nco_env",this);
   endfunction:build_phase
 
   function void end_of_elaboration();
@@ -83,7 +82,6 @@ class nco_cont_test extends base_test; //Check Repeatibility of waveforms
 
   function void build_phase(uvm_phase phase);
     super.build_phase(phase);
-    nco_env = nco_environment::type_id::create("nco_env",this);
   endfunction:build_phase
 
   function void end_of_elaboration();
@@ -109,7 +107,6 @@ class nco_reset_normal_test extends base_test; //Reset Test
 
   function void build_phase(uvm_phase phase);
     super.build_phase(phase);
-    nco_env = nco_environment::type_id::create("nco_env",this);
   endfunction:build_phase
 
   function void end_of_elaboration();
@@ -136,7 +133,6 @@ class nco_no_inp_test extends base_test; //No input is sent -> Checking for quie
 
   function void build_phase(uvm_phase phase);
     super.build_phase(phase);
-    nco_env = nco_environment::type_id::create("nco_env",this);
   endfunction:build_phase
 
   function void end_of_elaboration();
@@ -162,7 +158,6 @@ class nco_change_req_test extends base_test; //Change in request
 
   function void build_phase(uvm_phase phase);
     super.build_phase(phase);
-    nco_env = nco_environment::type_id::create("nco_env",this);
   endfunction:build_phase
 
   function void end_of_elaboration();
@@ -189,7 +184,6 @@ class nco_reset_change_test extends base_test; //Trigger reset in between
 
   function void build_phase(uvm_phase phase);
     super.build_phase(phase);
-    nco_env = nco_environment::type_id::create("nco_env",this);
   endfunction:build_phase
 
   function void end_of_elaboration();
@@ -216,7 +210,6 @@ class nco_reset_diff_test extends base_test; //Trigger of reset between request 
 
   function void build_phase(uvm_phase phase);
     super.build_phase(phase);
-    nco_env = nco_environment::type_id::create("nco_env",this);
   endfunction:build_phase
 
   function void end_of_elaboration();
@@ -243,7 +236,6 @@ class nco_regression_test extends base_test; //Regression Test
 
   function void build_phase(uvm_phase phase);
     super.build_phase(phase);
-    nco_env = nco_environment::type_id::create("nco_env",this);
   endfunction:build_phase
 
   function void end_of_elaboration();

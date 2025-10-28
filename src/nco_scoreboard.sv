@@ -1,37 +1,312 @@
 // NCO Scoreboard collects transactions from both active and passive monitors via analysis imps.
+`uvm_analysis_imp_decl(_active)
+`uvm_analysis_imp_decl(_passive)
 
-`uvm_analysis_imp_decl(_passive)		//Analysis ipmlementation port declaration-passive monitor
-`uvm_analysis_imp_decl(_active)			//Analysis ipmlementation port declaration-active monitor
+typedef enum {SINE,COSINE,TRIANGULAR,SINC,SAWTOOTH,SQUARE,GAUSSIAN_CHIRPLET,ECG}wave;
 
 class nco_scoreboard extends uvm_scoreboard;
   `uvm_component_utils(nco_scoreboard)
-
-  // Analysis implementation ports to receive transactions from monitors
   uvm_analysis_imp_active #(nco_sequence_item, nco_scoreboard) active_mon_export;
   uvm_analysis_imp_passive #(nco_sequence_item, nco_scoreboard) passive_mon_export;
 
-  function new(string name="nco_scoreboard", uvm_component parent = null);
+
+  int match = 0;
+  int mismatch = 0;
+  int total_transactions = 0;
+
+  bit [7:0] scb_sine_mem [31:0];
+  bit [7:0] scb_cosine_mem [31:0];
+  bit [7:0] scb_triangle_mem [31:0];
+  bit [7:0] scb_sawtooth_mem [31:0];
+  bit [7:0] scb_square_mem [31:0];
+
+  bit [7:0] dut_mem [31:0];
+  int dut_count = 0;
+
+  nco_sequence_item a_mon_queue[$];
+  bit scb_mem_generated = 0;
+
+  function new(string name = "nco_scoreboard", uvm_component parent = null);
     super.new(name, parent);
+  endfunction
+
+  function void build_phase(uvm_phase phase);
+    super.build_phase(phase);
     active_mon_export  = new("active_mon_export",  this);
     passive_mon_export = new("passive_mon_export", this);
-  endfunction:new
+  endfunction
 
-//Write method for the active monitor 
-  virtual function void write_active(nco_sequence_item item); 
+  // ---------- Power function ----------
+  function automatic real power(input real base, input int exp);
+    real result = 1.0;
+    int abs_exp = (exp < 0) ? -exp : exp;
+
+    for (int i = 0; i < abs_exp; i++)
+      result *= base;
+
+    if (exp < 0)
+      return 1.0 / result;
+    else
+      return result;
+  endfunction
+
+  // ---------- Factorial task ----------
+  task automatic factorial(input int n, output real fact);
+    fact = 1.0;
+    if (n < 0) begin
+      `uvm_error(get_type_name(), "Negative factorial not defined")
+      fact = 0.0;
+      return;
+    end
+    for (int i = 2; i <= n; i++)
+      fact *= i;
+  endtask
+
+  // ---------- X value generation ----------
+  task automatic x_val(input int n, input real range, output real x);
+    real pi = 3.141592653589793;
+    x = (2.0 * pi * n) / range;
+  endtask
+
+  // ---------- Rounding ----------
+  function automatic int round(input real val);
+    int lower = int'(val);
+    real frac = val - lower;
+
+    if (frac > 0.5)
+      return lower + 1;
+    else if (frac < 0.5)
+      return lower;
+    else
+      return (lower % 2 == 0) ? lower : lower + 1;
+  endfunction
+
+  // ---------- Sine computation ----------
+  task automatic sine_function(input real x, output real sine);
+    real fact, term;
+    int max_terms = 20;
+    sine = 0.0;
+
+    for (int i = 0; i < max_terms; i++) begin
+      factorial(2*i + 1, fact);
+      term = power(-1.0, i) * (power(x, 2*i + 1) / fact);
+      sine += term;
+    end
+  endtask
+
+  // ---------- Sine wave output ----------
+  task automatic sine_wave_out(input real sine, input int n, output int value);
+    real val;
+    val = ((sine + 1.0) * 127.5);
+    value = round(val);
+
+    if (n == 0 || n == 16)
+      value = 128;
+    else if (n == 8)
+      value = 255;
+    else if (n == 24)
+      value = 0;
+
+    if (value < 0) value = 0;
+    if (value > 255) value = 255;
+  endtask
+
+  // ---------- Cosine computation ----------
+  task automatic cosine_function(input real x, output real cosine);
+    real fact, term;
+    int max_terms = 20;
+    cosine = 0.0;
+
+    for (int i = 0; i < max_terms; i++) begin
+      factorial(2*i, fact);
+      term = power(-1.0, i) * (power(x, 2*i) / fact);
+      cosine += term;
+    end
+  endtask
+
+  // ---------- Cosine wave output ----------
+  task automatic cosine_wave_out(input real cosine, input int n, output int value);
+    real val;
+    val = ((cosine + 1.0) * 127.5);
+    value = round(val);
+
+    if (n == 0)
+      value = 255;
+    else if (n == 8 || n == 24)
+      value = 128;
+    else if (n == 16)
+      value = 0;
+
+    if (value < 0) value = 0;
+    if (value > 255) value = 255;
+  endtask
+
+  // ---------- Triangle wave ----------
+  task automatic triangle_wave_out(input int n, input int range, output int tri_out);
+    real half_range = range / 2.0;
+    real val;
+
+    if (n < half_range)
+      val = (255.0 * n) / half_range;
+    else 
+      val = (255.0 * (range - n)) / half_range;
+
+    tri_out = round(val);
+  endtask
+
+  // ---------- Sawtooth wave ----------
+  task automatic sawtooth_wave_out(input int n, input int range, output int saw_out);
+    real val;
+    val = (255.0 * n) / (range - 1);
+    saw_out = round(val);
+  endtask
+
+  // ---------- Square wave ----------
+  task automatic square_wave_out(input int n, input int range, output int sq_out);
+    int half_range = range / 2;
+    int idx = n % range;
+
+    if (idx < half_range)
+      sq_out = 255;
+    else
+      sq_out = 0;
+  endtask
+
+
+  function void generate_reference_waveforms();
+    real sine, cosine, x;
+    int temp_val;
+
+    `uvm_info(get_type_name(), "Generating reference waveforms...", UVM_MEDIUM)
+
+    // Generate all 5 waveforms
+    for (int n = 0; n < 32; n++) begin
+      // Sine wave
+      x_val(n, 32.0, x);
+      sine_function(x, sine);
+      sine_wave_out(sine, n, temp_val);
+      scb_sine_mem[n] = temp_val[7:0];
+
+      // Cosine wave
+      cosine_function(x, cosine);
+      cosine_wave_out(cosine, n, temp_val);
+      scb_cosine_mem[n] = temp_val[7:0];
+
+      // Triangle wave
+      triangle_wave_out(n, 32, temp_val);
+      scb_triangle_mem[n] = temp_val[7:0];
+
+      // Sawtooth wave
+      sawtooth_wave_out(n, 32, temp_val);
+      scb_sawtooth_mem[n] = temp_val[7:0];
+
+      // Square wave
+      square_wave_out(n, 32, temp_val);
+      scb_square_mem[n] = temp_val[7:0];
+    end
+
+    scb_mem_generated = 1;
+    `uvm_info(get_type_name(), "Reference waveforms generated successfully", UVM_MEDIUM)
+  endfunction
+  
+  wave wave_name;
+  
+  virtual function void write_active(nco_sequence_item a_trans); 
+    // Store transaction from active monitor
+    wave_name = wave'(a_trans.signal_out);
+    a_mon_queue.push_back(a_trans);
+
+    `uvm_info(get_type_name(), 
+              $sformatf("Active Monitor: Received signal_out=%0d, reset=%0b", 
+                        a_trans.signal_out, a_trans.resetn), 
+              UVM_HIGH)
   endfunction:write_active
 
- // Write method for the passive monitor 
-  virtual function void write_passive(nco_sequence_item item1);
+
+  virtual function void write_passive(nco_sequence_item p_trans);
+    nco_sequence_item a_trans;
+    bit [7:0] expected_value;
+
+    // Generate reference waveforms on first transaction
+    if (!scb_mem_generated) begin
+      generate_reference_waveforms();
+    end
+
+    if (a_mon_queue.size() == 0) begin
+      `uvm_error(get_type_name(), "Passive monitor data received but no active monitor data available")
+      return;
+    end
+
+    a_trans = a_mon_queue.pop_front();
+
+    if (a_trans.resetn == 1'b0) begin
+      total_transactions++;
+      if (p_trans.wave_out == 8'h00) begin
+        match++;
+        `uvm_info(get_type_name(), 
+                  $sformatf("RESET MATCH: DUT output=0x%02h (Expected 0x00 during reset)", 
+                            p_trans.wave_out), 
+                  UVM_MEDIUM)
+      end else begin
+        mismatch++;
+        `uvm_error(get_type_name(), 
+                   $sformatf("RESET MISMATCH: DUT output=0x%02h (Expected 0x00 during reset)", 
+                             p_trans.wave_out))
+      end
+
+      // Reset sample counter when reset is asserted
+      dut_count = 0;
+      `uvm_info(get_type_name(), "Sample counter reset to 0 due to reset assertion", UVM_HIGH)
+      return;
+    end
+
+    // Store DUT output (only if not in reset)
+    dut_mem[dut_count] = p_trans.wave_out;
+
+    // Select expected value based on signal_out
+    case (a_trans.signal_out)
+      3'd0: begin
+        expected_value = scb_sine_mem[dut_count];
+      end
+      3'd1: begin
+        expected_value = scb_cosine_mem[dut_count];
+      end
+      3'd2: begin
+        expected_value = scb_triangle_mem[dut_count];
+      end
+      3'd3: begin
+        expected_value = scb_sawtooth_mem[dut_count];
+      end
+      3'd4: begin
+        expected_value = scb_square_mem[dut_count];
+      end
+      default: begin
+        `uvm_warning(get_type_name(), 
+                     $sformatf("Unknown signal_out=%0d", a_trans.signal_out))
+      end
+    endcase
+
+    // Compare
+    total_transactions++;
+    if (p_trans.wave_out == expected_value) begin
+      match++;
+      `uvm_info(get_type_name(), 
+                $sformatf("MATCH [%s][%0d]: DUT=%3d | Expected=%3d", 
+                          wave_name, dut_count, p_trans.wave_out, expected_value), 
+                UVM_HIGH)
+    end else begin
+      mismatch++;
+      `uvm_error(get_type_name(), 
+                 $sformatf("MISMATCH [%s][%0d]: DUT=%3d | Expected=%3d", 
+                           wave_name, dut_count, p_trans.wave_out, expected_value))
+    end
+
+    dut_count++;
+
+    // Reset counter after 32 samples
+    if (dut_count >= 32) begin
+      dut_count = 0;
+    end
   endfunction:write_passive
 
-
-  task run_phase(uvm_phase phase);
-    super.run_phase(phase);
-  endtask:run_phase
-
- //Report summary
-  virtual function void report_phase(uvm_phase phase);
-    super.report_phase(phase);
-  endfunction:report_phase
-
-endclass:nco_scoreboard
+endclass
