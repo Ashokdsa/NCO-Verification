@@ -2,6 +2,7 @@
 `include "nco_interface.sv"
 `include "nco_assertion.sv"
 `include "nco_pkg.svh"
+`include "Design/nco.v"
 import uvm_pkg::*;
 import nco_pkg::*;
 //DESIGN PATH

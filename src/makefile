@@ -12,7 +12,7 @@ all:
 	vcover report -html nco_coverage.ucdb -htmldir covReport -details
 
 clean:
-	rm -rf work/ transcript vsim.wlf wave.vcd
+	rm -rf work/ transcript vsim.wlf wave.vcd vsim_stacktrace.vstf
 	rm -rf covReport nco_coverage.ucdb
 	rm nco.log simulation.log
 	rm nco_coverage.ucdb
