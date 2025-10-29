@@ -13,7 +13,7 @@ class nco_sequence extends uvm_sequence#(nco_sequence_item); //BASE sequence
       seq.signal_out inside {[0:7]};
     })
   endtask
-endclass
+endclass:nco_sequence
 
 class nco_normal_sequence extends nco_sequence; //CHECKS ALL THE WAVEFORMS
   `uvm_object_utils(nco_normal_sequence)
@@ -33,7 +33,7 @@ class nco_normal_sequence extends nco_sequence; //CHECKS ALL THE WAVEFORMS
       wait_for_item_done();
     end
   endtask
-endclass
+endclass:nco_normal_sequence
 
 class nco_cont_sequence extends nco_sequence; //CHECKS FOR THE REPEATABILITY
   `uvm_object_utils(nco_cont_sequence)
@@ -56,7 +56,7 @@ class nco_cont_sequence extends nco_sequence; //CHECKS FOR THE REPEATABILITY
       end
     end
   endtask
-endclass
+endclass:nco_cont_sequence
 
 class nco_reset_normal_sequence#(int cnt = 1, int signal = 0) extends nco_sequence; //GIVES A RESET
   `uvm_object_param_utils(nco_reset_normal_sequence#(cnt,signal))
@@ -76,7 +76,7 @@ class nco_reset_normal_sequence#(int cnt = 1, int signal = 0) extends nco_sequen
       wait_for_item_done();
     end
   endtask
-endclass
+endclass:nco_reset_normal_sequence
 
 class nco_no_inp_sequence#(int cnt = 1) extends nco_sequence; //NO INPUT IS SENT CAUSING OUTPUT TO BE IN QUIET STATE
   `uvm_object_param_utils(nco_no_inp_sequence#(cnt))
@@ -96,7 +96,7 @@ class nco_no_inp_sequence#(int cnt = 1) extends nco_sequence; //NO INPUT IS SENT
       wait_for_item_done();
     end
   endtask
-endclass
+endclass:nco_no_inp_sequence
 
 class nco_change_req_sequence#(int cnt = 56) extends nco_sequence; //CHANGE IN REQUEST
   bit [(`SELECT_WIDTH-1):0] signal;
@@ -136,7 +136,7 @@ class nco_change_req_sequence#(int cnt = 56) extends nco_sequence; //CHANGE IN R
       wait_for_item_done();
     end
   endtask
-endclass
+endclass:nco_change_req_sequence
 
 class nco_reset_change_sequence extends nco_sequence; //TRIGGER OF RESET BETWEEN REQUEST
   `uvm_object_utils(nco_reset_change_sequence)
@@ -166,7 +166,7 @@ class nco_reset_change_sequence extends nco_sequence; //TRIGGER OF RESET BETWEEN
       wait_for_item_done();
     end
   endtask
-endclass
+endclass:nco_reset_change_sequence
 
 class nco_reset_diff_sequence#(int cnt = 16) extends nco_sequence; //TRIGGER OF RESET BETWEEN REQUEST FOLLOWED BY CHANGE IN SIGNAL_OUT
   bit [(`SELECT_WIDTH-1):0] signal;
@@ -206,7 +206,7 @@ class nco_reset_diff_sequence#(int cnt = 16) extends nco_sequence; //TRIGGER OF 
     end
   endtask
 
-endclass
+endclass:nco_reset_diff_sequence
 
 class nco_regress_sequence extends nco_sequence; //REGRESSION TEST
   nco_normal_sequence seq1;
@@ -232,4 +232,4 @@ class nco_regress_sequence extends nco_sequence; //REGRESSION TEST
     `uvm_do(seq7)
   endtask
 
-endclass
+endclass:nco_regress_sequence

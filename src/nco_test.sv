@@ -70,7 +70,7 @@ class nco_normal_test extends base_test; //All waveforms test
     seq.start(nco_env.active_agent.sequencer);
 		phase.drop_objection(this);
   endtask
-endclass
+endclass: nco_normal_test
 
 class nco_cont_test extends base_test; //Check Repeatibility of waveforms
   `uvm_component_utils(nco_cont_test)    //Factory Registration
@@ -95,7 +95,7 @@ class nco_cont_test extends base_test; //Check Repeatibility of waveforms
     seq.start(nco_env.active_agent.sequencer);
 		phase.drop_objection(this);
   endtask
-endclass
+endclass:nco_cont_test
 
 class nco_reset_normal_test extends base_test; //Reset Test
   `uvm_component_utils(nco_reset_normal_test)    //Factory Registration
@@ -120,7 +120,7 @@ class nco_reset_normal_test extends base_test; //Reset Test
     seq.start(nco_env.active_agent.sequencer);
 		phase.drop_objection(this);
   endtask
-endclass
+endclass:nco_reset_normal_test
 
 
 class nco_no_inp_test extends base_test; //No input is sent -> Checking for quiet state
@@ -146,7 +146,7 @@ class nco_no_inp_test extends base_test; //No input is sent -> Checking for quie
     seq.start(nco_env.active_agent.sequencer);
 		phase.drop_objection(this);
   endtask
-endclass
+endclass:nco_no_inp_test
 
 class nco_change_req_test extends base_test; //Change in request
   `uvm_component_utils(nco_change_req_test)    //Factory Registration
@@ -171,7 +171,7 @@ class nco_change_req_test extends base_test; //Change in request
     seq.start(nco_env.active_agent.sequencer);
 		phase.drop_objection(this);
   endtask
-endclass
+endclass:nco_change_req_test
 
 
 class nco_reset_change_test extends base_test; //Trigger reset in between
@@ -197,7 +197,7 @@ class nco_reset_change_test extends base_test; //Trigger reset in between
     seq.start(nco_env.active_agent.sequencer);
 		phase.drop_objection(this);
   endtask
-endclass
+endclass:nco_reset_change_test
 
 
 class nco_reset_diff_test extends base_test; //Trigger of reset between request followed by change in signal_out
@@ -223,7 +223,7 @@ class nco_reset_diff_test extends base_test; //Trigger of reset between request 
     seq.start(nco_env.active_agent.sequencer);
 		phase.drop_objection(this);
   endtask
-endclass
+endclass:nco_reset_diff_test
 
 
 class nco_regression_test extends base_test; //Regression Test
@@ -249,4 +249,4 @@ class nco_regression_test extends base_test; //Regression Test
     seq.start(nco_env.active_agent.sequencer);
 		phase.drop_objection(this);
   endtask
-endclass
+endclass:nco_regression_test
