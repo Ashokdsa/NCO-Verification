@@ -277,7 +277,7 @@ class nco_scoreboard extends uvm_scoreboard;
 
   virtual function void write_active(nco_sequence_item a_transaction); 
     // Store transaction from active monitor
-    nco_sequence_item a_trans;
+    nco_sequence_item a_trans = new();
     wave_name = wave'(a_trans.signal_out);
     a_mon_queue.push_back(a_trans);
 
@@ -290,7 +290,7 @@ class nco_scoreboard extends uvm_scoreboard;
 
 
   virtual function void write_passive(nco_sequence_item p_trans);
-    nco_sequence_item a_trans;
+    nco_sequence_item a_trans = new();
     bit [7:0] expected_mem [31:0];
 
     if(a_mon_queue.size())
