@@ -38,6 +38,8 @@ class nco_scoreboard extends uvm_scoreboard;
     super.build_phase(phase);
     active_mon_export  = new("active_mon_export",  this);
     passive_mon_export = new("passive_mon_export", this);
+    // Generate reference waveforms
+    generate_reference_waveforms();
   endfunction
 
   // ---------- Power function ----------
@@ -273,8 +275,9 @@ class nco_scoreboard extends uvm_scoreboard;
 
   wave wave_name;
 
-  virtual function void write_active(nco_sequence_item a_trans); 
+  virtual function void write_active(nco_sequence_item a_transaction); 
     // Store transaction from active monitor
+    nco_sequence_item a_trans;
     wave_name = wave'(a_trans.signal_out);
     a_mon_queue.push_back(a_trans);
 
@@ -289,11 +292,6 @@ class nco_scoreboard extends uvm_scoreboard;
   virtual function void write_passive(nco_sequence_item p_trans);
     nco_sequence_item a_trans;
     bit [7:0] expected_mem [31:0];
-
-    // Generate reference waveforms on first transaction
-    if (!scb_mem_generated) begin
-      generate_reference_waveforms();
-    end
 
     if(a_mon_queue.size())
       a_trans = a_mon_queue.pop_front();
