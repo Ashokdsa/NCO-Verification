@@ -19,6 +19,7 @@ class nco_scoreboard extends uvm_scoreboard;
   bit [7:0] scb_cosine_mem [31:0];
   bit [7:0] scb_triangle_mem [31:0];
   bit [7:0] scb_sawtooth_mem [31:0];
+	bit [7:0] scb_gaussian_mem [31:0];
   bit [7:0] scb_square_mem [31:0];
   bit [7:0] scb_sinc_mem [31:0];
   bit [7:0] scb_ecg_mem [31:0];
@@ -260,8 +261,14 @@ class nco_scoreboard extends uvm_scoreboard;
       scb_sinc_mem[n] = temp_val[7:0];
     end
 
-    scb_mem_generated = 1;
-    `uvm_info(get_type_name(), "Reference waveforms generated successfully", UVM_MEDIUM)
+			for (int j = 0; j < 32; j++) begin
+				if(j%2)
+	  			scb_gaussian_mem[j]=scb_sine_mem[31-j/2];
+				else
+	  			scb_gaussian_mem[j]=scb_sine_mem[j/2];
+    	end
+      scb_mem_generated = 1;
+     `uvm_info(get_type_name(), "Reference waveforms generated successfully", UVM_MEDIUM)
   endfunction
   
   wave wave_name;
@@ -346,6 +353,8 @@ class nco_scoreboard extends uvm_scoreboard;
       3'd7: begin
         expected_mem[dut_count] = scb_ecg_mem[dut_count];
       end
+			3'd6: begin
+				expected_mem[dut_count] = scb_gaussian_mem[dut_count];
       default: begin
         `uvm_warning(get_type_name(), 
                      $sformatf("Unknown signal_out=%0d", a_trans.signal_out))
