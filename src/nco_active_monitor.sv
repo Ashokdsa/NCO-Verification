@@ -1,4 +1,3 @@
-
 class nco_active_monitor extends uvm_monitor;
   virtual nco_inf vif;  // Virtual interface handle for NCO interface
   uvm_analysis_port #(nco_sequence_item) item_collected_port;    // Analysis port
@@ -28,7 +27,7 @@ class nco_active_monitor extends uvm_monitor;
       seq_item.signal_out = vif.a_mon_cb.signal_out;
       seq_item.resetn     = vif.a_mon_cb.resetn;
       item_collected_port.write(seq_item); 
-      `uvm_info(" ACTIVE_MONITOR ",$sformatf("[Act_monitor T=%t] captured inputs ,sent to scoreboard|seq_item.signal_out =%d |seq_item.resetn | ",$time,seq_item.signal_out,seq_item.resetn),UVM_LOW);
+      `uvm_info(" ACTIVE_MONITOR ",$sformatf("[Act_monitor T=%0t] captured inputs ,sent to scoreboard|seq_item.signal_out =%0s |seq_item.resetn = %0b | ",$time,wave'(seq_item.signal_out),seq_item.resetn),UVM_LOW);
     end
   endtask:run_phase
 endclass:nco_active_monitor

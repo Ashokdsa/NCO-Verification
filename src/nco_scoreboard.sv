@@ -1,9 +1,9 @@
 // NCO Scoreboard collects transactions from both active and passive monitors via analysis imps.
+typedef enum {SINE,COSINE,TRIANGULAR,SINC,SAWTOOTH,SQUARE,GAUSSIAN_CHIRPLET,ECG}wave;
 
 `uvm_analysis_imp_decl(_active)
 `uvm_analysis_imp_decl(_passive)
 
-typedef enum {SINE,COSINE,TRIANGULAR,SINC,SAWTOOTH,SQUARE,GAUSSIAN_CHIRPLET,ECG}wave;
 
 class nco_scoreboard extends uvm_scoreboard;
   `uvm_component_utils(nco_scoreboard)
@@ -328,7 +328,7 @@ class nco_scoreboard extends uvm_scoreboard;
         // Select expected value based on signal_out
         case (a_trans.signal_out)
           3'd0: begin
-            expected_mem[dut_count] = scb_cosine_mem[dut_count];
+            expected_mem[dut_count] = scb_sine_mem[dut_count];
           end
           3'd1: begin
             expected_mem[dut_count] = scb_cosine_mem[dut_count];
@@ -381,7 +381,7 @@ class nco_scoreboard extends uvm_scoreboard;
             `uvm_info(get_type_name(), 
               $sformatf("MATCH [%s][%0d]: DUT=%3d | Expected=%3d", 
               wave_name, dut_count, dut_mem[i], expected_mem[i]), 
-              UVM_HIGH)
+              UVM_MEDIUM)
           end
         end
       end

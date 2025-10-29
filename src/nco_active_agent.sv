@@ -1,5 +1,4 @@
 // Active NCO agent class which instantiates driver, sequencer and active monitor
-
 class nco_active_agent extends uvm_agent;
   nco_driver    driver;
   nco_sequencer sequencer;
