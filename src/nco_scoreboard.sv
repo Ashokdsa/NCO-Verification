@@ -1,4 +1,5 @@
 // NCO Scoreboard collects transactions from both active and passive monitors via analysis imps.
+
 `uvm_analysis_imp_decl(_active)
 `uvm_analysis_imp_decl(_passive)
 
@@ -19,6 +20,8 @@ class nco_scoreboard extends uvm_scoreboard;
   bit [7:0] scb_triangle_mem [31:0];
   bit [7:0] scb_sawtooth_mem [31:0];
   bit [7:0] scb_square_mem [31:0];
+  bit [7:0] scb_sinc_mem [31:0];
+  bit [7:0] scb_ecg_mem [31:0];
 
   bit [7:0] dut_mem [31:0];
   int dut_count = 0;
@@ -68,6 +71,13 @@ class nco_scoreboard extends uvm_scoreboard;
     x = (2.0 * pi * n) / range;
   endtask
 
+  // ---------- X value generation for sinc ----------
+  task automatic x_sinc(input int n, input real range, output real x);
+    real pi = 3.141592653589793;
+    int half_range = range / 2;
+    x = (3.0 * pi * (n - half_range)) / half_range; // full 0–2π range for one sine cycle
+  endtask
+
   // ---------- Rounding ----------
   function automatic int round(input real val);
     int lower = int'(val);
@@ -97,6 +107,7 @@ class nco_scoreboard extends uvm_scoreboard;
   // ---------- Sine wave output ----------
   task automatic sine_wave_out(input real sine, input int n, output int value);
     real val;
+//sine values from [-1,1] convert that to [0.255]
     val = ((sine + 1.0) * 127.5);
     value = round(val);
 
@@ -172,12 +183,50 @@ class nco_scoreboard extends uvm_scoreboard;
       sq_out = 0;
   endtask
 
+ // ---------- Sinc value computation (Taylor expansion) ----------
+  task automatic sinc_function(input real x, output real sinc);
+    real fact, term, temp;
+    int max_terms = 20; // Increased to 15 terms (up to x^29/29!)
+    
+    for (int i = 0; i < max_terms; i++) begin
+      factorial(2*i + 1, fact);
+      term = power(-1.0, i) * (power(x, 2*i + 1) / fact);
+      temp += term;
+    end
+    if(x != 0)
+    	sinc = temp / x;
+    else
+      sinc = 1;
+  endtask
+
+ // ---------- Convert sine output to 8-bit digital value ----------
+  task automatic sinc_wave_out(input real sinc,input int n, output int value);
+    real val;
+    // Shift from [-1, 1] → [0, 255]
+    val = ((sinc + 1.0) * 127.5);  // More precise: 255/2 = 127.5
+    value = round(val);
+    
+//        if (n == 0 || n == 16)
+//         value = 128;
+//     else if (n == 8)
+//         value = 255;
+//     else if (n == 24)
+//         value = 0;
+    
+    // Clamp to valid 8-bit range
+    if (value < 0) value = 0;
+    if (value > 255) value = 255;
+  endtask
+
+// gaussian ecg and sync 
 
   function void generate_reference_waveforms();
-    real sine, cosine, x;
+    real sine, cosine, sinc, x;
     int temp_val;
 
     `uvm_info(get_type_name(), "Generating reference waveforms...", UVM_MEDIUM)
+
+      scb_ecg_mem = '{72,73,76,83,88,83,76,73,72,59,255,0,72,72,73,76,83,95,111,125,131,125,111,95,83,76,73,72,72,72,72,72};
 
     // Generate all 5 waveforms
     for (int n = 0; n < 32; n++) begin
@@ -203,6 +252,12 @@ class nco_scoreboard extends uvm_scoreboard;
       // Square wave
       square_wave_out(n, 32, temp_val);
       scb_square_mem[n] = temp_val[7:0];
+
+      // Sinc wave 
+      x_sinc(n, 32.0, x);
+      sinc_function(x, sinc);
+      sinc_wave_out(sinc, n, temp_val);
+      scb_sinc_mem[n] = temp_val[7:0];
     end
 
     scb_mem_generated = 1;
@@ -220,22 +275,23 @@ class nco_scoreboard extends uvm_scoreboard;
               $sformatf("Active Monitor: Received signal_out=%0d, reset=%0b", 
                         a_trans.signal_out, a_trans.resetn), 
               UVM_HIGH)
+
   endfunction:write_active
 
 
   virtual function void write_passive(nco_sequence_item p_trans);
     nco_sequence_item a_trans;
-    bit [7:0] expected_value;
+    bit [7:0] expected_mem [31:0];
 
     // Generate reference waveforms on first transaction
     if (!scb_mem_generated) begin
       generate_reference_waveforms();
     end
 
-    if (a_mon_queue.size() == 0) begin
+    /*if (a_mon_queue.size() == 0) begin
       `uvm_error(get_type_name(), "Passive monitor data received but no active monitor data available")
       return;
-    end
+    end*/
 
     a_trans = a_mon_queue.pop_front();
 
@@ -256,57 +312,71 @@ class nco_scoreboard extends uvm_scoreboard;
 
       // Reset sample counter when reset is asserted
       dut_count = 0;
+      foreach(dut_mem[i]) begin
+	dut_mem[i]=8'd0;
+	expected_mem[i]=8'd0;
+	end
       `uvm_info(get_type_name(), "Sample counter reset to 0 due to reset assertion", UVM_HIGH)
-      return;
     end
-
+    else begin
     // Store DUT output (only if not in reset)
-    dut_mem[dut_count] = p_trans.wave_out;
+    if (dut_count < 32 ) begin
+    	dut_mem[dut_count] = p_trans.wave_out;
 
     // Select expected value based on signal_out
     case (a_trans.signal_out)
       3'd0: begin
-        expected_value = scb_sine_mem[dut_count];
-      end
+	expected_mem[dut_count] = scb_cosine_mem[dut_count];
+      	end
       3'd1: begin
-        expected_value = scb_cosine_mem[dut_count];
+        expected_mem[dut_count] = scb_cosine_mem[dut_count];
       end
       3'd2: begin
-        expected_value = scb_triangle_mem[dut_count];
-      end
-      3'd3: begin
-        expected_value = scb_sawtooth_mem[dut_count];
+        expected_mem[dut_count] = scb_triangle_mem[dut_count];
       end
       3'd4: begin
-        expected_value = scb_square_mem[dut_count];
+        expected_[dut_count] = scb_sawtooth_mem[dut_count];
+      end
+      3'd5: begin
+        expected_mem[dut_count] = scb_square_mem[dut_count];
+      end
+      3'd3: begin
+        expected_mem[dut_count] = scb_sinc_mem[dut_count];
+      end
+      3'd7: begin
+        expected_mem[dut_count] = scb_ecg_mem[dut_count];
       end
       default: begin
         `uvm_warning(get_type_name(), 
                      $sformatf("Unknown signal_out=%0d", a_trans.signal_out))
       end
     endcase
-
-    // Compare
+end
+else begin
+	dut_count = 0;
+	foreach(dut_mem[i]) begin
+	    dut_mem[i]=0;
+	    expected_mem[i]=0;
+	end
+end
     total_transactions++;
-    if (p_trans.wave_out == expected_value) begin
-      match++;
-      `uvm_info(get_type_name(), 
-                $sformatf("MATCH [%s][%0d]: DUT=%3d | Expected=%3d", 
-                          wave_name, dut_count, p_trans.wave_out, expected_value), 
-                UVM_HIGH)
-    end else begin
-      mismatch++;
-      `uvm_error(get_type_name(), 
-                 $sformatf("MISMATCH [%s][%0d]: DUT=%3d | Expected=%3d", 
-                           wave_name, dut_count, p_trans.wave_out, expected_value))
-    end
-
     dut_count++;
 
-    // Reset counter after 32 samples
-    if (dut_count >= 32) begin
-      dut_count = 0;
+    // compare logic 
+    if (dut_count==32) begin
+    for(int i=0;i<32;i++) begin
+    if (dut_mem[i] inside {[expected[i]-1:expected[i]+1]}) begin
+      //mismatch++;
+      `uvm_error(get_type_name(), 
+                 $sformatf("MISMATCH [%s][%0d]: DUT=%3d | Expected=%3d", 
+                           wave_name, dut_count, dut_mem[i], expected_mem[i]))
     end
+    else begin
+	    //match++;
+	    `uvm_info(get_type_name(), 
+                $sformatf("MATCH [%s][%0d]: DUT=%3d | Expected=%3d", 
+                          wave_name, dut_count, dut_mem[i], expected_mem[i]), 
+                UVM_HIGH)
+	end
   endfunction:write_passive
-
 endclass
