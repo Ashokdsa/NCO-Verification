@@ -21,10 +21,10 @@ class nco_passive_monitor extends uvm_monitor;
   virtual task run_phase(uvm_phase phase);
     repeat(2)@(posedge vif.p_mon_cb);
    forever begin
-     @(posedge vif.p_mon_cb);
       seq_item.wave_out = vif.p_mon_cb.wave_out;
       item_collected_port.write(seq_item);
      `uvm_info(" PASSIVE_MONITOR ",$sformatf("[Pass_monitor T=%0t] captured output ,sent to scoreboard| seq_item.wave_out =%0d  | ",$time,seq_item.wave_out),UVM_LOW);
+     @(posedge vif.p_mon_cb);
    end
   endtask
 endclass

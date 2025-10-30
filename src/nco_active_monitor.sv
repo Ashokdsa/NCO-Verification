@@ -23,11 +23,11 @@ class nco_active_monitor extends uvm_monitor;
     repeat(2)@(posedge vif.a_mon_cb);
     forever 
     begin
-      @(posedge vif.a_mon_cb); 
       seq_item.signal_out = vif.a_mon_cb.signal_out;
       seq_item.resetn     = vif.a_mon_cb.resetn;
       item_collected_port.write(seq_item); 
       `uvm_info(" ACTIVE_MONITOR ",$sformatf("[Act_monitor T=%0t] captured inputs ,sent to scoreboard|seq_item.signal_out =%0s |seq_item.resetn = %0b | ",$time,wave'(seq_item.signal_out),seq_item.resetn),UVM_LOW);
+      @(posedge vif.a_mon_cb); 
     end
   endtask:run_phase
 endclass:nco_active_monitor

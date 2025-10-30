@@ -165,11 +165,13 @@ class nco_change_req_test extends base_test; //Change in request
   endfunction:end_of_elaboration
 
   virtual task run_phase(uvm_phase phase);
+    uvm_objection phase_done = phase.get_objection();
     super.run_phase(phase);
 		phase.raise_objection(this);
     seq = nco_change_req_sequence#(56)::type_id::create("nco_change_req_sequence");
     seq.start(nco_env.active_agent.sequencer);
 		phase.drop_objection(this);
+    phase_done.set_drain_time(this,40);    // Drain time before dropping objection
   endtask
 endclass:nco_change_req_test
 
@@ -191,11 +193,13 @@ class nco_reset_change_test extends base_test; //Trigger reset in between
   endfunction:end_of_elaboration
 
   virtual task run_phase(uvm_phase phase);
+    uvm_objection phase_done = phase.get_objection();
     super.run_phase(phase);
 		phase.raise_objection(this);
     seq = nco_reset_change_sequence::type_id::create("nco_reset_change_sequeunce");
     seq.start(nco_env.active_agent.sequencer);
 		phase.drop_objection(this);
+    phase_done.set_drain_time(this,40);    // Drain time before dropping objection
   endtask
 endclass:nco_reset_change_test
 

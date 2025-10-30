@@ -13,19 +13,19 @@ interface nco_inf(input bit clk);
   // Clocking Blocks
   //------------------------------------------------------------------------------------------
   clocking drv_cb @(posedge clk);	// Driver clocking block
-      default input #0 output #0;
+      default input #1 output #0;
       output signal_out;
       output resetn;
   endclocking
   
   clocking p_mon_cb@(posedge clk);	// Passive monitor clocking block
-      default input #0 output #0;
+      default input #1 output #0;
       input wave_out;
       input resetn;
   endclocking
   
   clocking a_mon_cb@(posedge clk);	// Active monitor clocking block
-      default input #0 output #0;
+      default input #1 output #0;
       input signal_out;
       input resetn;
   endclocking
