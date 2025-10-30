@@ -39,11 +39,13 @@ class nco_base_test extends uvm_test;  //Base Test
   endfunction:end_of_elaboration
 
   virtual task run_phase(uvm_phase phase);
+    uvm_objection phase_done = phase.get_objection();
     super.run_phase(phase);
 		phase.raise_objection(this, "Raised");
     seq = nco_sequence::type_id::create("nco_sequence");
     seq.start(nco_env.active_agent.sequencer);
 		phase.drop_objection(this, "Dropped");
+    phase_done.set_drain_time(this,40);    // Drain time before dropping objection
   endtask
 endclass:nco_base_test
 
@@ -64,11 +66,13 @@ class nco_normal_test extends base_test; //All waveforms test
   endfunction:end_of_elaboration
 
   virtual task run_phase(uvm_phase phase);
+    uvm_objection phase_done = phase.get_objection();
     super.run_phase(phase);
 		phase.raise_objection(this);
     seq = nco_normal_sequence::type_id::create("nco_normal_sequence");
     seq.start(nco_env.active_agent.sequencer);
 		phase.drop_objection(this);
+    phase_done.set_drain_time(this,40);    // Drain time before dropping objection
   endtask
 endclass: nco_normal_test
 
@@ -89,11 +93,13 @@ class nco_cont_test extends base_test; //Check Repeatibility of waveforms
   endfunction:end_of_elaboration
 
   virtual task run_phase(uvm_phase phase);
+    uvm_objection phase_done = phase.get_objection();
     super.run_phase(phase);
 		phase.raise_objection(this);
     seq = nco_cont_sequence::type_id::create("nco_cont_sequence");
     seq.start(nco_env.active_agent.sequencer);
 		phase.drop_objection(this);
+    phase_done.set_drain_time(this,40);    // Drain time before dropping objection
   endtask
 endclass:nco_cont_test
 
@@ -114,11 +120,13 @@ class nco_reset_normal_test extends base_test; //Reset Test
   endfunction:end_of_elaboration
 
   virtual task run_phase(uvm_phase phase);
+    uvm_objection phase_done = phase.get_objection();
     super.run_phase(phase);
 		phase.raise_objection(this);
     seq = nco_reset_normal_sequence#(1,0)::type_id::create("nco_reset_normal_sequence");
     seq.start(nco_env.active_agent.sequencer);
 		phase.drop_objection(this);
+    phase_done.set_drain_time(this,40);    // Drain time before dropping objection
   endtask
 endclass:nco_reset_normal_test
 
@@ -140,11 +148,13 @@ class nco_no_inp_test extends base_test; //No input is sent -> Checking for quie
   endfunction:end_of_elaboration
 
   virtual task run_phase(uvm_phase phase);
+    uvm_objection phase_done = phase.get_objection();
     super.run_phase(phase);
 		phase.raise_objection(this);
     seq = nco_no_inp_sequence#(1)::type_id::create("nco_no_ip_sequence");
     seq.start(nco_env.active_agent.sequencer);
 		phase.drop_objection(this);
+    phase_done.set_drain_time(this,40);    // Drain time before dropping objection
   endtask
 endclass:nco_no_inp_test
 
@@ -221,11 +231,13 @@ class nco_reset_diff_test extends base_test; //Trigger of reset between request 
   endfunction:end_of_elaboration
 
   virtual task run_phase(uvm_phase phase);
+    uvm_objection phase_done = phase.get_objection();
     super.run_phase(phase);
 		phase.raise_objection(this);
     seq = nco_reset_diff_sequence#(16)::type_id::create("nco_reset_change_sequence");
     seq.start(nco_env.active_agent.sequencer);
 		phase.drop_objection(this);
+    phase_done.set_drain_time(this,40);    // Drain time before dropping objection
   endtask
 endclass:nco_reset_diff_test
 
@@ -247,10 +259,12 @@ class nco_regression_test extends base_test; //Regression Test
   endfunction:end_of_elaboration
 
   virtual task run_phase(uvm_phase phase);
+    uvm_objection phase_done = phase.get_objection();
     super.run_phase(phase);
 		phase.raise_objection(this);
     seq = nco_regress_sequence::type_id::create("nco_regress_sequence");
     seq.start(nco_env.active_agent.sequencer);
 		phase.drop_objection(this);
+    phase_done.set_drain_time(this,40);    // Drain time before dropping objection
   endtask
 endclass:nco_regression_test
