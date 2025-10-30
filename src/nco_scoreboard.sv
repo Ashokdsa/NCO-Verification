@@ -115,12 +115,12 @@ class nco_scoreboard extends uvm_scoreboard;
     val = ((sine + 1.0) * 127.5);
     value = round(val);
 
-    if (n == 0 || n == 16)
-      value = 128;
-    else if (n == 8)
-      value = 255;
-    else if (n == 24)
-      value = 0;
+    // if (n == 0 || n == 16)
+      // value = 128;
+    // else if (n == 8)
+      // value = 255;
+    // else if (n == 24)
+      // value = 0;
 
     if (value < 0) value = 0;
     if (value > 255) value = 255;
@@ -145,12 +145,12 @@ class nco_scoreboard extends uvm_scoreboard;
     val = ((cosine + 1.0) * 127.5);
     value = round(val);
 
-    if (n == 0)
-      value = 255;
-    else if (n == 8 || n == 24)
-      value = 128;
-    else if (n == 16)
-      value = 0;
+    // if (n == 0)
+      // value = 255;
+    // else if (n == 8 || n == 24)
+      // value = 128;
+    // else if (n == 16)
+      // value = 0;
 
     if (value < 0) value = 0;
     if (value > 255) value = 255;
@@ -160,7 +160,6 @@ class nco_scoreboard extends uvm_scoreboard;
   task automatic triangle_wave_out(input int n, input int range, output int tri_out);
     real half_range = range / 2.0;
     real val;
-
     if (n < half_range)
       val = (255.0 * n) / half_range;
     else 
