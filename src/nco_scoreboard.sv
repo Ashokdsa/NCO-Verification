@@ -325,62 +325,53 @@ class nco_scoreboard extends uvm_scoreboard;
     end
     else begin
       // Store DUT output (only if not in reset)
-      if (dut_count < 32 ) begin
-        dut_mem[dut_count] = p_trans.wave_out;
+      dut_mem[dut_count] = p_trans.wave_out;
 
-        // Select expected value based on signal_out
-        $display("---------PTR = %0d-----------",dut_count);
-        case (a_trans.signal_out)
-          3'd0: begin
-            expected_mem[dut_count] = scb_sine_mem[dut_count];
-            $display("---------------------------OUT = %0d-------------------------------",scb_sine_mem[dut_count]);
-          end
-          3'd1: begin
-            expected_mem[dut_count] = scb_cosine_mem[dut_count];
-            $display("---------------------------OUT = %0d-------------------------------",scb_cosine_mem[dut_count]);
-          end
-          3'd2: begin
-            expected_mem[dut_count] = scb_triangle_mem[dut_count];
-            $display("---------------------------OUT = %0d-------------------------------",scb_triangle_mem[dut_count]);
-          end
-          3'd4: begin
-            expected_mem[dut_count] = scb_sawtooth_mem[dut_count];
-            $display("---------------------------OUT = %0d-------------------------------",scb_sawtooth_mem[dut_count]);
-          end
-          3'd5: begin
-            expected_mem[dut_count] = scb_square_mem[dut_count];
-            $display("---------------------------OUT = %0d-------------------------------",scb_square_mem[dut_count]);
-          end
-          3'd3: begin
-            expected_mem[dut_count] = scb_sinc_mem[dut_count];
-            $display("---------------------------OUT = %0d-------------------------------",scb_sinc_mem[dut_count]);
-          end
-          3'd7: begin
-            expected_mem[dut_count] = scb_ecg_mem[dut_count];
-            $display("---------------------------OUT = %0d-------------------------------",scb_ecg_mem[dut_count]);
-          end
-          3'd6: begin
-            expected_mem[dut_count] = scb_gaussian_mem[dut_count];
-            $display("---------------------------OUT = %0d-------------------------------",scb_gaussian_mem[dut_count]);
-          end
-          default: begin
-            `uvm_warning(get_type_name(), 
-              $sformatf("Unknown signal_out=%0d", a_trans.signal_out))
-          end
-        endcase
-      end
-      else begin
-        dut_count = 0;
-        foreach(dut_mem[i]) begin
-          dut_mem[i]=0;
-          expected_mem[i]=0;
+      // Select expected value based on signal_out
+      $display("---------PTR = %0d-----------",dut_count);
+      case (a_trans.signal_out)
+        3'd0: begin
+          expected_mem[dut_count] = scb_sine_mem[dut_count];
+          $display("---------------------------OUT = %0d-------------------------------",scb_sine_mem[dut_count]);
         end
-      end
-      total_transactions++;
+        3'd1: begin
+          expected_mem[dut_count] = scb_cosine_mem[dut_count];
+          $display("---------------------------OUT = %0d-------------------------------",scb_cosine_mem[dut_count]);
+        end
+        3'd2: begin
+          expected_mem[dut_count] = scb_triangle_mem[dut_count];
+          $display("---------------------------OUT = %0d-------------------------------",scb_triangle_mem[dut_count]);
+        end
+        3'd4: begin
+          expected_mem[dut_count] = scb_sawtooth_mem[dut_count];
+          $display("---------------------------OUT = %0d-------------------------------",scb_sawtooth_mem[dut_count]);
+        end
+        3'd5: begin
+          expected_mem[dut_count] = scb_square_mem[dut_count];
+          $display("---------------------------OUT = %0d-------------------------------",scb_square_mem[dut_count]);
+        end
+        3'd3: begin
+          expected_mem[dut_count] = scb_sinc_mem[dut_count];
+          $display("---------------------------OUT = %0d-------------------------------",scb_sinc_mem[dut_count]);
+        end
+        3'd7: begin
+          expected_mem[dut_count] = scb_ecg_mem[dut_count];
+          $display("---------------------------OUT = %0d-------------------------------",scb_ecg_mem[dut_count]);
+        end
+        3'd6: begin
+          expected_mem[dut_count] = scb_gaussian_mem[dut_count];
+          $display("---------------------------OUT = %0d-------------------------------",scb_gaussian_mem[dut_count]);
+        end
+        default: begin
+          `uvm_warning(get_type_name(), 
+            $sformatf("Unknown signal_out=%0d", a_trans.signal_out))
+        end
+      endcase
       dut_count++;
+      total_transactions++;
 
       // compare logic 
-      if (dut_count==32) begin
+      if (dut_count >= 32) begin
         $display("COMPARE RESULTS");
         for(int i=0;i<32;i++) begin
           if (dut_mem[i] inside {expected_mem[i]-1,expected_mem[i],expected_mem[i]+1}) begin
@@ -396,6 +387,11 @@ class nco_scoreboard extends uvm_scoreboard;
               wave_name, dut_count, dut_mem[i], expected_mem[i]), 
               UVM_MEDIUM)
           end
+        end
+        dut_count = 0;
+        foreach(dut_mem[i]) begin
+          dut_mem[i]=0;
+          expected_mem[i]=0;
         end
       end
     end
