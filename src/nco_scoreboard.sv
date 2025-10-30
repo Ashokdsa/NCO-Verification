@@ -385,7 +385,7 @@ class nco_scoreboard extends uvm_scoreboard;
             `uvm_info(get_type_name(), 
               $sformatf("MISMATCH [%s][%0d]: DUT=%3d | Expected=%3d", 
               wave_name, dut_count, dut_mem[i], expected_mem[i]), 
-              UVM_MEDIUM)
+              UVM_NONE)
           end
         end
         dut_count = 0;
