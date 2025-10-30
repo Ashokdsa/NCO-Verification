@@ -370,7 +370,7 @@ class nco_scoreboard extends uvm_scoreboard;
       // compare logic 
       if (dut_count==32) begin
         for(int i=0;i<32;i++) begin
-          if (dut_mem[i] inside {[expected_mem[i]-1:expected_mem[i]+1]}) begin
+          if (dut_mem[i] inside {expected_mem[i]-1,expected_mem[i],expected_mem[i]+1}) begin
             //match++;
             `uvm_error(get_type_name(), 
               $sformatf("MATCH [%s][%0d]: DUT=%3d | Expected=%3d", 
