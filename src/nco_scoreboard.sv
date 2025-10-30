@@ -162,7 +162,7 @@ class nco_scoreboard extends uvm_scoreboard;
     real val;
     if (n < half_range)
       val = (255.0 * n) / half_range;
-    else 
+    else
       val = (255.0 * (range - n)) / half_range;
 
     tri_out = round(val);
@@ -221,7 +221,7 @@ class nco_scoreboard extends uvm_scoreboard;
     if (value > 255) value = 255;
   endtask
 
-  // gaussian ecg and sync 
+  // gaussian ecg and sync
 
   function void generate_reference_waveforms();
     real sine, cosine, sinc, x;
@@ -233,9 +233,9 @@ class nco_scoreboard extends uvm_scoreboard;
     scb_sinc_mem = '{122, 130, 138, 143, 143, 137, 125, 112, 102, 100, 109, 130, 160, 194, 225, 247, 255, 247, 225, 194, 160, 130, 109, 100, 102, 112, 125, 137, 143, 143, 138, 130};
 
     // Generate all 5 waveforms
-    for (int n = 0; n < 32; n++) begin
+    for (int n = 0; n < `range; n++) begin
       // Sine wave
-      x_val(n, 32.0, x);
+      x_val(n, `RANGE, x);
       sine_function(x, sine);
       sine_wave_out(sine, n, temp_val);
       scb_sine_mem[n] = temp_val[7:0];
@@ -246,25 +246,25 @@ class nco_scoreboard extends uvm_scoreboard;
       scb_cosine_mem[n] = temp_val[7:0];
 
       // Triangle wave
-      triangle_wave_out(n, 32, temp_val);
+      triangle_wave_out(n, `range, temp_val);
       scb_triangle_mem[n] = temp_val[7:0];
 
       // Sawtooth wave
-      sawtooth_wave_out(n, 32, temp_val);
+      sawtooth_wave_out(n, `range, temp_val);
       scb_sawtooth_mem[n] = temp_val[7:0];
 
       // Square wave
-      square_wave_out(n, 32, temp_val);
+      square_wave_out(n, `range, temp_val);
       scb_square_mem[n] = temp_val[7:0];
 
-      // Sinc wave 
+      // Sinc wave
       // x_sinc(n, 32.0, x);
       // sinc_function(x, sinc);
       // sinc_wave_out(sinc, n, temp_val);
       // scb_sinc_mem[n] = temp_val[7:0];
     end
 
-    for (int j = 0; j < 32; j++) begin
+    for (int j = 0; j < `range; j++) begin
       if(j%2)
         scb_gaussian_mem[j]=scb_sine_mem[31-j/2];
       else
@@ -282,15 +282,15 @@ class nco_scoreboard extends uvm_scoreboard;
 
   wave wave_name;
 
-  virtual function void write_active(nco_sequence_item a_transaction); 
+  virtual function void write_active(nco_sequence_item a_transaction);
     // Store transaction from active monitor
     nco_sequence_item a_trans = a_transaction;
     wave_name = wave'(a_trans.signal_out);
     a_mon_queue.push_back(a_trans);
 
-    `uvm_info(get_type_name(), 
-      $sformatf("Active Monitor: Received signal_out=%0d, reset=%0b", 
-      a_trans.signal_out, a_trans.resetn), 
+    `uvm_info(get_type_name(),
+      $sformatf("Active Monitor: Received signal_out=%0d, reset=%0b",
+      a_trans.signal_out, a_trans.resetn),
       UVM_HIGH)
 
   endfunction:write_active
@@ -306,15 +306,15 @@ class nco_scoreboard extends uvm_scoreboard;
       total_transactions++;
       if (p_trans.wave_out == 8'h00) begin
         match++;
-        `uvm_info(get_type_name(), 
-          $sformatf("RESET MATCH: DUT output=0x%0h (Expected 0x00 during reset)", 
-          p_trans.wave_out), 
+        `uvm_info(get_type_name(),
+          $sformatf("RESET MATCH: DUT output=0x%0h (Expected 0x00 during reset)",
+          p_trans.wave_out),
           UVM_NONE)
-      end 
+      end
       else begin
         mismatch++;
-        `uvm_error(get_type_name(), 
-          $sformatf("RESET MISMATCH: DUT output=0x%0h (Expected 0x00 during reset)", 
+        `uvm_error(get_type_name(),
+          $sformatf("RESET MISMATCH: DUT output=0x%0h (Expected 0x00 during reset)",
           p_trans.wave_out))
       end
 
@@ -366,7 +366,7 @@ class nco_scoreboard extends uvm_scoreboard;
           $display("---------------------------OUT = %0d-------------------------------",scb_gaussian_mem[dut_count]);
         end
         default: begin
-          `uvm_warning(get_type_name(), 
+          `uvm_warning(get_type_name(),
             $sformatf("Unknown signal_out=%0d", a_trans.signal_out))
           expected_mem[dut_count] = 'd0;
         end
@@ -374,21 +374,21 @@ class nco_scoreboard extends uvm_scoreboard;
       dut_count++;
       total_transactions++;
 
-      // compare logic 
-      if (dut_count >= 32) begin
+      // compare logic
+      if (dut_count >= `range) begin
         $display("COMPARE RESULTS");
-        for(int i=0;i<32;i++) begin
+        for(int i=0;i<`range;i++) begin
           if (dut_mem[i] inside {expected_mem[i]-1,expected_mem[i],expected_mem[i]+1}) begin
             //match++;
-            `uvm_error(get_type_name(), 
-              $sformatf("MATCH [%s][%0d]: DUT=%3d | Expected=%3d", 
+            `uvm_error(get_type_name(),
+              $sformatf("MATCH [%s][%0d]: DUT=%3d | Expected=%3d",
               wave_name, dut_count, dut_mem[i], expected_mem[i]))
           end
           else begin
             //mismatch++;
-            `uvm_info(get_type_name(), 
-              $sformatf("MISMATCH [%s][%0d]: DUT=%3d | Expected=%3d", 
-              wave_name, dut_count, dut_mem[i], expected_mem[i]), 
+            `uvm_info(get_type_name(),
+              $sformatf("MISMATCH [%s][%0d]: DUT=%3d | Expected=%3d",
+              wave_name, dut_count, dut_mem[i], expected_mem[i]),
               UVM_NONE)
           end
         end
