@@ -227,7 +227,7 @@ endclass:nco_reset_diff_test
 
 
 class nco_regression_test extends base_test; //Regression Test
-  `uvm_component_utils(nco_reset_diff_test)    //Factory Registration
+  `uvm_component_utils(nco_regression_test)    //Factory Registration
   nco_regress_sequence seq;
 
   function new(string name = "nco_reset_diff_test",uvm_component parent = null);
