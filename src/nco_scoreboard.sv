@@ -227,7 +227,7 @@ class nco_scoreboard extends uvm_scoreboard;
     real sine, cosine, sinc, x;
     int temp_val;
 
-    `uvm_info(get_type_name(), "Generating reference waveforms...", UVM_MEDIUM)
+    `uvm_info(get_type_name(), "Generating reference waveforms...", UVM_NONE)
 
     scb_ecg_mem = '{72,73,76,83,88,83,76,73,72,59,255,0,72,72,73,76,83,95,111,125,131,125,111,95,83,76,73,72,72,72,72,72};
     scb_sinc_mem = '{122, 130, 138, 143, 143, 137, 125, 112, 102, 100, 109, 130, 160, 194, 225, 247, 255, 247, 225, 194, 160, 130, 109, 100, 102, 112, 125, 137, 143, 143, 138, 130};
@@ -272,9 +272,12 @@ class nco_scoreboard extends uvm_scoreboard;
     end
     scb_mem_generated = 1;
     `uvm_info(get_type_name(), "Reference waveforms generated successfully", UVM_MEDIUM)
-    $display("SINE COSINE SQUARE TRIANGLE SAWTOOTH ECG GAUSSIAN SINC");
-    foreach(scb_sine_mem[i])
-      $display("%0d\t%0d\t%0d\t%0d\t%0d\t%0d\t%0d\t%0d",scb_sine_mem[i],scb_cosine_mem[i],scb_square_mem[i],scb_triangle_mem[i],scb_sawtooth_mem[i],scb_ecg_mem[i],scb_gaussian_mem[i],scb_sinc_mem[i]);
+    if(get_report_verbosity_level >= UVM_DEBUG)
+    begin
+      $display("SINE COSINE SQUARE TRIANGLE SAWTOOTH ECG GAUSSIAN SINC");
+      foreach(scb_sine_mem[i])
+        $display("%0d\t%0d\t%0d\t%0d\t%0d\t%0d\t%0d\t%0d",scb_sine_mem[i],scb_cosine_mem[i],scb_square_mem[i],scb_triangle_mem[i],scb_sawtooth_mem[i],scb_ecg_mem[i],scb_gaussian_mem[i],scb_sinc_mem[i]);
+    end
   endfunction
 
   wave wave_name;
@@ -306,7 +309,7 @@ class nco_scoreboard extends uvm_scoreboard;
         `uvm_info(get_type_name(), 
           $sformatf("RESET MATCH: DUT output=0x%0h (Expected 0x00 during reset)", 
           p_trans.wave_out), 
-          UVM_MEDIUM)
+          UVM_NONE)
       end 
       else begin
         mismatch++;
@@ -365,6 +368,7 @@ class nco_scoreboard extends uvm_scoreboard;
         default: begin
           `uvm_warning(get_type_name(), 
             $sformatf("Unknown signal_out=%0d", a_trans.signal_out))
+          expected_mem[dut_count] = 'd0;
         end
       endcase
       dut_count++;

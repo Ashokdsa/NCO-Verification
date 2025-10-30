@@ -1,7 +1,7 @@
 QUESTA := /home/share/questa.csh
 SHELL := /bin/csh
 TEST ?= nco_normal_test
-V ?= UVM_DEBUG
+V ?= UVM_NONE
 
 .ONESHELL:	
 all:

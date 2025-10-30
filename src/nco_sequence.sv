@@ -78,6 +78,36 @@ class nco_reset_normal_sequence#(int cnt = 1, int signal = 0) extends nco_sequen
   endtask
 endclass:nco_reset_normal_sequence
 
+class nco_no_inp_main_sequence#(int cnt = 1) extends nco_sequence; //NO INPUT IS SENT CAUSING OUTPUT TO BE IN QUIET STATE
+  `uvm_object_param_utils(nco_no_inp_main_sequence#(cnt))
+
+  function new(string name = "nco_no_inp_main_sequence");
+    super.new(name);
+  endfunction
+
+  task body();
+    repeat(cnt) begin
+      seq = nco_sequence_item::type_id::create("seq");
+      seq.rand_mode(0);
+
+      seq.in_btw = 0;
+      seq.signal_out = 1;
+      wait_for_grant();
+      seq.resetn = 1;
+      send_request(seq);
+      wait_for_item_done();
+
+      seq = nco_sequence_item::type_id::create("seq");
+      seq.rand_mode(0);
+      seq.in_btw = 0;
+      wait_for_grant();
+      seq.resetn = 1;
+      send_request(seq);
+      wait_for_item_done();
+    end
+  endtask
+endclass:nco_no_inp_main_sequence
+
 class nco_no_inp_sequence#(int cnt = 1) extends nco_sequence; //NO INPUT IS SENT CAUSING OUTPUT TO BE IN QUIET STATE
   `uvm_object_param_utils(nco_no_inp_sequence#(cnt))
 
@@ -89,6 +119,7 @@ class nco_no_inp_sequence#(int cnt = 1) extends nco_sequence; //NO INPUT IS SENT
     repeat(cnt) begin
       seq = nco_sequence_item::type_id::create("seq");
       seq.rand_mode(0);
+
       seq.in_btw = 0;
       wait_for_grant();
       seq.resetn = 1;

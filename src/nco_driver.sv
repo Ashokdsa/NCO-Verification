@@ -30,11 +30,11 @@ class nco_driver extends uvm_driver #(nco_sequence_item);
 
     if(req.resetn)//rstn==1 
     begin
-   if(req.signal_out==3'dx)
-    	begin
-      repeat(1)@(posedge vif.drv_cb);
+      if(req.signal_out==3'dx)
+      begin
+        repeat(1)@(posedge vif.drv_cb);
       end
-   else if(req.in_btw)
+      else if(req.in_btw)
       begin//1
         vif.drv_cb.resetn<=1;
         vif.drv_cb.signal_out<=req.signal_out;

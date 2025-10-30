@@ -133,7 +133,7 @@ endclass:nco_reset_normal_test
 
 class nco_no_inp_test extends base_test; //No input is sent -> Checking for quiet state
   `uvm_component_utils(nco_no_inp_test)    //Factory Registration
-  nco_no_inp_sequence#(1) seq;
+  nco_no_inp_main_sequence#(1) seq;
 
   function new(string name = "nco_no_inp_test",uvm_component parent = null);
     super.new(name,parent);
@@ -151,7 +151,7 @@ class nco_no_inp_test extends base_test; //No input is sent -> Checking for quie
     uvm_objection phase_done = phase.get_objection();
     super.run_phase(phase);
 		phase.raise_objection(this);
-    seq = nco_no_inp_sequence#(1)::type_id::create("nco_no_ip_sequence");
+    seq = nco_no_inp_main_sequence#(1)::type_id::create("nco_no_ip_sequence");
     seq.start(nco_env.active_agent.sequencer);
 		phase.drop_objection(this);
     phase_done.set_drain_time(this,40);    // Drain time before dropping objection
