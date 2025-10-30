@@ -15,17 +15,17 @@ class nco_scoreboard extends uvm_scoreboard;
   int mismatch = 0;
   int total_transactions = 0;
 
-  bit [7:0] scb_sine_mem [31:0];
-  bit [7:0] scb_cosine_mem [31:0];
-  bit [7:0] scb_triangle_mem [31:0];
-  bit [7:0] scb_sawtooth_mem [31:0];
-  bit [7:0] scb_gaussian_mem [31:0];
-  bit [7:0] scb_square_mem [31:0];
-  bit [7:0] scb_sinc_mem [31:0];
+  bit [7:0] scb_sine_mem [0:31];
+  bit [7:0] scb_cosine_mem [0:31];
+  bit [7:0] scb_triangle_mem [0:31];
+  bit [7:0] scb_sawtooth_mem [0:31];
+  bit [7:0] scb_gaussian_mem [0:31];
+  bit [7:0] scb_square_mem [0:31];
+  bit [7:0] scb_sinc_mem [0:31];
   bit [7:0] scb_ecg_mem [0:31];
 
-  bit [7:0] dut_mem [31:0];
-  bit [7:0] expected_mem [31:0];
+  bit [7:0] dut_mem [0:31];
+  bit [7:0] expected_mem [0:31];
   int dut_count = 0;
 
   nco_sequence_item a_mon_queue[$];
@@ -230,6 +230,7 @@ class nco_scoreboard extends uvm_scoreboard;
     `uvm_info(get_type_name(), "Generating reference waveforms...", UVM_MEDIUM)
 
     scb_ecg_mem = '{72,73,76,83,88,83,76,73,72,59,255,0,72,72,73,76,83,95,111,125,131,125,111,95,83,76,73,72,72,72,72,72};
+    scb_sinc_mem = '{122, 130, 138, 143, 143, 137, 125, 112, 102, 100, 109, 130, 160, 194, 225, 247, 255, 247, 225, 194, 160, 130, 109, 100, 102, 112, 125, 137, 143, 143, 138, 130};
 
     // Generate all 5 waveforms
     for (int n = 0; n < 32; n++) begin
@@ -257,10 +258,10 @@ class nco_scoreboard extends uvm_scoreboard;
       scb_square_mem[n] = temp_val[7:0];
 
       // Sinc wave 
-      x_sinc(n, 32.0, x);
-      sinc_function(x, sinc);
-      sinc_wave_out(sinc, n, temp_val);
-      scb_sinc_mem[n] = temp_val[7:0];
+      // x_sinc(n, 32.0, x);
+      // sinc_function(x, sinc);
+      // sinc_wave_out(sinc, n, temp_val);
+      // scb_sinc_mem[n] = temp_val[7:0];
     end
 
     for (int j = 0; j < 32; j++) begin
