@@ -23,22 +23,26 @@ endproperty
 
 property p5;
   @(posedge clk) disable iff (!resetn)
-    $changed(signal_out) |-> ##1 $changed(wave_out);
+    $changed(signal_out) |-> ##2 $changed(wave_out);
 endproperty
 
- /* Reset_trigger:assert property(p1)
+/* Reset_trigger:assert property(p1)
+    $display("PASSED Reset_trigger assertion");
   else
-    $error("Failed Reset_trigger assertion");
+    $error("FAILED Reset_trigger assertion");
 
   Signal_Change:assert property(p2)
+     $display("PASSED Signal_Change assertion");
   else
     $error("Failed Signal_Change assertion");
 
   Clock_Toggle:assert property(p4)
+    $display("PASSED Clock Toggle assertion");
   else
     $error("Failed Clock Toggle assertion");
 
   Transition_time:assert property(p5)
+     $display("PASSED Transition_time assertion");
   else
     $error("Failed Transition_time assertion");
 */
