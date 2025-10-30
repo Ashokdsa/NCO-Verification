@@ -14,20 +14,34 @@ class nco_subscriber extends uvm_subscriber#(nco_sequence_item);
   endgroup:input_cg
   
   covergroup output_cg;     // Output coverage group
-		c1 : coverpoint out_pkt.wave_out;
-    /*
-    {
-			bins sine = ();
-			bins cosine = ();
-			bins flat_zero = 0[*32];
-			bins triangular = ();
-			bins sinc = ();
-			bins sawtooth = ();
-			bins square = ();
-			bins gaussian_chirplet = ();
-			bins ecg = ();
-		}
-    */
+   	cg_waveforms : coverpoint out_pkt.wave_out {
+    	// Sine wave transitions (smooth curve)
+    	bins sine = (128 => 152 => 176 => 198 => 218 => 234 => 245 => 253 => 255 => 253 => 245 => 234 => 218 => 198 => 176 => 152 => 128 => 103 => 79 => 57 => 37 => 21 => 10 => 2 => 0 => 2 => 10 => 21 => 37 => 57 => 79 => 103 => 128);
+    
+    	// Cosine wave transitions (phase-shifted sine)
+    	bins cosine = (255 => 253 => 245 => 234 => 218 => 198 => 176 => 152 => 128 => 103 => 79 => 57 => 37 => 21 => 10 => 2 => 0 => 2 => 10 => 21 => 37 => 57 => 79 => 103 => 127 => 152 => 176 => 198 => 218 => 234 => 245 => 253 => 255);
+    
+    	// Flat zero (all zeros) - though your data doesn't have this pattern
+    	bins flat_zero = (0[*32]);
+    
+    	// Triangular wave transitions (linear ramp)
+    	bins triangular = (0 => 16 => 32 => 48 => 64 => 80 => 96 => 112 => 128 => 143 => 159 => 175 => 191 => 207 => 223 => 239 => 255 => 239 => 223 => 207 => 191 => 175 => 159 => 143 => 128 =>112 => 96 => 80 => 64 => 48 => 32 => 16 => 0);
+    
+    	// Sinc function transitions (oscillatory decay)
+    	bins sinc = (122 => 130 => 138 => 143 => 143 => 137 => 125 => 112 => 102 => 100 => 109 => 130 => 160 => 194 => 225 => 247 => 255 => 247 => 225 => 194 => 160 => 130 => 109 => 100 => 102 => 112 => 125 => 137 => 143 => 143 => 138 => 130 => 122);
+    
+    	// Sawtooth wave transitions (linear increasing)
+    	bins sawtooth = (0 => 8 => 16 => 24 => 32 => 40 => 48 => 56 => 64 => 72 => 80 => 88 => 96 => 104 => 112 => 120 => 128 => 135 => 143 => 151 => 159 => 167 => 175 => 183 => 191 => 199 => 207 => 215 => 223 => 231 => 239 => 247 => 255);
+    
+    	// Square wave transitions (high then low)
+    	bins square = (255 => 255 => 255 => 255 => 255 => 255 => 255 => 255 => 255 => 255 => 255 => 255 => 255 => 255 => 255 => 255 => 0 => 0 => 0 => 0 => 0 => 0 => 0 => 0 => 0 => 0 => 0 => 0 => 0 => 0 => 0 => 0);
+    
+    	// Gaussian chirplet transitions (complex pattern)
+    	bins gaussian_chirplet = (128 => 103 => 152 => 79 => 176 => 57 => 198 => 37 => 218 => 21 => 234 => 10 => 245 => 2 => 253 => 0 => 255 => 2 => 253 => 10 => 245 => 21 => 234 => 37 => 218 => 57 => 198 => 79 => 176 => 103 => 152 => 128);
+    
+    	// ECG waveform transitions (heartbeat pattern)
+    	bins ecg = (72 => 73 => 76 => 83 => 88 => 83 => 76 => 73 => 72 => 59 => 255 => 0 => 72 => 72 => 73 => 76 => 83 => 95 => 111 => 125 => 131 => 125 => 111 => 95 => 83 => 76 => 73 => 72 => 72 => 72 => 72 => 72);
+} 
   endgroup:output_cg
 
   function new(string name = "subs", uvm_component parent = null);
