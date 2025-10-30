@@ -22,7 +22,7 @@ class nco_scoreboard extends uvm_scoreboard;
   bit [7:0] scb_gaussian_mem [31:0];
   bit [7:0] scb_square_mem [31:0];
   bit [7:0] scb_sinc_mem [31:0];
-  bit [7:0] scb_ecg_mem [31:0];
+  bit [7:0] scb_ecg_mem [0:31];
 
   bit [7:0] dut_mem [31:0];
   bit [7:0] expected_mem [31:0];
@@ -172,7 +172,7 @@ class nco_scoreboard extends uvm_scoreboard;
   // ---------- Sawtooth wave ----------
   task automatic sawtooth_wave_out(input int n, input int range, output int saw_out);
     real val;
-    val = (255.0 * n) / (range - 1);
+    val = (255.0 * n) / (range);
     saw_out = round(val);
   endtask
 
@@ -371,15 +371,15 @@ class nco_scoreboard extends uvm_scoreboard;
       if (dut_count==32) begin
         for(int i=0;i<32;i++) begin
           if (dut_mem[i] inside {[expected_mem[i]-1:expected_mem[i]+1]}) begin
-            //mismatch++;
+            //match++;
             `uvm_error(get_type_name(), 
-              $sformatf("MISMATCH [%s][%0d]: DUT=%3d | Expected=%3d", 
+              $sformatf("MATCH [%s][%0d]: DUT=%3d | Expected=%3d", 
               wave_name, dut_count, dut_mem[i], expected_mem[i]))
           end
           else begin
-            //match++;
+            //mismatch++;
             `uvm_info(get_type_name(), 
-              $sformatf("MATCH [%s][%0d]: DUT=%3d | Expected=%3d", 
+              $sformatf("MISMATCH [%s][%0d]: DUT=%3d | Expected=%3d", 
               wave_name, dut_count, dut_mem[i], expected_mem[i]), 
               UVM_MEDIUM)
           end
