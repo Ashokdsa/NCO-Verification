@@ -1,6 +1,6 @@
 // NCO Scoreboard collects transactions from both active and passive monitors via analysis imps.
 
-typedef enum {SINE,COSINE,TRIANGULAR,SINC,SAWTOOTH,SQUARE,GAUSSIAN_CHIRPLET,ECG}wave;
+typedef enum {SINE,COSINE,TRIANGULAR,SINC,SAWTOOTH,SQUARE,GAUSSIAN_CHIRPLET,ECG,NOT_DEFINED}wave;
 
 `uvm_analysis_imp_decl(_active)
 `uvm_analysis_imp_decl(_passive)
@@ -27,6 +27,7 @@ class nco_scoreboard extends uvm_scoreboard;
 
   bit [`WAVE_WIDTH-1:0] dut_mem [0:`range-1];
   bit [`WAVE_WIDTH-1:0] expected_mem [0:`range-1];
+  logic [`SELECT_WIDTH:0] signal_type [0:`range-1];
   int dut_count = 0;
 
   nco_sequence_item a_mon_queue[$];
@@ -324,6 +325,7 @@ class nco_scoreboard extends uvm_scoreboard;
       foreach(dut_mem[i]) begin
         dut_mem[i]=8'd0;
         expected_mem[i]=8'd0;
+        signal_type[i] = `WAVES;
       end
       `uvm_info(get_type_name(), "Sample counter reset to 0 due to reset assertion", UVM_HIGH)
     end
@@ -372,6 +374,7 @@ class nco_scoreboard extends uvm_scoreboard;
           expected_mem[dut_count] = 'd0;
         end
       endcase
+      signal_type[dut_count] = $isunknown(a_trans.signal_out) ? `WAVES: a_trans.signal_out;
       dut_count++;
       total_transactions++;
 
@@ -383,19 +386,20 @@ class nco_scoreboard extends uvm_scoreboard;
             //match++;
             `uvm_info(get_type_name(),
               $sformatf("MATCH [%s][%0d]: DUT=%3d | Expected=%3d",
-              wave_name, i, dut_mem[i], expected_mem[i]),UVM_NONE)
+              wave'(signal_type[i]), i, dut_mem[i], expected_mem[i]),UVM_NONE)
           end
           else begin
             //mismatch++;
             `uvm_error(get_type_name(),
               $sformatf("MISMATCH [%s][%0d]: DUT=%3d | Expected=%3d",
-              wave_name, i, dut_mem[i], expected_mem[i]))
+              wave'(signal_type[i]), i, dut_mem[i], expected_mem[i]))
           end
         end
         dut_count = 0;
         foreach(dut_mem[i]) begin
           dut_mem[i]=0;
           expected_mem[i]=0;
+          signal_type[i] = `WAVES;
         end
       end
     end
