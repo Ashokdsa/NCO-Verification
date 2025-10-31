@@ -1,4 +1,5 @@
 // NCO Scoreboard collects transactions from both active and passive monitors via analysis imps.
+
 typedef enum {SINE,COSINE,TRIANGULAR,SINC,SAWTOOTH,SQUARE,GAUSSIAN_CHIRPLET,ECG}wave;
 
 `uvm_analysis_imp_decl(_active)
@@ -15,17 +16,17 @@ class nco_scoreboard extends uvm_scoreboard;
   int mismatch = 0;
   int total_transactions = 0;
 
-  bit [7:0] scb_sine_mem [0:31];
-  bit [7:0] scb_cosine_mem [0:31];
-  bit [7:0] scb_triangle_mem [0:31];
-  bit [7:0] scb_sawtooth_mem [0:31];
-  bit [7:0] scb_gaussian_mem [0:31];
-  bit [7:0] scb_square_mem [0:31];
-  bit [7:0] scb_sinc_mem [0:31];
-  bit [7:0] scb_ecg_mem [0:31];
+  bit [`WAVE_WIDTH-1:0] scb_sine_mem [0:`range-1];
+  bit [`WAVE_WIDTH-1:0] scb_cosine_mem [0:`range-1];
+  bit [`WAVE_WIDTH-1:0] scb_triangle_mem [0:`range-1];
+  bit [`WAVE_WIDTH-1:0] scb_sawtooth_mem [0:`range-1];
+  bit [`WAVE_WIDTH-1:0] scb_gaussian_mem [0:`range-1];
+  bit [`WAVE_WIDTH-1:0] scb_square_mem [0:`range-1];
+  bit [`WAVE_WIDTH-1:0] scb_sinc_mem [0:`range-1];
+  bit [`WAVE_WIDTH-1:0] scb_ecg_mem [0:`range-1];
 
-  bit [7:0] dut_mem [0:31];
-  bit [7:0] expected_mem [0:31];
+  bit [`WAVE_WIDTH-1:0] dut_mem [0:`range-1];
+  bit [`WAVE_WIDTH-1:0] expected_mem [0:`range-1];
   int dut_count = 0;
 
   nco_sequence_item a_mon_queue[$];
@@ -123,7 +124,7 @@ class nco_scoreboard extends uvm_scoreboard;
       // value = 0;
 
     if (value < 0) value = 0;
-    if (value > 255) value = 255;
+    if (value > `MAX) value = `MAX;
   endtask
 
   // ---------- Cosine computation ----------
@@ -153,7 +154,7 @@ class nco_scoreboard extends uvm_scoreboard;
       // value = 0;
 
     if (value < 0) value = 0;
-    if (value > 255) value = 255;
+    if (value > `MAX) value = `MAX;
   endtask
 
   // ---------- Triangle wave ----------
@@ -161,9 +162,9 @@ class nco_scoreboard extends uvm_scoreboard;
     real half_range = range / 2.0;
     real val;
     if (n < half_range)
-      val = (255.0 * n) / half_range;
+      val = (`MAX * n) / half_range;
     else
-      val = (255.0 * (range - n)) / half_range;
+      val = (`MAX * (range - n)) / half_range;
 
     tri_out = round(val);
   endtask
@@ -171,7 +172,7 @@ class nco_scoreboard extends uvm_scoreboard;
   // ---------- Sawtooth wave ----------
   task automatic sawtooth_wave_out(input int n, input int range, output int saw_out);
     real val;
-    val = (255.0 * n) / (range);
+    val = (`MAX * n) / (range);
     saw_out = round(val);
   endtask
 
@@ -181,7 +182,7 @@ class nco_scoreboard extends uvm_scoreboard;
     int idx = n % range;
 
     if (idx < half_range)
-      sq_out = 255;
+      sq_out = `MAX;
     else
       sq_out = 0;
   endtask
@@ -218,7 +219,7 @@ class nco_scoreboard extends uvm_scoreboard;
 
     // Clamp to valid 8-bit range
     if (value < 0) value = 0;
-    if (value > 255) value = 255;
+    if (value > `MAX) value = `MAX;
   endtask
 
   // gaussian ecg and sync
@@ -380,16 +381,15 @@ class nco_scoreboard extends uvm_scoreboard;
         for(int i=0;i<`range;i++) begin
           if (dut_mem[i] inside {expected_mem[i]-1,expected_mem[i],expected_mem[i]+1}) begin
             //match++;
-            `uvm_error(get_type_name(),
+            `uvm_info(get_type_name(),
               $sformatf("MATCH [%s][%0d]: DUT=%3d | Expected=%3d",
-              wave_name, dut_count, dut_mem[i], expected_mem[i]))
+              wave_name, i, dut_mem[i], expected_mem[i]),UVM_NONE)
           end
           else begin
             //mismatch++;
-            `uvm_info(get_type_name(),
+            `uvm_error(get_type_name(),
               $sformatf("MISMATCH [%s][%0d]: DUT=%3d | Expected=%3d",
-              wave_name, dut_count, dut_mem[i], expected_mem[i]),
-              UVM_NONE)
+              wave_name, i, dut_mem[i], expected_mem[i]))
           end
         end
         dut_count = 0;
