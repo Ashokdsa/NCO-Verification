@@ -1,0 +1,14 @@
+var g_data = {
+c1205:[4,'signal_out_cp',[],,'1204',1,1,'input_cg','1199','/nco_pkg/nco_subscriber',[[],[0,'1','32',,'auto[0]'],[0,'1','32',,'auto[1]'],[0,'1','32',,'auto[2]'],[0,'1','32',,'auto[3]'],[0,'1','33',,'auto[4]'],[0,'1','32',,'auto[5]'],[0,'1','32',,'auto[6]'],[0,'1','32',,'auto[7]']],[]],
+c1206:[4,'resetn_cp',[],,'1204',1,1,'input_cg','1199','/nco_pkg/nco_subscriber',[[],[0,'1','1',,'auto[0]'],[0,'1','257',,'auto[1]']],[]],
+c1207:[5,'signali_outxresetn',['signal_out_cp','resetn_cp'],,'1204',1,1,'input_cg','1199','/nco_pkg/nco_subscriber',[[],[4,'1','32',,'auto[0]','auto[1]'],[4,'1','32',,'auto[1]','auto[1]'],[4,'1','32',,'auto[2]','auto[1]'],[4,'1','32',,'auto[3]','auto[1]'],[4,'1','33',,'auto[4]','auto[1]'],[4,'1','32',,'auto[5]','auto[1]'],[4,'1','32',,'auto[6]','auto[1]'],[4,'1','32',,'auto[7]','auto[1]']],[[],[4,'1','0',1,'auto[0]','auto[0]'],[4,'1','0',1,'auto[1]','auto[0]']
+,[4,'1','0',1,'auto[2]','auto[0]'],[4,'1','0',1,'auto[3]','auto[0]'],[4,'1','0',1,'auto[4]','auto[0]'],[4,'1','0',1,'auto[5]','auto[0]'],[4,'1','0',1,'auto[6]','auto[0]'],[4,'1','0',1,'auto[7]','auto[0]']]],
+c1211:[4,'cg_waveforms',[],,'1210',2,1,'\\/nco_pkg::nco_subscriber::output_cg ','1199','/nco_pkg/nco_subscriber',[[],[0,'1','0',1,'sine'],[0,'1','0',1,'cosine'],[0,'1','0',1,'flat_zero'],[0,'1','0',1,'triangular'],[0,'1','0',1,'sinc'],[0,'1','0',1,'sawtooth'],[0,'1','0',1,'square'],[0,'1','1',,'gaussian_chirplet'],[0,'1','0',1,'ecg']],[]],
+c1713:[4,'signal_out_cp',[],,'1712',1,1,'input_cg','1707','work.nco_pkg::nco_subscriber',[[],[0,'1','32',,'auto[0]'],[0,'1','32',,'auto[1]'],[0,'1','32',,'auto[2]'],[0,'1','32',,'auto[3]'],[0,'1','33',,'auto[4]'],[0,'1','32',,'auto[5]'],[0,'1','32',,'auto[6]'],[0,'1','32',,'auto[7]']],[]],
+c1714:[4,'resetn_cp',[],,'1712',1,1,'input_cg','1707','work.nco_pkg::nco_subscriber',[[],[0,'1','1',,'auto[0]'],[0,'1','257',,'auto[1]']],[]],
+c1715:[5,'signali_outxresetn',['signal_out_cp','resetn_cp'],,'1712',1,1,'input_cg','1707','work.nco_pkg::nco_subscriber',[[],[4,'1','32',,'auto[0]','auto[1]'],[4,'1','32',,'auto[1]','auto[1]'],[4,'1','32',,'auto[2]','auto[1]'],[4,'1','32',,'auto[3]','auto[1]'],[4,'1','33',,'auto[4]','auto[1]'],[4,'1','32',,'auto[5]','auto[1]'],[4,'1','32',,'auto[6]','auto[1]'],[4,'1','32',,'auto[7]','auto[1]']],[[],[4,'1','0',1,'auto[0]','auto[0]'],[4,'1','0',1,'auto[1]','auto[0]']
+,[4,'1','0',1,'auto[2]','auto[0]'],[4,'1','0',1,'auto[3]','auto[0]'],[4,'1','0',1,'auto[4]','auto[0]'],[4,'1','0',1,'auto[5]','auto[0]'],[4,'1','0',1,'auto[6]','auto[0]'],[4,'1','0',1,'auto[7]','auto[0]']]],
+c1719:[4,'cg_waveforms',[],,'1718',2,1,'\\/nco_pkg::nco_subscriber::output_cg ','1707','work.nco_pkg::nco_subscriber',[[],[0,'1','0',1,'sine'],[0,'1','0',1,'cosine'],[0,'1','0',1,'flat_zero'],[0,'1','0',1,'triangular'],[0,'1','0',1,'sinc'],[0,'1','0',1,'sawtooth'],[0,'1','0',1,'square'],[0,'1','1',,'gaussian_chirplet'],[0,'1','0',1,'ecg']],[]],
+dummyEnd:0
+};
+processCovergroupsData(g_data);

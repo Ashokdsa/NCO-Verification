@@ -1,0 +1,28 @@
+var g_data = {
+g1199:[{dummy:0},
+{name:'input_cg',f:1,type:1,id:1204,tb:'26',h:'18',m:'8',hp:'69.23%',cov:['83.33%','Y'],g:'100.00%',gp:['83.33%','Y'],opts:[[],['merge_instance','auto(true)']],parent:'1199'},
+{name:'output_cg',f:1,type:1,id:1208,tb:'9',h:'1',m:'8',hp:'11.11%',cov:['11.11%','R'],g:'100.00%',gp:['11.11%','R'],parent:'1199'},
+{name:'\\/nco_pkg::nco_subscriber::output_cg ',f:1,type:2,id:1210,tb:'9',h:'1',m:'8',hp:'11.11%',cov:['11.11%','R'],g:'100.00%',gp:['11.11%','R'],cvg:'output_cg',parent:'1208'}],
+c1204:{name:'input_cg',type:1,pHash:'1199',pPath:'/nco_pkg/nco_subscriber',totals:[10,10,'100.00%','G',16,8,'50.00%','Y'],cvp:[{dummy:0},
+{name:'signal_out_cp',f:1,type:4,id:1205,tb:'8',h:'8',m:'0',hp:'100.00%',cov:['100.00%','G'],g:'100.00%',gp:['100.00%','G'],hasb:1,parent:'1204'},
+{name:'resetn_cp',f:1,type:4,id:1206,tb:'2',h:'2',m:'0',hp:'100.00%',cov:['100.00%','G'],g:'100.00%',gp:['100.00%','G'],hasb:1,parent:'1204'}],crx:[{dummy:0},
+{name:'signali_outxresetn',f:1,type:5,id:1207,tb:'16',h:'8',m:'8',hp:'50.00%',cov:['50.00%','Y'],g:'100.00%',gp:['50.00%','Y'],hasb:1,parent:'1204',cross:['signal_out_cp','resetn_cp']}]},
+c1208:{name:'output_cg',type:1,pHash:'1199',pPath:'/nco_pkg/nco_subscriber',totals:[9,1,'11.11%','R',0,0,'0.00%','R'],cvp:[{dummy:0},
+{name:'cg_waveforms',f:1,type:4,id:1209,tb:'9',h:'1',m:'8',hp:'11.11%',cov:['11.11%','R'],g:'100.00%',gp:['11.11%','R'],parent:'1208'}],crx:[{dummy:0}]},
+c1210:{name:'\\/nco_pkg::nco_subscriber::output_cg ',type:2,pHash:'1199',pPath:'/nco_pkg/nco_subscriber',totals:[9,1,'11.11%','R',0,0,'0.00%','R'],cvp:[{dummy:0},
+{name:'cg_waveforms',f:1,type:4,id:1211,tb:'9',h:'1',m:'8',hp:'11.11%',cov:['11.11%','R'],g:'100.00%',gp:['11.11%','R'],hasb:1,parent:'1210'}],crx:[{dummy:0}]},
+g1707:[{dummy:0},
+{name:'input_cg',f:1,type:1,id:1712,tb:'26',h:'18',m:'8',hp:'69.23%',cov:['83.33%','Y'],g:'100.00%',gp:['83.33%','Y'],opts:[[],['merge_instance','true']],parent:'1707'},
+{name:'output_cg',f:1,type:1,id:1716,tb:'9',h:'1',m:'8',hp:'11.11%',cov:['11.11%','R'],g:'100.00%',gp:['11.11%','R'],parent:'1707'},
+{name:'\\/nco_pkg::nco_subscriber::output_cg ',f:1,type:2,id:1718,tb:'9',h:'1',m:'8',hp:'11.11%',cov:['11.11%','R'],g:'100.00%',gp:['11.11%','R'],cvg:'output_cg',parent:'1716'}],
+c1712:{name:'input_cg',type:1,pHash:'1707',pPath:'work.nco_pkg::nco_subscriber',totals:[10,10,'100.00%','G',16,8,'50.00%','Y'],cvp:[{dummy:0},
+{name:'signal_out_cp',f:1,type:4,id:1713,tb:'8',h:'8',m:'0',hp:'100.00%',cov:['100.00%','G'],g:'100.00%',gp:['100.00%','G'],hasb:1,parent:'1712'},
+{name:'resetn_cp',f:1,type:4,id:1714,tb:'2',h:'2',m:'0',hp:'100.00%',cov:['100.00%','G'],g:'100.00%',gp:['100.00%','G'],hasb:1,parent:'1712'}],crx:[{dummy:0},
+{name:'signali_outxresetn',f:1,type:5,id:1715,tb:'16',h:'8',m:'8',hp:'50.00%',cov:['50.00%','Y'],g:'100.00%',gp:['50.00%','Y'],hasb:1,parent:'1712',cross:['signal_out_cp','resetn_cp']}]},
+c1716:{name:'output_cg',type:1,pHash:'1707',pPath:'work.nco_pkg::nco_subscriber',totals:[9,1,'11.11%','R',0,0,'0.00%','R'],cvp:[{dummy:0},
+{name:'cg_waveforms',f:1,type:4,id:1717,tb:'9',h:'1',m:'8',hp:'11.11%',cov:['11.11%','R'],g:'100.00%',gp:['11.11%','R'],parent:'1716'}],crx:[{dummy:0}]},
+c1718:{name:'\\/nco_pkg::nco_subscriber::output_cg ',type:2,pHash:'1707',pPath:'work.nco_pkg::nco_subscriber',totals:[9,1,'11.11%','R',0,0,'0.00%','R'],cvp:[{dummy:0},
+{name:'cg_waveforms',f:1,type:4,id:1719,tb:'9',h:'1',m:'8',hp:'11.11%',cov:['11.11%','R'],g:'100.00%',gp:['11.11%','R'],hasb:1,parent:'1718'}],crx:[{dummy:0}]},
+dummyEnd:0
+};
+processCovergroupsData(g_data);

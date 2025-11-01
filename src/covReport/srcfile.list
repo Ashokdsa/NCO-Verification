@@ -1,0 +1,17 @@
+Design/nco.v
+nco_active_agent.sv
+nco_active_monitor.sv
+nco_assertion.sv
+nco_driver.sv
+nco_environment.sv
+nco_interface.sv
+nco_passive_agent.sv
+nco_passive_monitor.sv
+nco_pkg.svh
+nco_scoreboard.sv
+nco_sequence.sv
+nco_sequence_item.sv
+nco_sequencer.sv
+nco_subscriber.sv
+nco_test.sv
+nco_top.sv

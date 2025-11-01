@@ -1,0 +1,893 @@
+# vsim -vopt work.top -voptargs="+acc=npr" -assertdebug -l simulation.log -coverage -c -do "coverage save -onexit -assert -directive -cvg -codeAll nco_coverage.ucdb; run -all; exit" "+UVM_TESTNAME=nco_normal_test" "+UVM_VERBOSITY=UVM_NONE" 
+# Start time: 16:57:56 on Nov 01,2025
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Warning: nco_scoreboard.sv(243): (vopt-2875) Task "x_val" is being called in function "generate_reference_waveforms".
+# ** Warning: nco_scoreboard.sv(244): (vopt-2875) Task "sine_function" is being called in function "generate_reference_waveforms".
+# ** Warning: nco_scoreboard.sv(245): (vopt-2875) Task "sine_wave_out" is being called in function "generate_reference_waveforms".
+# ** Warning: nco_scoreboard.sv(249): (vopt-2875) Task "cosine_function" is being called in function "generate_reference_waveforms".
+# ** Warning: nco_scoreboard.sv(250): (vopt-2875) Task "cosine_wave_out" is being called in function "generate_reference_waveforms".
+# ** Warning: nco_scoreboard.sv(254): (vopt-2875) Task "triangle_wave_out" is being called in function "generate_reference_waveforms".
+# ** Warning: nco_scoreboard.sv(258): (vopt-2875) Task "sawtooth_wave_out" is being called in function "generate_reference_waveforms".
+# ** Warning: nco_scoreboard.sv(262): (vopt-2875) Task "square_wave_out" is being called in function "generate_reference_waveforms".
+# //  Questa Sim
+# //  Version 10.6c linux Jul 25 2017
+# //
+# //  Copyright 1991-2017 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  QuestaSim and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# Loading sv_std.std
+# Loading work.nco_inf(fast)
+# Loading mtiUvm.uvm_pkg
+# Loading work.nco_pkg(fast)
+# Loading work.nco_top_sv_unit(fast)
+# Loading work.top(fast)
+# Loading work.nco_inf(fast)
+# Loading work.nco_assert(fast)
+# Loading work.nco(fast)
+# Loading mtiUvm.questa_uvm_pkg(fast)
+# Loading /tools/mentor/questasim_10.6c/questasim/uvm-1.1d/linux/uvm_dpi.so
+# coverage save -onexit -assert -directive -cvg -codeAll nco_coverage.ucdb
+#  run -all
+# ----------------------------------------------------------------
+# UVM-1.1d
+# (C) 2007-2013 Mentor Graphics Corporation
+# (C) 2007-2013 Cadence Design Systems, Inc.
+# (C) 2006-2013 Synopsys, Inc.
+# (C) 2011-2013 Cypress Semiconductor Corp.
+# ----------------------------------------------------------------
+# 
+#   ***********       IMPORTANT RELEASE NOTES         ************
+# 
+#   You are using a version of the UVM library that has been compiled
+#   with `UVM_NO_DEPRECATED undefined.
+#   See http://www.eda.org/svdb/view.php?id=3313 for more details.
+# 
+#   You are using a version of the UVM library that has been compiled
+#   with `UVM_OBJECT_MUST_HAVE_CONSTRUCTOR undefined.
+#   See http://www.eda.org/svdb/view.php?id=3770 for more details.
+# 
+#       (Specify +UVM_NO_RELNOTES to turn off this notice)
+# 
+# UVM_INFO nco_scoreboard.sv(235) @ 0: uvm_test_top.nco_env.scoreboard [nco_scoreboard] Generating reference waveforms...
+# ----------------------------------------------------------------------
+# Name                         Type                          Size  Value
+# ----------------------------------------------------------------------
+# uvm_test_top                 nco_normal_test               -     @472 
+#   nco_env                    nco_environment               -     @479 
+#     active_agent             nco_active_agent              -     @491 
+#       driver                 nco_driver                    -     @528 
+#         rsp_port             uvm_analysis_port             -     @543 
+#         seq_item_port        uvm_seq_item_pull_port        -     @535 
+#       monitor                nco_active_monitor            -     @660 
+#         item_collected_port  uvm_analysis_port             -     @671 
+#       sequencer              nco_sequencer                 -     @551 
+#         rsp_export           uvm_analysis_export           -     @558 
+#         seq_item_export      uvm_seq_item_pull_imp         -     @652 
+#         arbitration_queue    array                         0     -    
+#         lock_queue           array                         0     -    
+#         num_last_reqs        integral                      32    'd1  
+#         num_last_rsps        integral                      32    'd1  
+#     coverage                 nco_subscriber                -     @512 
+#       analysis_imp           uvm_analysis_imp              -     @519 
+#       pass_mon               uvm_analysis_imp_passive_mon  -     @686 
+#     passive_agent            nco_passive_agent             -     @498 
+#       passive_monitor        nco_passive_monitor           -     @694 
+#         item_collected_port  uvm_analysis_port             -     @705 
+#     scoreboard               nco_scoreboard                -     @505 
+#       active_mon_export      uvm_analysis_imp_active       -     @714 
+#       passive_mon_export     uvm_analysis_imp_passive      -     @722 
+# ----------------------------------------------------------------------
+# 
+# ---------PTR = 0-----------
+# UVM_WARNING nco_scoreboard.sv(380) @ 30: uvm_test_top.nco_env.scoreboard [nco_scoreboard] Unknown signal_out=x
+# UVM_WARNING nco_scoreboard.sv(426) @ 30: uvm_test_top.nco_env.scoreboard [nco_scoreboard] Unknown signal_out=x
+# UVM_INFO nco_scoreboard.sv(316) @ 50: uvm_test_top.nco_env.scoreboard [nco_scoreboard] RESET MATCH: DUT output=0x0 (Expected 0x00 during reset)
+# ---------PTR = 0-----------
+# ---------------------------OUT = 122-------------------------------
+# ---------PTR = 1-----------
+# ---------------------------OUT = 130-------------------------------
+# ---------PTR = 2-----------
+# ---------------------------OUT = 138-------------------------------
+# ---------PTR = 3-----------
+# ---------------------------OUT = 143-------------------------------
+# ---------PTR = 4-----------
+# ---------------------------OUT = 143-------------------------------
+# ---------PTR = 5-----------
+# ---------------------------OUT = 137-------------------------------
+# ---------PTR = 6-----------
+# ---------------------------OUT = 125-------------------------------
+# ---------PTR = 7-----------
+# ---------------------------OUT = 112-------------------------------
+# ---------PTR = 8-----------
+# ---------------------------OUT = 102-------------------------------
+# ---------PTR = 9-----------
+# ---------------------------OUT = 100-------------------------------
+# ---------PTR = 10-----------
+# ---------------------------OUT = 109-------------------------------
+# ---------PTR = 11-----------
+# ---------------------------OUT = 130-------------------------------
+# ---------PTR = 12-----------
+# ---------------------------OUT = 160-------------------------------
+# ---------PTR = 13-----------
+# ---------------------------OUT = 194-------------------------------
+# ---------PTR = 14-----------
+# ---------------------------OUT = 225-------------------------------
+# ---------PTR = 15-----------
+# ---------------------------OUT = 247-------------------------------
+# ---------PTR = 16-----------
+# ---------------------------OUT = 255-------------------------------
+# ---------PTR = 17-----------
+# ---------------------------OUT = 247-------------------------------
+# ---------PTR = 18-----------
+# ---------------------------OUT = 225-------------------------------
+# ---------PTR = 19-----------
+# ---------------------------OUT = 194-------------------------------
+# ---------PTR = 20-----------
+# ---------------------------OUT = 160-------------------------------
+# ---------PTR = 21-----------
+# ---------------------------OUT = 130-------------------------------
+# ---------PTR = 22-----------
+# ---------------------------OUT = 109-------------------------------
+# ---------PTR = 23-----------
+# ---------------------------OUT = 100-------------------------------
+# ---------PTR = 24-----------
+# ---------------------------OUT = 102-------------------------------
+# ---------PTR = 25-----------
+# ---------------------------OUT = 112-------------------------------
+# ---------PTR = 26-----------
+# ---------------------------OUT = 125-------------------------------
+# ---------PTR = 27-----------
+# ---------------------------OUT = 137-------------------------------
+# ---------PTR = 28-----------
+# ---------------------------OUT = 143-------------------------------
+# ---------PTR = 29-----------
+# ---------------------------OUT = 143-------------------------------
+# ---------PTR = 30-----------
+# ---------------------------OUT = 138-------------------------------
+# ---------PTR = 31-----------
+# ---------------------------OUT = 130-------------------------------
+# COMPARE RESULTS
+# UVM_INFO nco_scoreboard.sv(451) @ 690: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [NOT_DEFINED][0]: DUT=  0 | Expected=  0
+# UVM_INFO nco_scoreboard.sv(451) @ 690: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINC][1]: DUT=130 | Expected=130
+# UVM_INFO nco_scoreboard.sv(451) @ 690: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINC][2]: DUT=138 | Expected=138
+# UVM_INFO nco_scoreboard.sv(451) @ 690: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINC][3]: DUT=143 | Expected=143
+# UVM_INFO nco_scoreboard.sv(451) @ 690: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINC][4]: DUT=143 | Expected=143
+# UVM_INFO nco_scoreboard.sv(451) @ 690: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINC][5]: DUT=137 | Expected=137
+# UVM_INFO nco_scoreboard.sv(451) @ 690: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINC][6]: DUT=125 | Expected=125
+# UVM_INFO nco_scoreboard.sv(451) @ 690: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINC][7]: DUT=112 | Expected=112
+# UVM_INFO nco_scoreboard.sv(451) @ 690: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINC][8]: DUT=102 | Expected=102
+# UVM_INFO nco_scoreboard.sv(451) @ 690: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINC][9]: DUT=100 | Expected=100
+# UVM_INFO nco_scoreboard.sv(451) @ 690: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINC][10]: DUT=109 | Expected=109
+# UVM_INFO nco_scoreboard.sv(451) @ 690: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINC][11]: DUT=130 | Expected=130
+# UVM_INFO nco_scoreboard.sv(451) @ 690: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINC][12]: DUT=160 | Expected=160
+# UVM_INFO nco_scoreboard.sv(451) @ 690: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINC][13]: DUT=194 | Expected=194
+# UVM_INFO nco_scoreboard.sv(451) @ 690: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINC][14]: DUT=225 | Expected=225
+# UVM_INFO nco_scoreboard.sv(451) @ 690: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINC][15]: DUT=247 | Expected=247
+# UVM_INFO nco_scoreboard.sv(451) @ 690: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINC][16]: DUT=255 | Expected=255
+# UVM_INFO nco_scoreboard.sv(451) @ 690: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINC][17]: DUT=247 | Expected=247
+# UVM_INFO nco_scoreboard.sv(451) @ 690: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINC][18]: DUT=225 | Expected=225
+# UVM_INFO nco_scoreboard.sv(451) @ 690: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINC][19]: DUT=194 | Expected=194
+# UVM_INFO nco_scoreboard.sv(451) @ 690: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINC][20]: DUT=160 | Expected=160
+# UVM_INFO nco_scoreboard.sv(451) @ 690: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINC][21]: DUT=130 | Expected=130
+# UVM_INFO nco_scoreboard.sv(451) @ 690: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINC][22]: DUT=109 | Expected=109
+# UVM_INFO nco_scoreboard.sv(451) @ 690: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINC][23]: DUT=100 | Expected=100
+# UVM_INFO nco_scoreboard.sv(451) @ 690: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINC][24]: DUT=102 | Expected=102
+# UVM_INFO nco_scoreboard.sv(451) @ 690: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINC][25]: DUT=112 | Expected=112
+# UVM_INFO nco_scoreboard.sv(451) @ 690: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINC][26]: DUT=125 | Expected=125
+# UVM_INFO nco_scoreboard.sv(451) @ 690: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINC][27]: DUT=137 | Expected=137
+# UVM_INFO nco_scoreboard.sv(451) @ 690: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINC][28]: DUT=143 | Expected=143
+# UVM_INFO nco_scoreboard.sv(451) @ 690: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINC][29]: DUT=143 | Expected=143
+# UVM_INFO nco_scoreboard.sv(451) @ 690: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINC][30]: DUT=138 | Expected=138
+# UVM_INFO nco_scoreboard.sv(451) @ 690: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINC][31]: DUT=130 | Expected=130
+# ---------PTR = 0-----------
+# ---------------------------OUT = 255-------------------------------
+# ---------------------------OUT = 122-------------------------------
+# ---------PTR = 1-----------
+# ---------------------------OUT = 253-------------------------------
+# ---------PTR = 2-----------
+# ---------------------------OUT = 245-------------------------------
+# ---------PTR = 3-----------
+# ---------------------------OUT = 234-------------------------------
+# ---------PTR = 4-----------
+# ---------------------------OUT = 218-------------------------------
+# ---------PTR = 5-----------
+# ---------------------------OUT = 198-------------------------------
+# ---------PTR = 6-----------
+# ---------------------------OUT = 176-------------------------------
+# ---------PTR = 7-----------
+# ---------------------------OUT = 152-------------------------------
+# ---------PTR = 8-----------
+# ---------------------------OUT = 128-------------------------------
+# ---------PTR = 9-----------
+# ---------------------------OUT = 103-------------------------------
+# ---------PTR = 10-----------
+# ---------------------------OUT = 79-------------------------------
+# ---------PTR = 11-----------
+# ---------------------------OUT = 57-------------------------------
+# ---------PTR = 12-----------
+# ---------------------------OUT = 37-------------------------------
+# ---------PTR = 13-----------
+# ---------------------------OUT = 21-------------------------------
+# ---------PTR = 14-----------
+# ---------------------------OUT = 10-------------------------------
+# ---------PTR = 15-----------
+# ---------------------------OUT = 2-------------------------------
+# ---------PTR = 16-----------
+# ---------------------------OUT = 0-------------------------------
+# ---------PTR = 17-----------
+# ---------------------------OUT = 2-------------------------------
+# ---------PTR = 18-----------
+# ---------------------------OUT = 10-------------------------------
+# ---------PTR = 19-----------
+# ---------------------------OUT = 21-------------------------------
+# ---------PTR = 20-----------
+# ---------------------------OUT = 37-------------------------------
+# ---------PTR = 21-----------
+# ---------------------------OUT = 57-------------------------------
+# ---------PTR = 22-----------
+# ---------------------------OUT = 79-------------------------------
+# ---------PTR = 23-----------
+# ---------------------------OUT = 103-------------------------------
+# ---------PTR = 24-----------
+# ---------------------------OUT = 128-------------------------------
+# ---------PTR = 25-----------
+# ---------------------------OUT = 152-------------------------------
+# ---------PTR = 26-----------
+# ---------------------------OUT = 176-------------------------------
+# ---------PTR = 27-----------
+# ---------------------------OUT = 198-------------------------------
+# ---------PTR = 28-----------
+# ---------------------------OUT = 218-------------------------------
+# ---------PTR = 29-----------
+# ---------------------------OUT = 234-------------------------------
+# ---------PTR = 30-----------
+# ---------------------------OUT = 245-------------------------------
+# ---------PTR = 31-----------
+# ---------------------------OUT = 253-------------------------------
+# COMPARE RESULTS
+# UVM_INFO nco_scoreboard.sv(451) @ 1330: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINC][0]: DUT=122 | Expected=122
+# UVM_INFO nco_scoreboard.sv(451) @ 1330: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [COSINE][1]: DUT=253 | Expected=253
+# UVM_INFO nco_scoreboard.sv(451) @ 1330: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [COSINE][2]: DUT=245 | Expected=245
+# UVM_INFO nco_scoreboard.sv(451) @ 1330: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [COSINE][3]: DUT=234 | Expected=234
+# UVM_INFO nco_scoreboard.sv(451) @ 1330: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [COSINE][4]: DUT=218 | Expected=218
+# UVM_INFO nco_scoreboard.sv(451) @ 1330: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [COSINE][5]: DUT=198 | Expected=198
+# UVM_INFO nco_scoreboard.sv(451) @ 1330: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [COSINE][6]: DUT=176 | Expected=176
+# UVM_INFO nco_scoreboard.sv(451) @ 1330: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [COSINE][7]: DUT=152 | Expected=152
+# UVM_INFO nco_scoreboard.sv(451) @ 1330: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [COSINE][8]: DUT=128 | Expected=128
+# UVM_INFO nco_scoreboard.sv(451) @ 1330: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [COSINE][9]: DUT=103 | Expected=103
+# UVM_INFO nco_scoreboard.sv(451) @ 1330: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [COSINE][10]: DUT= 79 | Expected= 79
+# UVM_INFO nco_scoreboard.sv(451) @ 1330: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [COSINE][11]: DUT= 57 | Expected= 57
+# UVM_INFO nco_scoreboard.sv(451) @ 1330: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [COSINE][12]: DUT= 37 | Expected= 37
+# UVM_INFO nco_scoreboard.sv(451) @ 1330: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [COSINE][13]: DUT= 21 | Expected= 21
+# UVM_INFO nco_scoreboard.sv(451) @ 1330: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [COSINE][14]: DUT= 10 | Expected= 10
+# UVM_INFO nco_scoreboard.sv(451) @ 1330: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [COSINE][15]: DUT=  2 | Expected=  2
+# UVM_INFO nco_scoreboard.sv(451) @ 1330: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [COSINE][16]: DUT=  0 | Expected=  0
+# UVM_INFO nco_scoreboard.sv(451) @ 1330: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [COSINE][17]: DUT=  2 | Expected=  2
+# UVM_INFO nco_scoreboard.sv(451) @ 1330: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [COSINE][18]: DUT= 10 | Expected= 10
+# UVM_INFO nco_scoreboard.sv(451) @ 1330: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [COSINE][19]: DUT= 21 | Expected= 21
+# UVM_INFO nco_scoreboard.sv(451) @ 1330: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [COSINE][20]: DUT= 37 | Expected= 37
+# UVM_INFO nco_scoreboard.sv(451) @ 1330: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [COSINE][21]: DUT= 57 | Expected= 57
+# UVM_INFO nco_scoreboard.sv(451) @ 1330: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [COSINE][22]: DUT= 79 | Expected= 79
+# UVM_INFO nco_scoreboard.sv(451) @ 1330: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [COSINE][23]: DUT=103 | Expected=103
+# UVM_INFO nco_scoreboard.sv(451) @ 1330: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [COSINE][24]: DUT=127 | Expected=128
+# UVM_INFO nco_scoreboard.sv(451) @ 1330: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [COSINE][25]: DUT=152 | Expected=152
+# UVM_INFO nco_scoreboard.sv(451) @ 1330: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [COSINE][26]: DUT=176 | Expected=176
+# UVM_INFO nco_scoreboard.sv(451) @ 1330: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [COSINE][27]: DUT=198 | Expected=198
+# UVM_INFO nco_scoreboard.sv(451) @ 1330: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [COSINE][28]: DUT=218 | Expected=218
+# UVM_INFO nco_scoreboard.sv(451) @ 1330: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [COSINE][29]: DUT=234 | Expected=234
+# UVM_INFO nco_scoreboard.sv(451) @ 1330: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [COSINE][30]: DUT=245 | Expected=245
+# UVM_INFO nco_scoreboard.sv(451) @ 1330: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [COSINE][31]: DUT=253 | Expected=253
+# ---------PTR = 0-----------
+# ---------------------------OUT = 72-------------------------------
+# ---------------------------OUT = 255-------------------------------
+# ---------PTR = 1-----------
+# ---------------------------OUT = 73-------------------------------
+# ---------PTR = 2-----------
+# ---------------------------OUT = 76-------------------------------
+# ---------PTR = 3-----------
+# ---------------------------OUT = 83-------------------------------
+# ---------PTR = 4-----------
+# ---------------------------OUT = 88-------------------------------
+# ---------PTR = 5-----------
+# ---------------------------OUT = 83-------------------------------
+# ---------PTR = 6-----------
+# ---------------------------OUT = 76-------------------------------
+# ---------PTR = 7-----------
+# ---------------------------OUT = 73-------------------------------
+# ---------PTR = 8-----------
+# ---------------------------OUT = 72-------------------------------
+# ---------PTR = 9-----------
+# ---------------------------OUT = 59-------------------------------
+# ---------PTR = 10-----------
+# ---------------------------OUT = 255-------------------------------
+# ---------PTR = 11-----------
+# ---------------------------OUT = 0-------------------------------
+# ---------PTR = 12-----------
+# ---------------------------OUT = 72-------------------------------
+# ---------PTR = 13-----------
+# ---------------------------OUT = 72-------------------------------
+# ---------PTR = 14-----------
+# ---------------------------OUT = 73-------------------------------
+# ---------PTR = 15-----------
+# ---------------------------OUT = 76-------------------------------
+# ---------PTR = 16-----------
+# ---------------------------OUT = 83-------------------------------
+# ---------PTR = 17-----------
+# ---------------------------OUT = 95-------------------------------
+# ---------PTR = 18-----------
+# ---------------------------OUT = 111-------------------------------
+# ---------PTR = 19-----------
+# ---------------------------OUT = 125-------------------------------
+# ---------PTR = 20-----------
+# ---------------------------OUT = 131-------------------------------
+# ---------PTR = 21-----------
+# ---------------------------OUT = 125-------------------------------
+# ---------PTR = 22-----------
+# ---------------------------OUT = 111-------------------------------
+# ---------PTR = 23-----------
+# ---------------------------OUT = 95-------------------------------
+# ---------PTR = 24-----------
+# ---------------------------OUT = 83-------------------------------
+# ---------PTR = 25-----------
+# ---------------------------OUT = 76-------------------------------
+# ---------PTR = 26-----------
+# ---------------------------OUT = 73-------------------------------
+# ---------PTR = 27-----------
+# ---------------------------OUT = 72-------------------------------
+# ---------PTR = 28-----------
+# ---------------------------OUT = 72-------------------------------
+# ---------PTR = 29-----------
+# ---------------------------OUT = 72-------------------------------
+# ---------PTR = 30-----------
+# ---------------------------OUT = 72-------------------------------
+# ---------PTR = 31-----------
+# ---------------------------OUT = 72-------------------------------
+# COMPARE RESULTS
+# UVM_INFO nco_scoreboard.sv(451) @ 1970: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [COSINE][0]: DUT=255 | Expected=255
+# UVM_INFO nco_scoreboard.sv(451) @ 1970: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [ECG][1]: DUT= 73 | Expected= 73
+# UVM_INFO nco_scoreboard.sv(451) @ 1970: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [ECG][2]: DUT= 76 | Expected= 76
+# UVM_INFO nco_scoreboard.sv(451) @ 1970: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [ECG][3]: DUT= 83 | Expected= 83
+# UVM_INFO nco_scoreboard.sv(451) @ 1970: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [ECG][4]: DUT= 88 | Expected= 88
+# UVM_INFO nco_scoreboard.sv(451) @ 1970: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [ECG][5]: DUT= 83 | Expected= 83
+# UVM_INFO nco_scoreboard.sv(451) @ 1970: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [ECG][6]: DUT= 76 | Expected= 76
+# UVM_INFO nco_scoreboard.sv(451) @ 1970: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [ECG][7]: DUT= 73 | Expected= 73
+# UVM_INFO nco_scoreboard.sv(451) @ 1970: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [ECG][8]: DUT= 72 | Expected= 72
+# UVM_INFO nco_scoreboard.sv(451) @ 1970: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [ECG][9]: DUT= 59 | Expected= 59
+# UVM_INFO nco_scoreboard.sv(451) @ 1970: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [ECG][10]: DUT=255 | Expected=255
+# UVM_INFO nco_scoreboard.sv(451) @ 1970: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [ECG][11]: DUT=  0 | Expected=  0
+# UVM_INFO nco_scoreboard.sv(451) @ 1970: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [ECG][12]: DUT= 72 | Expected= 72
+# UVM_INFO nco_scoreboard.sv(451) @ 1970: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [ECG][13]: DUT= 72 | Expected= 72
+# UVM_INFO nco_scoreboard.sv(451) @ 1970: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [ECG][14]: DUT= 73 | Expected= 73
+# UVM_INFO nco_scoreboard.sv(451) @ 1970: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [ECG][15]: DUT= 76 | Expected= 76
+# UVM_INFO nco_scoreboard.sv(451) @ 1970: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [ECG][16]: DUT= 83 | Expected= 83
+# UVM_INFO nco_scoreboard.sv(451) @ 1970: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [ECG][17]: DUT= 95 | Expected= 95
+# UVM_INFO nco_scoreboard.sv(451) @ 1970: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [ECG][18]: DUT=111 | Expected=111
+# UVM_INFO nco_scoreboard.sv(451) @ 1970: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [ECG][19]: DUT=125 | Expected=125
+# UVM_INFO nco_scoreboard.sv(451) @ 1970: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [ECG][20]: DUT=131 | Expected=131
+# UVM_INFO nco_scoreboard.sv(451) @ 1970: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [ECG][21]: DUT=125 | Expected=125
+# UVM_INFO nco_scoreboard.sv(451) @ 1970: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [ECG][22]: DUT=111 | Expected=111
+# UVM_INFO nco_scoreboard.sv(451) @ 1970: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [ECG][23]: DUT= 95 | Expected= 95
+# UVM_INFO nco_scoreboard.sv(451) @ 1970: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [ECG][24]: DUT= 83 | Expected= 83
+# UVM_INFO nco_scoreboard.sv(451) @ 1970: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [ECG][25]: DUT= 76 | Expected= 76
+# UVM_INFO nco_scoreboard.sv(451) @ 1970: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [ECG][26]: DUT= 73 | Expected= 73
+# UVM_INFO nco_scoreboard.sv(451) @ 1970: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [ECG][27]: DUT= 72 | Expected= 72
+# UVM_INFO nco_scoreboard.sv(451) @ 1970: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [ECG][28]: DUT= 72 | Expected= 72
+# UVM_INFO nco_scoreboard.sv(451) @ 1970: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [ECG][29]: DUT= 72 | Expected= 72
+# UVM_INFO nco_scoreboard.sv(451) @ 1970: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [ECG][30]: DUT= 72 | Expected= 72
+# UVM_INFO nco_scoreboard.sv(451) @ 1970: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [ECG][31]: DUT= 72 | Expected= 72
+# ---------PTR = 0-----------
+# ---------------------------OUT = 0-------------------------------
+# ---------------------------OUT = 72-------------------------------
+# ---------PTR = 1-----------
+# ---------------------------OUT = 16-------------------------------
+# ---------PTR = 2-----------
+# ---------------------------OUT = 32-------------------------------
+# ---------PTR = 3-----------
+# ---------------------------OUT = 48-------------------------------
+# ---------PTR = 4-----------
+# ---------------------------OUT = 64-------------------------------
+# ---------PTR = 5-----------
+# ---------------------------OUT = 80-------------------------------
+# ---------PTR = 6-----------
+# ---------------------------OUT = 96-------------------------------
+# ---------PTR = 7-----------
+# ---------------------------OUT = 112-------------------------------
+# ---------PTR = 8-----------
+# ---------------------------OUT = 128-------------------------------
+# ---------PTR = 9-----------
+# ---------------------------OUT = 143-------------------------------
+# ---------PTR = 10-----------
+# ---------------------------OUT = 159-------------------------------
+# ---------PTR = 11-----------
+# ---------------------------OUT = 175-------------------------------
+# ---------PTR = 12-----------
+# ---------------------------OUT = 191-------------------------------
+# ---------PTR = 13-----------
+# ---------------------------OUT = 207-------------------------------
+# ---------PTR = 14-----------
+# ---------------------------OUT = 223-------------------------------
+# ---------PTR = 15-----------
+# ---------------------------OUT = 239-------------------------------
+# ---------PTR = 16-----------
+# ---------------------------OUT = 255-------------------------------
+# ---------PTR = 17-----------
+# ---------------------------OUT = 239-------------------------------
+# ---------PTR = 18-----------
+# ---------------------------OUT = 223-------------------------------
+# ---------PTR = 19-----------
+# ---------------------------OUT = 207-------------------------------
+# ---------PTR = 20-----------
+# ---------------------------OUT = 191-------------------------------
+# ---------PTR = 21-----------
+# ---------------------------OUT = 175-------------------------------
+# ---------PTR = 22-----------
+# ---------------------------OUT = 159-------------------------------
+# ---------PTR = 23-----------
+# ---------------------------OUT = 143-------------------------------
+# ---------PTR = 24-----------
+# ---------------------------OUT = 128-------------------------------
+# ---------PTR = 25-----------
+# ---------------------------OUT = 112-------------------------------
+# ---------PTR = 26-----------
+# ---------------------------OUT = 96-------------------------------
+# ---------PTR = 27-----------
+# ---------------------------OUT = 80-------------------------------
+# ---------PTR = 28-----------
+# ---------------------------OUT = 64-------------------------------
+# ---------PTR = 29-----------
+# ---------------------------OUT = 48-------------------------------
+# ---------PTR = 30-----------
+# ---------------------------OUT = 32-------------------------------
+# ---------PTR = 31-----------
+# ---------------------------OUT = 16-------------------------------
+# COMPARE RESULTS
+# UVM_INFO nco_scoreboard.sv(451) @ 2610: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [ECG][0]: DUT= 72 | Expected= 72
+# UVM_INFO nco_scoreboard.sv(451) @ 2610: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [TRIANGULAR][1]: DUT= 16 | Expected= 16
+# UVM_INFO nco_scoreboard.sv(451) @ 2610: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [TRIANGULAR][2]: DUT= 32 | Expected= 32
+# UVM_INFO nco_scoreboard.sv(451) @ 2610: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [TRIANGULAR][3]: DUT= 48 | Expected= 48
+# UVM_INFO nco_scoreboard.sv(451) @ 2610: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [TRIANGULAR][4]: DUT= 64 | Expected= 64
+# UVM_INFO nco_scoreboard.sv(451) @ 2610: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [TRIANGULAR][5]: DUT= 80 | Expected= 80
+# UVM_INFO nco_scoreboard.sv(451) @ 2610: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [TRIANGULAR][6]: DUT= 96 | Expected= 96
+# UVM_INFO nco_scoreboard.sv(451) @ 2610: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [TRIANGULAR][7]: DUT=112 | Expected=112
+# UVM_INFO nco_scoreboard.sv(451) @ 2610: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [TRIANGULAR][8]: DUT=128 | Expected=128
+# UVM_INFO nco_scoreboard.sv(451) @ 2610: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [TRIANGULAR][9]: DUT=143 | Expected=143
+# UVM_INFO nco_scoreboard.sv(451) @ 2610: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [TRIANGULAR][10]: DUT=159 | Expected=159
+# UVM_INFO nco_scoreboard.sv(451) @ 2610: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [TRIANGULAR][11]: DUT=175 | Expected=175
+# UVM_INFO nco_scoreboard.sv(451) @ 2610: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [TRIANGULAR][12]: DUT=191 | Expected=191
+# UVM_INFO nco_scoreboard.sv(451) @ 2610: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [TRIANGULAR][13]: DUT=207 | Expected=207
+# UVM_INFO nco_scoreboard.sv(451) @ 2610: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [TRIANGULAR][14]: DUT=223 | Expected=223
+# UVM_INFO nco_scoreboard.sv(451) @ 2610: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [TRIANGULAR][15]: DUT=239 | Expected=239
+# UVM_INFO nco_scoreboard.sv(451) @ 2610: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [TRIANGULAR][16]: DUT=255 | Expected=255
+# UVM_INFO nco_scoreboard.sv(451) @ 2610: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [TRIANGULAR][17]: DUT=239 | Expected=239
+# UVM_INFO nco_scoreboard.sv(451) @ 2610: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [TRIANGULAR][18]: DUT=223 | Expected=223
+# UVM_INFO nco_scoreboard.sv(451) @ 2610: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [TRIANGULAR][19]: DUT=207 | Expected=207
+# UVM_INFO nco_scoreboard.sv(451) @ 2610: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [TRIANGULAR][20]: DUT=191 | Expected=191
+# UVM_INFO nco_scoreboard.sv(451) @ 2610: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [TRIANGULAR][21]: DUT=175 | Expected=175
+# UVM_INFO nco_scoreboard.sv(451) @ 2610: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [TRIANGULAR][22]: DUT=159 | Expected=159
+# UVM_INFO nco_scoreboard.sv(451) @ 2610: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [TRIANGULAR][23]: DUT=143 | Expected=143
+# UVM_INFO nco_scoreboard.sv(451) @ 2610: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [TRIANGULAR][24]: DUT=128 | Expected=128
+# UVM_INFO nco_scoreboard.sv(451) @ 2610: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [TRIANGULAR][25]: DUT=112 | Expected=112
+# UVM_INFO nco_scoreboard.sv(451) @ 2610: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [TRIANGULAR][26]: DUT= 96 | Expected= 96
+# UVM_INFO nco_scoreboard.sv(451) @ 2610: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [TRIANGULAR][27]: DUT= 80 | Expected= 80
+# UVM_INFO nco_scoreboard.sv(451) @ 2610: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [TRIANGULAR][28]: DUT= 64 | Expected= 64
+# UVM_INFO nco_scoreboard.sv(451) @ 2610: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [TRIANGULAR][29]: DUT= 48 | Expected= 48
+# UVM_INFO nco_scoreboard.sv(451) @ 2610: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [TRIANGULAR][30]: DUT= 32 | Expected= 32
+# UVM_INFO nco_scoreboard.sv(451) @ 2610: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [TRIANGULAR][31]: DUT= 16 | Expected= 16
+# ---------PTR = 0-----------
+# ---------------------------OUT = 255-------------------------------
+# ---------------------------OUT = 0-------------------------------
+# ---------PTR = 1-----------
+# ---------------------------OUT = 255-------------------------------
+# ---------PTR = 2-----------
+# ---------------------------OUT = 255-------------------------------
+# ---------PTR = 3-----------
+# ---------------------------OUT = 255-------------------------------
+# ---------PTR = 4-----------
+# ---------------------------OUT = 255-------------------------------
+# ---------PTR = 5-----------
+# ---------------------------OUT = 255-------------------------------
+# ---------PTR = 6-----------
+# ---------------------------OUT = 255-------------------------------
+# ---------PTR = 7-----------
+# ---------------------------OUT = 255-------------------------------
+# ---------PTR = 8-----------
+# ---------------------------OUT = 255-------------------------------
+# ---------PTR = 9-----------
+# ---------------------------OUT = 255-------------------------------
+# ---------PTR = 10-----------
+# ---------------------------OUT = 255-------------------------------
+# ---------PTR = 11-----------
+# ---------------------------OUT = 255-------------------------------
+# ---------PTR = 12-----------
+# ---------------------------OUT = 255-------------------------------
+# ---------PTR = 13-----------
+# ---------------------------OUT = 255-------------------------------
+# ---------PTR = 14-----------
+# ---------------------------OUT = 255-------------------------------
+# ---------PTR = 15-----------
+# ---------------------------OUT = 255-------------------------------
+# ---------PTR = 16-----------
+# ---------------------------OUT = 0-------------------------------
+# ---------PTR = 17-----------
+# ---------------------------OUT = 0-------------------------------
+# ---------PTR = 18-----------
+# ---------------------------OUT = 0-------------------------------
+# ---------PTR = 19-----------
+# ---------------------------OUT = 0-------------------------------
+# ---------PTR = 20-----------
+# ---------------------------OUT = 0-------------------------------
+# ---------PTR = 21-----------
+# ---------------------------OUT = 0-------------------------------
+# ---------PTR = 22-----------
+# ---------------------------OUT = 0-------------------------------
+# ---------PTR = 23-----------
+# ---------------------------OUT = 0-------------------------------
+# ---------PTR = 24-----------
+# ---------------------------OUT = 0-------------------------------
+# ---------PTR = 25-----------
+# ---------------------------OUT = 0-------------------------------
+# ---------PTR = 26-----------
+# ---------------------------OUT = 0-------------------------------
+# ---------PTR = 27-----------
+# ---------------------------OUT = 0-------------------------------
+# ---------PTR = 28-----------
+# ---------------------------OUT = 0-------------------------------
+# ---------PTR = 29-----------
+# ---------------------------OUT = 0-------------------------------
+# ---------PTR = 30-----------
+# ---------------------------OUT = 0-------------------------------
+# ---------PTR = 31-----------
+# ---------------------------OUT = 0-------------------------------
+# COMPARE RESULTS
+# UVM_INFO nco_scoreboard.sv(451) @ 3250: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [TRIANGULAR][0]: DUT=  0 | Expected=  0
+# UVM_INFO nco_scoreboard.sv(451) @ 3250: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SQUARE][1]: DUT=255 | Expected=255
+# UVM_INFO nco_scoreboard.sv(451) @ 3250: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SQUARE][2]: DUT=255 | Expected=255
+# UVM_INFO nco_scoreboard.sv(451) @ 3250: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SQUARE][3]: DUT=255 | Expected=255
+# UVM_INFO nco_scoreboard.sv(451) @ 3250: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SQUARE][4]: DUT=255 | Expected=255
+# UVM_INFO nco_scoreboard.sv(451) @ 3250: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SQUARE][5]: DUT=255 | Expected=255
+# UVM_INFO nco_scoreboard.sv(451) @ 3250: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SQUARE][6]: DUT=255 | Expected=255
+# UVM_INFO nco_scoreboard.sv(451) @ 3250: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SQUARE][7]: DUT=255 | Expected=255
+# UVM_INFO nco_scoreboard.sv(451) @ 3250: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SQUARE][8]: DUT=255 | Expected=255
+# UVM_INFO nco_scoreboard.sv(451) @ 3250: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SQUARE][9]: DUT=255 | Expected=255
+# UVM_INFO nco_scoreboard.sv(451) @ 3250: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SQUARE][10]: DUT=255 | Expected=255
+# UVM_INFO nco_scoreboard.sv(451) @ 3250: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SQUARE][11]: DUT=255 | Expected=255
+# UVM_INFO nco_scoreboard.sv(451) @ 3250: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SQUARE][12]: DUT=255 | Expected=255
+# UVM_INFO nco_scoreboard.sv(451) @ 3250: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SQUARE][13]: DUT=255 | Expected=255
+# UVM_INFO nco_scoreboard.sv(451) @ 3250: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SQUARE][14]: DUT=255 | Expected=255
+# UVM_INFO nco_scoreboard.sv(451) @ 3250: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SQUARE][15]: DUT=255 | Expected=255
+# UVM_INFO nco_scoreboard.sv(451) @ 3250: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SQUARE][16]: DUT=  0 | Expected=  0
+# UVM_INFO nco_scoreboard.sv(451) @ 3250: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SQUARE][17]: DUT=  0 | Expected=  0
+# UVM_INFO nco_scoreboard.sv(451) @ 3250: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SQUARE][18]: DUT=  0 | Expected=  0
+# UVM_INFO nco_scoreboard.sv(451) @ 3250: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SQUARE][19]: DUT=  0 | Expected=  0
+# UVM_INFO nco_scoreboard.sv(451) @ 3250: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SQUARE][20]: DUT=  0 | Expected=  0
+# UVM_INFO nco_scoreboard.sv(451) @ 3250: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SQUARE][21]: DUT=  0 | Expected=  0
+# UVM_INFO nco_scoreboard.sv(451) @ 3250: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SQUARE][22]: DUT=  0 | Expected=  0
+# UVM_INFO nco_scoreboard.sv(451) @ 3250: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SQUARE][23]: DUT=  0 | Expected=  0
+# UVM_INFO nco_scoreboard.sv(451) @ 3250: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SQUARE][24]: DUT=  0 | Expected=  0
+# UVM_INFO nco_scoreboard.sv(451) @ 3250: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SQUARE][25]: DUT=  0 | Expected=  0
+# UVM_INFO nco_scoreboard.sv(451) @ 3250: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SQUARE][26]: DUT=  0 | Expected=  0
+# UVM_INFO nco_scoreboard.sv(451) @ 3250: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SQUARE][27]: DUT=  0 | Expected=  0
+# UVM_INFO nco_scoreboard.sv(451) @ 3250: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SQUARE][28]: DUT=  0 | Expected=  0
+# UVM_INFO nco_scoreboard.sv(451) @ 3250: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SQUARE][29]: DUT=  0 | Expected=  0
+# UVM_INFO nco_scoreboard.sv(451) @ 3250: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SQUARE][30]: DUT=  0 | Expected=  0
+# UVM_INFO nco_scoreboard.sv(451) @ 3250: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SQUARE][31]: DUT=  0 | Expected=  0
+# ---------PTR = 0-----------
+# ---------------------------OUT = 128-------------------------------
+# ---------------------------OUT = 255-------------------------------
+# ---------PTR = 1-----------
+# ---------------------------OUT = 152-------------------------------
+# ---------PTR = 2-----------
+# ---------------------------OUT = 176-------------------------------
+# ---------PTR = 3-----------
+# ---------------------------OUT = 198-------------------------------
+# ---------PTR = 4-----------
+# ---------------------------OUT = 218-------------------------------
+# ---------PTR = 5-----------
+# ---------------------------OUT = 234-------------------------------
+# ---------PTR = 6-----------
+# ---------------------------OUT = 245-------------------------------
+# ---------PTR = 7-----------
+# ---------------------------OUT = 253-------------------------------
+# ---------PTR = 8-----------
+# ---------------------------OUT = 255-------------------------------
+# ---------PTR = 9-----------
+# ---------------------------OUT = 253-------------------------------
+# ---------PTR = 10-----------
+# ---------------------------OUT = 245-------------------------------
+# ---------PTR = 11-----------
+# ---------------------------OUT = 234-------------------------------
+# ---------PTR = 12-----------
+# ---------------------------OUT = 218-------------------------------
+# ---------PTR = 13-----------
+# ---------------------------OUT = 198-------------------------------
+# ---------PTR = 14-----------
+# ---------------------------OUT = 176-------------------------------
+# ---------PTR = 15-----------
+# ---------------------------OUT = 152-------------------------------
+# ---------PTR = 16-----------
+# ---------------------------OUT = 127-------------------------------
+# ---------PTR = 17-----------
+# ---------------------------OUT = 103-------------------------------
+# ---------PTR = 18-----------
+# ---------------------------OUT = 79-------------------------------
+# ---------PTR = 19-----------
+# ---------------------------OUT = 57-------------------------------
+# ---------PTR = 20-----------
+# ---------------------------OUT = 37-------------------------------
+# ---------PTR = 21-----------
+# ---------------------------OUT = 21-------------------------------
+# ---------PTR = 22-----------
+# ---------------------------OUT = 10-------------------------------
+# ---------PTR = 23-----------
+# ---------------------------OUT = 2-------------------------------
+# ---------PTR = 24-----------
+# ---------------------------OUT = 0-------------------------------
+# ---------PTR = 25-----------
+# ---------------------------OUT = 2-------------------------------
+# ---------PTR = 26-----------
+# ---------------------------OUT = 10-------------------------------
+# ---------PTR = 27-----------
+# ---------------------------OUT = 21-------------------------------
+# ---------PTR = 28-----------
+# ---------------------------OUT = 37-------------------------------
+# ---------PTR = 29-----------
+# ---------------------------OUT = 57-------------------------------
+# ---------PTR = 30-----------
+# ---------------------------OUT = 79-------------------------------
+# ---------PTR = 31-----------
+# ---------------------------OUT = 103-------------------------------
+# COMPARE RESULTS
+# UVM_INFO nco_scoreboard.sv(451) @ 3890: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SQUARE][0]: DUT=255 | Expected=255
+# UVM_INFO nco_scoreboard.sv(451) @ 3890: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINE][1]: DUT=152 | Expected=152
+# UVM_INFO nco_scoreboard.sv(451) @ 3890: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINE][2]: DUT=176 | Expected=176
+# UVM_INFO nco_scoreboard.sv(451) @ 3890: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINE][3]: DUT=198 | Expected=198
+# UVM_INFO nco_scoreboard.sv(451) @ 3890: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINE][4]: DUT=218 | Expected=218
+# UVM_INFO nco_scoreboard.sv(451) @ 3890: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINE][5]: DUT=234 | Expected=234
+# UVM_INFO nco_scoreboard.sv(451) @ 3890: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINE][6]: DUT=245 | Expected=245
+# UVM_INFO nco_scoreboard.sv(451) @ 3890: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINE][7]: DUT=253 | Expected=253
+# UVM_INFO nco_scoreboard.sv(451) @ 3890: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINE][8]: DUT=255 | Expected=255
+# UVM_INFO nco_scoreboard.sv(451) @ 3890: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINE][9]: DUT=253 | Expected=253
+# UVM_INFO nco_scoreboard.sv(451) @ 3890: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINE][10]: DUT=245 | Expected=245
+# UVM_INFO nco_scoreboard.sv(451) @ 3890: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINE][11]: DUT=234 | Expected=234
+# UVM_INFO nco_scoreboard.sv(451) @ 3890: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINE][12]: DUT=218 | Expected=218
+# UVM_INFO nco_scoreboard.sv(451) @ 3890: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINE][13]: DUT=198 | Expected=198
+# UVM_INFO nco_scoreboard.sv(451) @ 3890: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINE][14]: DUT=176 | Expected=176
+# UVM_INFO nco_scoreboard.sv(451) @ 3890: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINE][15]: DUT=152 | Expected=152
+# UVM_INFO nco_scoreboard.sv(451) @ 3890: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINE][16]: DUT=128 | Expected=127
+# UVM_INFO nco_scoreboard.sv(451) @ 3890: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINE][17]: DUT=103 | Expected=103
+# UVM_INFO nco_scoreboard.sv(451) @ 3890: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINE][18]: DUT= 79 | Expected= 79
+# UVM_INFO nco_scoreboard.sv(451) @ 3890: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINE][19]: DUT= 57 | Expected= 57
+# UVM_INFO nco_scoreboard.sv(451) @ 3890: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINE][20]: DUT= 37 | Expected= 37
+# UVM_INFO nco_scoreboard.sv(451) @ 3890: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINE][21]: DUT= 21 | Expected= 21
+# UVM_INFO nco_scoreboard.sv(451) @ 3890: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINE][22]: DUT= 10 | Expected= 10
+# UVM_INFO nco_scoreboard.sv(451) @ 3890: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINE][23]: DUT=  2 | Expected=  2
+# UVM_INFO nco_scoreboard.sv(451) @ 3890: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINE][24]: DUT=  0 | Expected=  0
+# UVM_INFO nco_scoreboard.sv(451) @ 3890: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINE][25]: DUT=  2 | Expected=  2
+# UVM_INFO nco_scoreboard.sv(451) @ 3890: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINE][26]: DUT= 10 | Expected= 10
+# UVM_INFO nco_scoreboard.sv(451) @ 3890: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINE][27]: DUT= 21 | Expected= 21
+# UVM_INFO nco_scoreboard.sv(451) @ 3890: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINE][28]: DUT= 37 | Expected= 37
+# UVM_INFO nco_scoreboard.sv(451) @ 3890: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINE][29]: DUT= 57 | Expected= 57
+# UVM_INFO nco_scoreboard.sv(451) @ 3890: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINE][30]: DUT= 79 | Expected= 79
+# UVM_INFO nco_scoreboard.sv(451) @ 3890: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINE][31]: DUT=103 | Expected=103
+# ---------PTR = 0-----------
+# ---------------------------OUT = 128-------------------------------
+# ---------------------------OUT = 128-------------------------------
+# ---------PTR = 1-----------
+# ---------------------------OUT = 103-------------------------------
+# ---------PTR = 2-----------
+# ---------------------------OUT = 152-------------------------------
+# ---------PTR = 3-----------
+# ---------------------------OUT = 79-------------------------------
+# ---------PTR = 4-----------
+# ---------------------------OUT = 176-------------------------------
+# ---------PTR = 5-----------
+# ---------------------------OUT = 57-------------------------------
+# ---------PTR = 6-----------
+# ---------------------------OUT = 198-------------------------------
+# ---------PTR = 7-----------
+# ---------------------------OUT = 37-------------------------------
+# ---------PTR = 8-----------
+# ---------------------------OUT = 218-------------------------------
+# ---------PTR = 9-----------
+# ---------------------------OUT = 21-------------------------------
+# ---------PTR = 10-----------
+# ---------------------------OUT = 234-------------------------------
+# ---------PTR = 11-----------
+# ---------------------------OUT = 10-------------------------------
+# ---------PTR = 12-----------
+# ---------------------------OUT = 245-------------------------------
+# ---------PTR = 13-----------
+# ---------------------------OUT = 2-------------------------------
+# ---------PTR = 14-----------
+# ---------------------------OUT = 253-------------------------------
+# ---------PTR = 15-----------
+# ---------------------------OUT = 0-------------------------------
+# ---------PTR = 16-----------
+# ---------------------------OUT = 255-------------------------------
+# ---------PTR = 17-----------
+# ---------------------------OUT = 2-------------------------------
+# ---------PTR = 18-----------
+# ---------------------------OUT = 253-------------------------------
+# ---------PTR = 19-----------
+# ---------------------------OUT = 10-------------------------------
+# ---------PTR = 20-----------
+# ---------------------------OUT = 245-------------------------------
+# ---------PTR = 21-----------
+# ---------------------------OUT = 21-------------------------------
+# ---------PTR = 22-----------
+# ---------------------------OUT = 234-------------------------------
+# ---------PTR = 23-----------
+# ---------------------------OUT = 37-------------------------------
+# ---------PTR = 24-----------
+# ---------------------------OUT = 218-------------------------------
+# ---------PTR = 25-----------
+# ---------------------------OUT = 57-------------------------------
+# ---------PTR = 26-----------
+# ---------------------------OUT = 198-------------------------------
+# ---------PTR = 27-----------
+# ---------------------------OUT = 79-------------------------------
+# ---------PTR = 28-----------
+# ---------------------------OUT = 176-------------------------------
+# ---------PTR = 29-----------
+# ---------------------------OUT = 103-------------------------------
+# ---------PTR = 30-----------
+# ---------------------------OUT = 152-------------------------------
+# ---------PTR = 31-----------
+# ---------------------------OUT = 127-------------------------------
+# COMPARE RESULTS
+# UVM_INFO nco_scoreboard.sv(451) @ 4530: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SINE][0]: DUT=128 | Expected=128
+# UVM_INFO nco_scoreboard.sv(451) @ 4530: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [GAUSSIAN_CHIRPLET][1]: DUT=103 | Expected=103
+# UVM_INFO nco_scoreboard.sv(451) @ 4530: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [GAUSSIAN_CHIRPLET][2]: DUT=152 | Expected=152
+# UVM_INFO nco_scoreboard.sv(451) @ 4530: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [GAUSSIAN_CHIRPLET][3]: DUT= 79 | Expected= 79
+# UVM_INFO nco_scoreboard.sv(451) @ 4530: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [GAUSSIAN_CHIRPLET][4]: DUT=176 | Expected=176
+# UVM_INFO nco_scoreboard.sv(451) @ 4530: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [GAUSSIAN_CHIRPLET][5]: DUT= 57 | Expected= 57
+# UVM_INFO nco_scoreboard.sv(451) @ 4530: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [GAUSSIAN_CHIRPLET][6]: DUT=198 | Expected=198
+# UVM_INFO nco_scoreboard.sv(451) @ 4530: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [GAUSSIAN_CHIRPLET][7]: DUT= 37 | Expected= 37
+# UVM_INFO nco_scoreboard.sv(451) @ 4530: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [GAUSSIAN_CHIRPLET][8]: DUT=218 | Expected=218
+# UVM_INFO nco_scoreboard.sv(451) @ 4530: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [GAUSSIAN_CHIRPLET][9]: DUT= 21 | Expected= 21
+# UVM_INFO nco_scoreboard.sv(451) @ 4530: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [GAUSSIAN_CHIRPLET][10]: DUT=234 | Expected=234
+# UVM_INFO nco_scoreboard.sv(451) @ 4530: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [GAUSSIAN_CHIRPLET][11]: DUT= 10 | Expected= 10
+# UVM_INFO nco_scoreboard.sv(451) @ 4530: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [GAUSSIAN_CHIRPLET][12]: DUT=245 | Expected=245
+# UVM_INFO nco_scoreboard.sv(451) @ 4530: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [GAUSSIAN_CHIRPLET][13]: DUT=  2 | Expected=  2
+# UVM_INFO nco_scoreboard.sv(451) @ 4530: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [GAUSSIAN_CHIRPLET][14]: DUT=253 | Expected=253
+# UVM_INFO nco_scoreboard.sv(451) @ 4530: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [GAUSSIAN_CHIRPLET][15]: DUT=  0 | Expected=  0
+# UVM_INFO nco_scoreboard.sv(451) @ 4530: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [GAUSSIAN_CHIRPLET][16]: DUT=255 | Expected=255
+# UVM_INFO nco_scoreboard.sv(451) @ 4530: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [GAUSSIAN_CHIRPLET][17]: DUT=  2 | Expected=  2
+# UVM_INFO nco_scoreboard.sv(451) @ 4530: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [GAUSSIAN_CHIRPLET][18]: DUT=253 | Expected=253
+# UVM_INFO nco_scoreboard.sv(451) @ 4530: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [GAUSSIAN_CHIRPLET][19]: DUT= 10 | Expected= 10
+# UVM_INFO nco_scoreboard.sv(451) @ 4530: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [GAUSSIAN_CHIRPLET][20]: DUT=245 | Expected=245
+# UVM_INFO nco_scoreboard.sv(451) @ 4530: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [GAUSSIAN_CHIRPLET][21]: DUT= 21 | Expected= 21
+# UVM_INFO nco_scoreboard.sv(451) @ 4530: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [GAUSSIAN_CHIRPLET][22]: DUT=234 | Expected=234
+# UVM_INFO nco_scoreboard.sv(451) @ 4530: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [GAUSSIAN_CHIRPLET][23]: DUT= 37 | Expected= 37
+# UVM_INFO nco_scoreboard.sv(451) @ 4530: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [GAUSSIAN_CHIRPLET][24]: DUT=218 | Expected=218
+# UVM_INFO nco_scoreboard.sv(451) @ 4530: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [GAUSSIAN_CHIRPLET][25]: DUT= 57 | Expected= 57
+# UVM_INFO nco_scoreboard.sv(451) @ 4530: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [GAUSSIAN_CHIRPLET][26]: DUT=198 | Expected=198
+# UVM_INFO nco_scoreboard.sv(451) @ 4530: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [GAUSSIAN_CHIRPLET][27]: DUT= 79 | Expected= 79
+# UVM_INFO nco_scoreboard.sv(451) @ 4530: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [GAUSSIAN_CHIRPLET][28]: DUT=176 | Expected=176
+# UVM_INFO nco_scoreboard.sv(451) @ 4530: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [GAUSSIAN_CHIRPLET][29]: DUT=103 | Expected=103
+# UVM_INFO nco_scoreboard.sv(451) @ 4530: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [GAUSSIAN_CHIRPLET][30]: DUT=152 | Expected=152
+# UVM_INFO nco_scoreboard.sv(451) @ 4530: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [GAUSSIAN_CHIRPLET][31]: DUT=128 | Expected=127
+# ---------PTR = 0-----------
+# ---------------------------OUT = 0-------------------------------
+# ---------------------------OUT = 128-------------------------------
+# ---------PTR = 1-----------
+# ---------------------------OUT = 8-------------------------------
+# ---------PTR = 2-----------
+# ---------------------------OUT = 16-------------------------------
+# ---------PTR = 3-----------
+# ---------------------------OUT = 24-------------------------------
+# ---------PTR = 4-----------
+# ---------------------------OUT = 32-------------------------------
+# ---------PTR = 5-----------
+# ---------------------------OUT = 40-------------------------------
+# ---------PTR = 6-----------
+# ---------------------------OUT = 48-------------------------------
+# ---------PTR = 7-----------
+# ---------------------------OUT = 56-------------------------------
+# ---------PTR = 8-----------
+# ---------------------------OUT = 64-------------------------------
+# ---------PTR = 9-----------
+# ---------------------------OUT = 72-------------------------------
+# ---------PTR = 10-----------
+# ---------------------------OUT = 80-------------------------------
+# ---------PTR = 11-----------
+# ---------------------------OUT = 88-------------------------------
+# ---------PTR = 12-----------
+# ---------------------------OUT = 96-------------------------------
+# ---------PTR = 13-----------
+# ---------------------------OUT = 104-------------------------------
+# ---------PTR = 14-----------
+# ---------------------------OUT = 112-------------------------------
+# ---------PTR = 15-----------
+# ---------------------------OUT = 120-------------------------------
+# ---------PTR = 16-----------
+# ---------------------------OUT = 128-------------------------------
+# ---------PTR = 17-----------
+# ---------------------------OUT = 135-------------------------------
+# ---------PTR = 18-----------
+# ---------------------------OUT = 143-------------------------------
+# ---------PTR = 19-----------
+# ---------------------------OUT = 151-------------------------------
+# ---------PTR = 20-----------
+# ---------------------------OUT = 159-------------------------------
+# ---------PTR = 21-----------
+# ---------------------------OUT = 167-------------------------------
+# ---------PTR = 22-----------
+# ---------------------------OUT = 175-------------------------------
+# ---------PTR = 23-----------
+# ---------------------------OUT = 183-------------------------------
+# ---------PTR = 24-----------
+# ---------------------------OUT = 191-------------------------------
+# ---------PTR = 25-----------
+# ---------------------------OUT = 199-------------------------------
+# ---------PTR = 26-----------
+# ---------------------------OUT = 207-------------------------------
+# ---------PTR = 27-----------
+# ---------------------------OUT = 215-------------------------------
+# ---------PTR = 28-----------
+# ---------------------------OUT = 223-------------------------------
+# ---------PTR = 29-----------
+# ---------------------------OUT = 231-------------------------------
+# ---------PTR = 30-----------
+# ---------------------------OUT = 239-------------------------------
+# ---------PTR = 31-----------
+# ---------------------------OUT = 247-------------------------------
+# COMPARE RESULTS
+# UVM_INFO nco_scoreboard.sv(451) @ 5170: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [GAUSSIAN_CHIRPLET][0]: DUT=128 | Expected=128
+# UVM_INFO nco_scoreboard.sv(451) @ 5170: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SAWTOOTH][1]: DUT=  8 | Expected=  8
+# UVM_INFO nco_scoreboard.sv(451) @ 5170: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SAWTOOTH][2]: DUT= 16 | Expected= 16
+# UVM_INFO nco_scoreboard.sv(451) @ 5170: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SAWTOOTH][3]: DUT= 24 | Expected= 24
+# UVM_INFO nco_scoreboard.sv(451) @ 5170: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SAWTOOTH][4]: DUT= 32 | Expected= 32
+# UVM_INFO nco_scoreboard.sv(451) @ 5170: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SAWTOOTH][5]: DUT= 40 | Expected= 40
+# UVM_INFO nco_scoreboard.sv(451) @ 5170: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SAWTOOTH][6]: DUT= 48 | Expected= 48
+# UVM_INFO nco_scoreboard.sv(451) @ 5170: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SAWTOOTH][7]: DUT= 56 | Expected= 56
+# UVM_INFO nco_scoreboard.sv(451) @ 5170: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SAWTOOTH][8]: DUT= 64 | Expected= 64
+# UVM_INFO nco_scoreboard.sv(451) @ 5170: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SAWTOOTH][9]: DUT= 72 | Expected= 72
+# UVM_INFO nco_scoreboard.sv(451) @ 5170: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SAWTOOTH][10]: DUT= 80 | Expected= 80
+# UVM_INFO nco_scoreboard.sv(451) @ 5170: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SAWTOOTH][11]: DUT= 88 | Expected= 88
+# UVM_INFO nco_scoreboard.sv(451) @ 5170: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SAWTOOTH][12]: DUT= 96 | Expected= 96
+# UVM_INFO nco_scoreboard.sv(451) @ 5170: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SAWTOOTH][13]: DUT=104 | Expected=104
+# UVM_INFO nco_scoreboard.sv(451) @ 5170: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SAWTOOTH][14]: DUT=112 | Expected=112
+# UVM_INFO nco_scoreboard.sv(451) @ 5170: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SAWTOOTH][15]: DUT=120 | Expected=120
+# UVM_INFO nco_scoreboard.sv(451) @ 5170: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SAWTOOTH][16]: DUT=128 | Expected=128
+# UVM_INFO nco_scoreboard.sv(451) @ 5170: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SAWTOOTH][17]: DUT=135 | Expected=135
+# UVM_INFO nco_scoreboard.sv(451) @ 5170: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SAWTOOTH][18]: DUT=143 | Expected=143
+# UVM_INFO nco_scoreboard.sv(451) @ 5170: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SAWTOOTH][19]: DUT=151 | Expected=151
+# UVM_INFO nco_scoreboard.sv(451) @ 5170: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SAWTOOTH][20]: DUT=159 | Expected=159
+# UVM_INFO nco_scoreboard.sv(451) @ 5170: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SAWTOOTH][21]: DUT=167 | Expected=167
+# UVM_INFO nco_scoreboard.sv(451) @ 5170: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SAWTOOTH][22]: DUT=175 | Expected=175
+# UVM_INFO nco_scoreboard.sv(451) @ 5170: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SAWTOOTH][23]: DUT=183 | Expected=183
+# UVM_INFO nco_scoreboard.sv(451) @ 5170: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SAWTOOTH][24]: DUT=191 | Expected=191
+# UVM_INFO nco_scoreboard.sv(451) @ 5170: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SAWTOOTH][25]: DUT=199 | Expected=199
+# UVM_INFO nco_scoreboard.sv(451) @ 5170: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SAWTOOTH][26]: DUT=207 | Expected=207
+# UVM_INFO nco_scoreboard.sv(451) @ 5170: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SAWTOOTH][27]: DUT=215 | Expected=215
+# UVM_INFO nco_scoreboard.sv(451) @ 5170: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SAWTOOTH][28]: DUT=223 | Expected=223
+# UVM_INFO nco_scoreboard.sv(451) @ 5170: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SAWTOOTH][29]: DUT=231 | Expected=231
+# UVM_INFO nco_scoreboard.sv(451) @ 5170: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SAWTOOTH][30]: DUT=239 | Expected=239
+# UVM_INFO nco_scoreboard.sv(451) @ 5170: uvm_test_top.nco_env.scoreboard [nco_scoreboard] MATCH [SAWTOOTH][31]: DUT=247 | Expected=247
+# UVM_INFO nco_subscriber.sv(72) @ 5190: uvm_test_top.nco_env.coverage [coverage] INPUT COVERAGE = 83.333333
+#  OUTPUT COVERAGE = 11.111111
+# 
+# --- UVM Report Summary ---
+# 
+# ** Report counts by severity
+# UVM_INFO :  259
+# UVM_WARNING :    2
+# UVM_ERROR :    0
+# UVM_FATAL :    0
+# ** Report counts by id
+# [coverage]     1
+# [nco_scoreboard]   260
+# ** Note: $finish    : /tools/mentor/questasim_10.6c/questasim/linux/../verilog_src/uvm-1.1d/src/base/uvm_root.svh(430)
+#    Time: 5190 ns  Iteration: 53  Instance: /top
+# Saving coverage database on exit...
+# End time: 16:58:00 on Nov 01,2025, Elapsed time: 0:00:04
+# Errors: 0, Warnings: 8

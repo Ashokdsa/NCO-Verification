@@ -188,13 +188,6 @@ class nco_reset_change_sequence extends nco_sequence; //TRIGGER OF RESET BETWEEN
       send_request(seq);
       //RESET HAS BEEN GIVEN IN BETWEEN
       wait_for_item_done();
-      
-      //SEQUENCE CONTINUES NORMALLY
-      wait_for_grant();
-      seq.in_btw = 0;
-      seq.resetn = 1;
-      send_request(seq);
-      wait_for_item_done();
     end
   endtask
 endclass:nco_reset_change_sequence

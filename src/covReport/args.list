@@ -1,0 +1,5 @@
+-html
+nco_coverage.ucdb
+-htmldir
+covReport
+-details
