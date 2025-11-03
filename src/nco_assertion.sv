@@ -26,7 +26,7 @@ property p5;
     $changed(signal_out) |-> ##2 $changed(wave_out);
 endproperty
 
-/* Reset_trigger:assert property(p1)
+ Reset_trigger:assert property(p1)
     $display("PASSED Reset_trigger assertion");
   else
     $error("FAILED Reset_trigger assertion");
@@ -45,7 +45,6 @@ endproperty
      $display("PASSED Transition_time assertion");
   else
     $error("Failed Transition_time assertion");
-*/
 
-    endinterface
+endinterface
   
