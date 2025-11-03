@@ -1,7 +1,0 @@
-var g_db_data = [
-{dummy:0},
-{name:'input_cg',f:1,type:6,id:1204,tb:'26',h:'18',m:'8',hp:'69.23%',cov:['83.33%','Y'],g:'100.00%',gp:['83.33%','Y'],opts:[[],['merge_instance','auto(true)']],hdlPath:'/nco_pkg/nco_subscriber',parent:'1199'},
-{name:'output_cg',f:1,type:6,id:1208,tb:'9',h:'1',m:'8',hp:'11.11%',cov:['11.11%','R'],g:'100.00%',gp:['11.11%','R'],hdlPath:'/nco_pkg/nco_subscriber',parent:'1199'},
-{name:'input_cg',f:1,type:6,id:1712,tb:'26',h:'18',m:'8',hp:'69.23%',cov:['83.33%','Y'],g:'100.00%',gp:['83.33%','Y'],opts:[[],['merge_instance','true']],hdlPath:'work.nco_pkg::nco_subscriber',parent:'1707'},
-{name:'output_cg',f:1,type:6,id:1716,tb:'9',h:'1',m:'8',hp:'11.11%',cov:['11.11%','R'],g:'100.00%',gp:['11.11%','R'],hdlPath:'work.nco_pkg::nco_subscriber',parent:'1707'}];
-processConsCovergroupsData(g_db_data);
