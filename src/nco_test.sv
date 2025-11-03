@@ -246,7 +246,7 @@ class nco_regression_test extends base_test; //Regression Test
   `uvm_component_utils(nco_regression_test)    //Factory Registration
   nco_regress_sequence seq;
 
-  function new(string name = "nco_reset_diff_test",uvm_component parent = null);
+  function new(string name = "nco_regression_test",uvm_component parent = null);
     super.new(name,parent);
   endfunction:new
 
@@ -268,3 +268,31 @@ class nco_regression_test extends base_test; //Regression Test
     phase_done.set_drain_time(this,40);    // Drain time before dropping objection
   endtask
 endclass:nco_regression_test
+
+
+class nco_each_test extends base_test; //Regression Test
+  `uvm_component_utils(nco_each_test)    //Factory Registration
+  nco_each_sequence seq;
+
+  function new(string name = "nco_each_test",uvm_component parent = null);
+    super.new(name,parent);
+  endfunction:new
+
+  function void build_phase(uvm_phase phase);
+    super.build_phase(phase);
+  endfunction:build_phase
+
+  function void end_of_elaboration();
+    uvm_top.print_topology();
+  endfunction:end_of_elaboration
+
+  virtual task run_phase(uvm_phase phase);
+    uvm_objection phase_done = phase.get_objection();
+    super.run_phase(phase);
+		phase.raise_objection(this);
+    seq = nco_each_sequence::type_id::create("nco_each_sequence");
+    seq.start(nco_env.active_agent.sequencer);
+		phase.drop_objection(this);
+    phase_done.set_drain_time(this,40);    // Drain time before dropping objection
+  endtask
+endclass:nco_each_test

@@ -140,7 +140,6 @@ virtual task drive();
         repeat(2)@(posedge vif.drv_cb);
       end
     end
-    
     // ========== NORMAL OPERATION (req.resetn == 1) ==========
     else begin
       vif.drv_cb.resetn <= 1'b1;

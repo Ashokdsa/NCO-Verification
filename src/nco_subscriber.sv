@@ -6,6 +6,7 @@ class nco_subscriber extends uvm_subscriber#(nco_sequence_item);
   `uvm_component_utils(nco_subscriber)    // Factory registration
   uvm_analysis_imp_passive_mon#(nco_sequence_item,nco_subscriber) pass_mon;      // Analysis implementation to connect passive monitor
   nco_sequence_item ip_pkt, out_pkt;
+  bit flat;
 	
   covergroup input_cg;      // Input coverage group 
 		signal_out_cp : coverpoint ip_pkt.signal_out;
@@ -21,8 +22,8 @@ class nco_subscriber extends uvm_subscriber#(nco_sequence_item);
     	// Cosine wave transitions (phase-shifted sine)
     	bins cosine = (255 => 253 => 245 => 234 => 218 => 198 => 176 => 152 => 128 => 103 => 79 => 57 => 37 => 21 => 10 => 2 => 0 => 2 => 10 => 21 => 37 => 57 => 79 => 103 => 127 => 152 => 176 => 198 => 218 => 234 => 245 => 253 => 255);
     
-    	// Flat zero (all zeros) - though your data doesn't have this pattern
-    	bins flat_zero = (0[*32]);
+    	// Flat zero (all zeros)
+    	bins flat_zero = {0} iff(flat);
     
     	// Triangular wave transitions (linear ramp)
     	bins triangular = (0 => 16 => 32 => 48 => 64 => 80 => 96 => 112 => 128 => 143 => 159 => 175 => 191 => 207 => 223 => 239 => 255 => 239 => 223 => 207 => 191 => 175 => 159 => 143 => 128 =>112 => 96 => 80 => 64 => 48 => 32 => 16 => 0);
@@ -57,6 +58,7 @@ class nco_subscriber extends uvm_subscriber#(nco_sequence_item);
 
   virtual function void write(nco_sequence_item t);     // write() - receives transactions from the DRIVER
 		ip_pkt = t;
+    flat = ip_pkt.resetn && $isunknown(ip_pkt.signal_out);
    	input_cg.sample();
     `uvm_info(get_name,"[DRIVER]:INPUT RECIEVED",UVM_HIGH)
   endfunction:write

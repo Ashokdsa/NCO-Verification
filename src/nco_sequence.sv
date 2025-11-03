@@ -23,13 +23,14 @@ class nco_normal_sequence extends nco_sequence; //CHECKS ALL THE WAVEFORMS
   endfunction
 
   task body();
-    $display("nco_normal_test");
     seq = nco_sequence_item::type_id::create("seq");
     seq.resetn = 1;
     seq.in_btw = 0;
+    $display("--------------------------RUNNING NORMAL SEQUENCE--------------------------");
     repeat(8) begin
       wait_for_grant();
       assert(seq.randomize());
+      `uvm_info(get_name,$sformatf("SENDING %0s SIGNAL OUT RESET = %0b",wave'(seq.signal_out),seq.resetn),UVM_NONE)
       send_request(seq);
       wait_for_item_done();
     end
@@ -44,15 +45,16 @@ class nco_cont_sequence extends nco_sequence; //CHECKS FOR THE REPEATABILITY
   endfunction
 
   task body();
-    $display("nco_cont_Seq_test");
     seq = nco_sequence_item::type_id::create("seq");
     seq.resetn = 1;
     seq.in_btw = 0;
     seq.signal_out = 0;
+    $display("--------------------------RUNNING CONTINUOUS SEQUENCE--------------------------");
     repeat(8) begin
       assert(seq.randomize());
       repeat(2) begin
         wait_for_grant();
+        `uvm_info(get_name,$sformatf("SENDING %0s SIGNAL OUT RESET = %0b",wave'(seq.signal_out),seq.resetn),UVM_NONE)
         send_request(seq);
         wait_for_item_done();
       end
@@ -68,13 +70,14 @@ class nco_reset_normal_sequence#(int cnt = 1, int signal = 0) extends nco_sequen
   endfunction
 
   task body();
-    $display("nco_reset_normal_test");
+    $display("--------------------------RUNNING RESET SEQUENCE--------------------------");
     repeat(cnt) begin
       seq = nco_sequence_item::type_id::create("seq");
       wait_for_grant();
       seq.in_btw = 0;
       seq.signal_out = signal;
       seq.resetn = 0;
+      `uvm_info(get_name,$sformatf("SENDING %0s SIGNAL OUT RESET = %0b",wave'(seq.signal_out),seq.resetn),UVM_NONE)
       send_request(seq);
       wait_for_item_done();
     end
@@ -89,7 +92,7 @@ class nco_no_inp_main_sequence#(int cnt = 1) extends nco_sequence; //NO INPUT IS
   endfunction
 
   task body();
-    $display("nco_no_inp_test");
+    $display("--------------------------RUNNING NO INP MAIN SEQUENCE--------------------------");
     repeat(cnt) begin
       seq = nco_sequence_item::type_id::create("seq");
       seq.rand_mode(0);
@@ -98,6 +101,7 @@ class nco_no_inp_main_sequence#(int cnt = 1) extends nco_sequence; //NO INPUT IS
       seq.signal_out = 1;
       wait_for_grant();
       seq.resetn = 1;
+      `uvm_info(get_name,$sformatf("SENDING %0s SIGNAL OUT RESET = %0b",wave'(seq.signal_out),seq.resetn),UVM_NONE)
       send_request(seq);
       wait_for_item_done();
 
@@ -106,6 +110,7 @@ class nco_no_inp_main_sequence#(int cnt = 1) extends nco_sequence; //NO INPUT IS
       seq.in_btw = 0;
       wait_for_grant();
       seq.resetn = 1;
+      `uvm_info(get_name,"RUNNING NO SIGNAL OUT",UVM_NONE)
       send_request(seq);
       wait_for_item_done();
     end
@@ -120,14 +125,16 @@ class nco_no_inp_sequence#(int cnt = 1) extends nco_sequence; //NO INPUT IS SENT
   endfunction
 
   task body();
-    $display("nco_no_inp2_test");
+    $display("--------------------------RUNNING NO INP SEQUENCE--------------------------");
     repeat(cnt) begin
+      `uvm_info(get_name,"RUNNING NO SIGNAL OUT",UVM_NONE)
       seq = nco_sequence_item::type_id::create("seq");
       seq.rand_mode(0);
 
       seq.in_btw = 0;
       wait_for_grant();
       seq.resetn = 1;
+      `uvm_info(get_name,$sformatf("SENDING %0s SIGNAL OUT RESET = %0b",wave'(seq.signal_out),seq.resetn),UVM_NONE)
       send_request(seq);
       wait_for_item_done();
     end
@@ -144,16 +151,17 @@ class nco_change_req_sequence#(int cnt = 56) extends nco_sequence; //CHANGE IN R
   endfunction
 
   task body();
-    $display("nco_req_change_test");
     seq = nco_sequence_item::type_id::create("seq");
     seq.resetn = 1;
     signal = 0;
+    $display("--------------------------RUNNING SIGNAL OUT CHANGE SEQUENCE--------------------------");
     repeat(cnt) begin
 
       wait_for_grant();
       seq.resetn = 1;
       seq.signal_out = signal;
       seq.in_btw = 1;
+      `uvm_info(get_name,$sformatf("FIRST REQUEST: SENDING %0s SIGNAL OUT RESET = %0b",wave'(seq.signal_out),seq.resetn),UVM_NONE)
       send_request(seq);
       wait_for_item_done();
       seq.in_btw = 0;
@@ -169,6 +177,7 @@ class nco_change_req_sequence#(int cnt = 56) extends nco_sequence; //CHANGE IN R
         while(done.size())
           void'(done.pop_front());
       end
+      `uvm_info(get_name,$sformatf("SECOND REQUEST: SENDING %0s SIGNAL OUT RESET = %0b",wave'(seq.signal_out),seq.resetn),UVM_NONE)
       send_request(seq);
       wait_for_item_done();
     end
@@ -183,8 +192,8 @@ class nco_reset_change_sequence extends nco_sequence; //TRIGGER OF RESET BETWEEN
   endfunction
 
   task body();
-    $display("nco_reset_change_test");
     seq = nco_sequence_item::type_id::create("seq");
+    $display("--------------------------RUNNING RESET CHANGE SEQUENCE--------------------------");
     repeat(8) begin
 
       wait_for_grant();
@@ -192,6 +201,7 @@ class nco_reset_change_sequence extends nco_sequence; //TRIGGER OF RESET BETWEEN
       assert(seq.randomize());
       seq.resetn = 0;
       seq.in_btw = 1;
+      `uvm_info(get_name,$sformatf("SENDING %0s SIGNAL OUT RESET = %0b",wave'(seq.signal_out),seq.resetn),UVM_NONE)
       send_request(seq);
       //RESET HAS BEEN GIVEN IN BETWEEN
       wait_for_item_done();
@@ -209,8 +219,8 @@ class nco_reset_diff_sequence#(int cnt = 16) extends nco_sequence; //TRIGGER OF 
   endfunction
 
   task body();
-    $display("nco_reset_diff_test");
     seq = nco_sequence_item::type_id::create("seq");
+    $display("--------------------------RUNNING RESET CHANGE EXCEPTION SEQUENCE--------------------------");
     repeat(cnt) begin
 
       wait_for_grant();
@@ -219,6 +229,7 @@ class nco_reset_diff_sequence#(int cnt = 16) extends nco_sequence; //TRIGGER OF 
       seq.resetn = 0;
       send_request(seq);
       //RESET HAS BEEN GIVEN IN BETWEEN
+      `uvm_info(get_name,$sformatf("RESET GIVEN: SENDING %0s SIGNAL OUT RESET = %0b",wave'(seq.signal_out),seq.resetn),UVM_NONE)
       wait_for_item_done();
       
       //SEQUENCE CHANGES
@@ -233,6 +244,7 @@ class nco_reset_diff_sequence#(int cnt = 16) extends nco_sequence; //TRIGGER OF 
         while(done.size())
           void'(done.pop_front());
       end
+      `uvm_info(get_name,$sformatf("AFTER RESET: SENDING %0s SIGNAL OUT RESET = %0b",wave'(seq.signal_out),seq.resetn),UVM_NONE)
       send_request(seq);
       wait_for_item_done();
     end
@@ -255,7 +267,6 @@ class nco_regress_sequence extends nco_sequence; //REGRESSION TEST
   endfunction
 
   task body();
-    $display("nco_regression_test");
     `uvm_do(seq4)
     `uvm_do(seq1)
     `uvm_do(seq2)
@@ -266,3 +277,27 @@ class nco_regress_sequence extends nco_sequence; //REGRESSION TEST
   endtask
 
 endclass:nco_regress_sequence
+
+
+class nco_each_sequence extends nco_sequence; //CHECKS ALL THE WAVEFORMS
+  `uvm_object_utils(nco_each_sequence)
+
+  function new(string name = "nco_normal_sequence");
+    super.new(name);
+  endfunction
+
+  task body();
+    seq = nco_sequence_item::type_id::create("seq");
+    seq.resetn = 1;
+    seq.in_btw = 0;
+    for(int i = 0; i < 8; i++)
+    begin
+      seq.signal_out = i;
+      repeat(4) begin
+        wait_for_grant();
+        send_request(seq);
+        wait_for_item_done();
+      end
+    end
+  endtask
+endclass:nco_each_sequence
