@@ -6,6 +6,7 @@ module nco(
 reg [4:0] addr;              // Address for the LUT (5-bit, 0-31)
 reg [7:0] wave_lut [0:31];   // Lookup tables for different waveforms
 integer i;
+ //coverage toggle_ignore i
 always @(posedge clk_50MHz or negedge reset) begin
   if (!reset) begin
     for (i=0;i<=31;i=i+1)
