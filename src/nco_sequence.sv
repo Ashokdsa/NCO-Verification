@@ -23,6 +23,7 @@ class nco_normal_sequence extends nco_sequence; //CHECKS ALL THE WAVEFORMS
   endfunction
 
   task body();
+    $display("nco_normal_test");
     seq = nco_sequence_item::type_id::create("seq");
     seq.resetn = 1;
     seq.in_btw = 0;
@@ -43,6 +44,7 @@ class nco_cont_sequence extends nco_sequence; //CHECKS FOR THE REPEATABILITY
   endfunction
 
   task body();
+    $display("nco_cont_Seq_test");
     seq = nco_sequence_item::type_id::create("seq");
     seq.resetn = 1;
     seq.in_btw = 0;
@@ -66,6 +68,7 @@ class nco_reset_normal_sequence#(int cnt = 1, int signal = 0) extends nco_sequen
   endfunction
 
   task body();
+    $display("nco_reset_normal_test");
     repeat(cnt) begin
       seq = nco_sequence_item::type_id::create("seq");
       wait_for_grant();
@@ -86,6 +89,7 @@ class nco_no_inp_main_sequence#(int cnt = 1) extends nco_sequence; //NO INPUT IS
   endfunction
 
   task body();
+    $display("nco_no_inp_test");
     repeat(cnt) begin
       seq = nco_sequence_item::type_id::create("seq");
       seq.rand_mode(0);
@@ -116,6 +120,7 @@ class nco_no_inp_sequence#(int cnt = 1) extends nco_sequence; //NO INPUT IS SENT
   endfunction
 
   task body();
+    $display("nco_no_inp2_test");
     repeat(cnt) begin
       seq = nco_sequence_item::type_id::create("seq");
       seq.rand_mode(0);
@@ -139,6 +144,7 @@ class nco_change_req_sequence#(int cnt = 56) extends nco_sequence; //CHANGE IN R
   endfunction
 
   task body();
+    $display("nco_req_change_test");
     seq = nco_sequence_item::type_id::create("seq");
     seq.resetn = 1;
     signal = 0;
@@ -177,6 +183,7 @@ class nco_reset_change_sequence extends nco_sequence; //TRIGGER OF RESET BETWEEN
   endfunction
 
   task body();
+    $display("nco_reset_change_test");
     seq = nco_sequence_item::type_id::create("seq");
     repeat(8) begin
 
@@ -202,6 +209,7 @@ class nco_reset_diff_sequence#(int cnt = 16) extends nco_sequence; //TRIGGER OF 
   endfunction
 
   task body();
+    $display("nco_reset_diff_test");
     seq = nco_sequence_item::type_id::create("seq");
     repeat(cnt) begin
 
@@ -247,6 +255,7 @@ class nco_regress_sequence extends nco_sequence; //REGRESSION TEST
   endfunction
 
   task body();
+    $display("nco_regression_test");
     `uvm_do(seq4)
     `uvm_do(seq1)
     `uvm_do(seq2)

@@ -387,7 +387,7 @@ class nco_scoreboard extends uvm_scoreboard;
         expected_mem[0] = 'd0;
         current_mem[0] = 'd0;
       end
-      else if(!dut_count || (current_signal_out != previous_signal_out)) begin
+      else if(!dut_count || (current_signal_out !== previous_signal_out)) begin
         case(previous_signal_out)
           3'd0: begin
             expected_mem[dut_count] = scb_sine_mem[dut_count];

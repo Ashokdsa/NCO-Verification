@@ -1,7 +1,7 @@
 QUESTA := /home/share/questa.csh
 SHELL := /bin/csh
-TEST ?= nco_normal_test
-V ?= UVM_NONE
+TEST ?= nco_regression_test
+V ?= UVM_LOW
 
 .ONESHELL:	
 all:
