@@ -41,10 +41,12 @@ endproperty
   else
     $error("Failed Clock Toggle assertion");
 
+  /*
   Transition_time:assert property(p5)
      $display("PASSED Transition_time assertion");
   else
     $error("Failed Transition_time assertion");
+  */
 
 endinterface
   

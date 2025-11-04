@@ -30,8 +30,8 @@ module top;
   end:setting_vif
 
   initial begin:initial_reset
-    repeat(1)@(posedge clk_50MHz);
     vif.resetn = 0;
+    repeat(1)@(posedge clk_50MHz);
     repeat(1)@(posedge clk_50MHz);
     vif.resetn = 1;
   end:initial_reset
