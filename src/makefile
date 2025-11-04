@@ -9,13 +9,14 @@ all:
 	make clean
 	make compile
 	make simulate
-	vcover report -html nco_coverage.ucdb -htmldir covReport -details
+	vcover report -html nco_coverage.ucdb -htmldir $(TEST)/covReport -details
 
 clean:
 	rm -rf work/ transcript vsim.wlf wave.vcd vsim_stacktrace.vstf 
 	rm .nco* 
 	rm .makefile*
 	rm -rf covReport nco_coverage.ucdb 
+	find . -maxdepth 1 -type d -regex '.*_test$$' -exec rm -rf {} +
 	rm nco.log simulation.log
 	rm nco_coverage.ucdb
 	clear
@@ -37,4 +38,4 @@ simulate:
 	vsim -vopt work.top -voptargs=+acc=npr -assertdebug -l simulation.log -coverage -c -do "coverage save -onexit -assert -directive -cvg -codeAll nco_coverage.ucdb; run -all; exit" +UVM_TESTNAME=$(TEST) +UVM_VERBOSITY=$(V)
 
 view:
-	firefox ./covReport/index.html
+	firefox ./$(TEST)/covReport/index.html
