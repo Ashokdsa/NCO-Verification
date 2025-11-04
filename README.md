@@ -23,6 +23,10 @@ The verification environment includes UVM components such as environment, driver
 ## Repository Structure
 ├── docs # Test Plans and documentation \
 ├── src # Testbench source files (UVM components) \
+│   ├── define.svh  \
+│   ├── Design  \
+│   │   ├── nco.v # Design file \
+│   ├── makefile \
 │   ├── nco_active_agent.sv  \
 │   ├── nco_passive_monitor.sv  \
 │   ├── nco_subscriber.sv \
@@ -34,7 +38,6 @@ The verification environment includes UVM components such as environment, driver
 │   ├── nco_top.sv \
 │   ├── nco_environment.sv    
 │   ├── nco_sequence.sv         
-│   ├── makefile \
 │   ├── nco_interface.sv       
 │   ├── nco_sequence_item.sv \
 │   ├── nco_passive_agent.sv  \
@@ -49,7 +52,7 @@ A **SystemVerilog simulator** that supports **UVM**, such as **QuestaSim**, **Ca
 
 ## Makefile Usage
 The **Makefile** automates the compilation, and simulation of the **UVM** testbench. Which can be accessed only in the **src/** folder
-1. To run the simulation with **UVM_MEDIUM** Verbosity and test **nco_regress_test**.
+1. To run the simulation with **UVM_MEDIUM** Verbosity and test **nco_regression_test**.
   ```
   make
   ```
